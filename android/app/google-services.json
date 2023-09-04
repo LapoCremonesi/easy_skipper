@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "665139195164",
+    "project_id": "easyskipper-11c48",
+    "storage_bucket": "easyskipper-11c48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665139195164:android:19469ef79313b7c008ded9",
+        "android_client_info": {
+          "package_name": "com.example.easy_skipper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665139195164-228pcf1bkff64ii5pu8fa63ncv71mnvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgPhqe42NpGNLDLXII_yrrBDtW3exu_g4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665139195164-228pcf1bkff64ii5pu8fa63ncv71mnvs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "665139195164-f2blpb1ahs4gmbprsdjij6sk4j1l37ve.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.easySkipper"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
