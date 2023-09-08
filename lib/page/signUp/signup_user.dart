@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:easy_skipper/constant.dart';
+import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/widget/custom_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class UserSignUp extends StatefulWidget {
   UserSignUp({super.key, required this.user});
@@ -333,7 +338,7 @@ class _UserSignUpState extends State<UserSignUp> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => a(),
+                  onTap: () => signUp(),
                   child: Container(
                     height: 50,
                     width: width / 2 - 15,
@@ -364,15 +369,90 @@ class _UserSignUpState extends State<UserSignUp> {
     );
   }
 
-  void a() {
-    print(barcaMotoreLunghezza.text);
-    print(barcaMotoreLarghezza.text);
-    print(barcaMotoreNumeroMotori.text);
-    for (var i = 0; i < barcaMotoreMarcaMotori.length; i++) {
-      print(
-        "Marca -> ${barcaMotoreMarcaMotori[i].text} // Cavalli -> ${barcaMotoreNumeroCavalli[i].text}",
+  void signUp() async {
+    if (radioButtonValue == TipoBarca._null) {
+      customDialog(
+        context,
+        "Nessun tipo selezionato",
+        "Selezionane uno e riprova",
       );
+      return;
     }
-    print("-----------------------");
+    if ((barcaMotoreLarghezza.text.isEmpty ||
+            barcaMotoreLunghezza.text.isEmpty ||
+            barcaMotoreNumeroMotori.text.isEmpty) &&
+        radioButtonValue == TipoBarca.motore) {
+      customDialog(context, "Errore", "Inserire i valori in tutti i campi");
+      return;
+    }
+    if ((barcaVelaLarghezza.text.isEmpty ||
+            barcaVelaLunghezza.text.isEmpty ||
+            barcaVelaAltezza.text.isEmpty) &&
+        radioButtonValue == TipoBarca.vela) {
+      customDialog(context, "Errore", "Inserire i valori in tutti i campi");
+      return;
+    }
+    /*
+    User? user = await FirebaseAuthService().signUpWithEmailAndPassword(
+      widget.user.email,
+      widget.user.password,
+    );
+
+    user != null
+    */
+    if (true) {
+      bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
+      if (radioButtonValue == TipoBarca.motore) {
+        int larghezza = int.parse(barcaMotoreLarghezza.text);
+        int lunghezza = int.parse(barcaMotoreLunghezza.text);
+        //String UID = FirebaseAuth.instance.currentUser!.uid;
+        List<Map<String, dynamic>> motori = [];
+        for (var i = 0; i < int.parse(barcaMotoreNumeroMotori.text); i++) {
+          motori.add({
+            "id": i + 1,
+            "marca": barcaMotoreMarcaMotori[i].text,
+            "cavalli": int.parse(barcaMotoreNumeroCavalli[i].text),
+          });
+        }
+        Map<String, String> headers = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        };
+        var response = await http.post(
+          Uri.parse("http://192.168.1.100:1337/api/barche"),
+          headers: headers,
+          body: jsonEncode(
+            {
+              "data": [
+                {
+                  "id": 3,
+                  "attributes": {
+                    "larghezza": larghezza,
+                    "lunghezza": lunghezza,
+                    "UID": "UID",
+                    "isMotor": isMotor,
+                    "image": {
+                      "data": null,
+                    },
+                    "Motore": motori,
+                    "Vela": null,
+                  },
+                }
+              ]
+            },
+          ),
+        );
+        print(response.statusCode);
+        print(response.body);
+      }
+    } else {
+      print("Somthing went wrong");
+    }
   }
 }
+
+
+/*
+?filters[UID][$eq]=a1b2c3
+command to search using UID value
+*/
