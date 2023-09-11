@@ -43,14 +43,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UserSignUp(
-        user: CustomUser(
-          email: "",
-          password: "",
-        ),
-      ),
+      home:
+          FirebaseAuth.instance.currentUser != null ? HomePage() : LogInPage(),
     );
   }
 }
 
-//FirebaseAuth.instance.currentUser != null ? HomePage() : LogInPage(),
+//

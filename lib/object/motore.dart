@@ -8,10 +8,10 @@ class Motore {
   });
 
   factory Motore.fromJson(Map<String, dynamic> json) {
-    return json["data"][0]["attributes"]["Motore"].length != 0
+    return json["attributes"]["Motore"].length != 0
         ? Motore(
-            cavalli: json["data"][0]["attributes"]["Motore"][0]["cavalli"],
-            marca: json["data"][0]["attributes"]["Motore"][0]["marca"],
+            cavalli: json["attributes"]["Motore"][0]["cavalli"],
+            marca: json["attributes"]["Motore"][0]["marca"],
           )
         : const Motore(cavalli: 0, marca: "");
   }

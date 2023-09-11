@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
+import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/widget/custom_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -97,7 +98,9 @@ class _UserSignUpState extends State<UserSignUp> {
                                   height: 50,
                                   width: width,
                                   margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                    left: 10,
+                                    right: 10,
+                                  ),
                                   child: TextField(
                                     controller: barcaMotoreLunghezza,
                                     keyboardType: TextInputType.number,
@@ -392,20 +395,17 @@ class _UserSignUpState extends State<UserSignUp> {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
-    /*
+    print(widget.user.email);
+    print(widget.user.password);
     User? user = await FirebaseAuthService().signUpWithEmailAndPassword(
       widget.user.email,
       widget.user.password,
     );
-
-    user != null
-    */
-    if (true) {
+    if (user != null) {
       bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
       if (radioButtonValue == TipoBarca.motore) {
         int larghezza = int.parse(barcaMotoreLarghezza.text);
         int lunghezza = int.parse(barcaMotoreLunghezza.text);
-        //String UID = FirebaseAuth.instance.currentUser!.uid;
         List<Map<String, dynamic>> motori = [];
         for (var i = 0; i < int.parse(barcaMotoreNumeroMotori.text); i++) {
           motori.add({
@@ -423,36 +423,29 @@ class _UserSignUpState extends State<UserSignUp> {
           headers: headers,
           body: jsonEncode(
             {
-              "data": [
-                {
-                  "id": 3,
-                  "attributes": {
-                    "larghezza": larghezza,
-                    "lunghezza": lunghezza,
-                    "UID": "UID",
-                    "isMotor": isMotor,
-                    "image": {
-                      "data": null,
-                    },
-                    "Motore": motori,
-                    "Vela": null,
-                  },
-                }
-              ]
+              "data": {
+                "larghezza": larghezza,
+                "lunghezza": lunghezza,
+                "UID": FirebaseAuth.instance.currentUser?.uid,
+                "isMotor": isMotor,
+                "image": {
+                  "data": null,
+                },
+                "Motore": motori,
+                "Vela": null,
+              }
             },
           ),
         );
-        print(response.statusCode);
-        print(response.body);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
       }
     } else {
       print("Somthing went wrong");
     }
   }
 }
-
-
-/*
-?filters[UID][$eq]=a1b2c3
-command to search using UID value
-*/
