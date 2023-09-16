@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField({
+  const CustomTextField({
     super.key,
     required this.height,
     required this.width,
@@ -15,14 +15,14 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
   });
 
-  double height, width;
-  String labelText;
-  TextInputType textInputType;
-  TextEditingController controller;
-  Icon? textFieldIcon;
-  String? hintText;
-  double? leftMargin, rightMargin;
-  bool? obscureText;
+  final double height, width;
+  final String labelText;
+  final TextInputType textInputType;
+  final TextEditingController controller;
+  final Icon? textFieldIcon;
+  final String? hintText;
+  final double? leftMargin, rightMargin;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: labelText,
           hintText: hintText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           icon: textFieldIcon,
           filled: true,
           fillColor: Colors.white,

@@ -1,17 +1,13 @@
-import 'package:easy_skipper/page/signUp/choose_role_page_sign_up.dart';
-import 'package:easy_skipper/page/signUp/signup_user.dart';
 import 'package:easy_skipper/widget/custom_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_skipper/page/azienda_page.dart';
 import 'package:easy_skipper/page/login_page.dart';
 import 'package:easy_skipper/page/home_page.dart';
-import 'package:easy_skipper/page/filter_page.dart';
-import 'package:easy_skipper/page/user_page.dart';
-import 'package:easy_skipper/page/signup_page.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Future main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -33,20 +29,33 @@ Future main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(const MyApp());
+
+  bool isUserRegistered = FirebaseAuth.instance.currentUser != null;
+
+  if (isUserRegistered) {
+    final response = await http.get(
+      Uri.parse(
+        'http://192.168.1.100:1337/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
+      ),
+    );
+  }
+
+  runApp(MyApp(isUserRegistered: isUserRegistered));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    required this.isUserRegistered,
+  });
+
+  final bool isUserRegistered;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:
-          FirebaseAuth.instance.currentUser != null ? HomePage() : LogInPage(),
+      home: isUserRegistered ? HomePage(user: user) : const LogInPage(),
     );
   }
 }
-
-//

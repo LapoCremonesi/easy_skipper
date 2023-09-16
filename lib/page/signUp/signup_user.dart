@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/page/home_page.dart';
@@ -11,9 +10,12 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class UserSignUp extends StatefulWidget {
-  UserSignUp({super.key, required this.user});
+  const UserSignUp({
+    super.key,
+    required this.user,
+  });
 
-  CustomUser user;
+  final CustomUser user;
 
   @override
   State<UserSignUp> createState() => _UserSignUpState();
@@ -395,12 +397,12 @@ class _UserSignUpState extends State<UserSignUp> {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
-    print(widget.user.email);
-    print(widget.user.password);
+
     User? user = await FirebaseAuthService().signUpWithEmailAndPassword(
       widget.user.email,
       widget.user.password,
     );
+
     if (user != null) {
       bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
       if (radioButtonValue == TipoBarca.motore) {
@@ -418,7 +420,7 @@ class _UserSignUpState extends State<UserSignUp> {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         };
-        var response = await http.post(
+        await http.post(
           Uri.parse("http://192.168.1.100:1337/api/barche"),
           headers: headers,
           body: jsonEncode(
@@ -433,6 +435,43 @@ class _UserSignUpState extends State<UserSignUp> {
                 },
                 "Motore": motori,
                 "Vela": null,
+              }
+            },
+          ),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      }
+      if (radioButtonValue == TipoBarca.vela) {
+        double larghezza = double.parse(barcaVelaLarghezza.text);
+        double lunghezza = double.parse(barcaVelaLunghezza.text);
+        double altezza = double.parse(barcaVelaAltezza.text);
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        };
+        await http.post(
+          Uri.parse("http://192.168.1.100:1337/api/barche"),
+          headers: headers,
+          body: jsonEncode(
+            {
+              "data": {
+                "larghezza": larghezza,
+                "lunghezza": lunghezza,
+                "UID": FirebaseAuth.instance.currentUser?.uid,
+                "isMotor": isMotor,
+                "image": {
+                  "data": null,
+                },
+                "Motore": [],
+                "Vela": {
+                  "altezza": altezza,
+                },
               }
             },
           ),

@@ -5,5 +5,4 @@ class CustomUser {
   });
   late String password;
   late String email;
-  late bool isAgency;
 }

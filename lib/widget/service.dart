@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Service extends StatelessWidget {
-  Service({
+  const Service({
     super.key,
     required this.service,
   });
 
-  String service;
+  final String service;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 20,
       width: 20,
       child: Image.asset("image/$service.png"),

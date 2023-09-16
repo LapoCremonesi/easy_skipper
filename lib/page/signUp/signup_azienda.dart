@@ -2,9 +2,12 @@ import 'package:easy_skipper/widget/custom_user.dart';
 import 'package:flutter/material.dart';
 
 class AziendaSignUp extends StatelessWidget {
-  AziendaSignUp({super.key, required this.user});
+  const AziendaSignUp({
+    super.key,
+    required this.user,
+  });
 
-  CustomUser user;
+  final CustomUser user;
 
   @override
   Widget build(BuildContext context) {

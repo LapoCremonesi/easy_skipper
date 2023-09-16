@@ -4,7 +4,6 @@ import 'package:easy_skipper/page/login_page.dart';
 import 'package:easy_skipper/page/signUp/choose_role_page_sign_up.dart';
 import 'package:easy_skipper/widget/custom_text_field.dart';
 import 'package:easy_skipper/widget/custom_user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
@@ -276,6 +275,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String email = emailFieldController.text;
     String password = passwordFieldController.text;
     String confirmPassword = confirmPasswordFieldController.text;
+    String username = usernameFieldController.text;
 
     if (!EmailValidator.validate(email)) {
       customDialog(
@@ -284,6 +284,14 @@ class _SignUpPageState extends State<SignUpPage> {
         "Try correct it or change it",
       );
       return;
+    }
+
+    if (username.isEmpty) {
+      customDialog(
+        context,
+        "You have inserted no username",
+        "Enter a username e retry",
+      );
     }
 
     if (password != confirmPassword ||
@@ -298,7 +306,11 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
-    CustomUser user = CustomUser(password: password, email: email);
+    CustomUser user = CustomUser(
+      password: password,
+      email: email,
+      isAgency: false,
+    );
 
     Navigator.push(
       context,

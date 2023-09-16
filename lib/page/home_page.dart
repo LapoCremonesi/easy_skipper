@@ -1,19 +1,62 @@
-import 'package:easy_skipper/page/login_page.dart';
+import 'dart:convert';
+
 import 'package:easy_skipper/page/user_page.dart';
+import 'package:easy_skipper/widget/custom_user.dart';
 import 'package:easy_skipper/widget/homepage_box_view.dart';
 import 'package:easy_skipper/widget/homepage_tile_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+    required this.user,
+  });
+
+  final CustomUser user;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool isListView = true;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    //use strapi to save user info
+    if (state == AppLifecycleState.paused) {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      };
+      await http.put(
+        Uri.parse(
+          "http://192.168.1.100:1337/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
+        ),
+        headers: headers,
+        body: jsonEncode(
+          {
+            "data": {
+              "isListView": isListView,
+            },
+          },
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserPage(),
+                  builder: (context) => const UserPage(),
                 ),
               );
             },
@@ -48,11 +91,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _signOut();
-        },
       ),
       body: SizedBox(
         height: height,
@@ -76,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -136,8 +174,8 @@ class _HomePageState extends State<HomePage> {
                   itemCount: 30,
                   itemBuilder: (context, index) {
                     return isListView
-                        ? HomePageTileView()
-                        : Row(
+                        ? const HomePageTileView()
+                        : const Row(
                             children: [
                               HomePageBoxView(),
                               HomePageBoxView(),
@@ -149,16 +187,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LogInPage(),
       ),
     );
   }

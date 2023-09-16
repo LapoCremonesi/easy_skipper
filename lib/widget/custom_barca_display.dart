@@ -2,12 +2,12 @@ import 'package:easy_skipper/object/barca.dart';
 import 'package:flutter/material.dart';
 
 class CustomBarcaDisplay extends StatelessWidget {
-  CustomBarcaDisplay({
+  const CustomBarcaDisplay({
     super.key,
     required this.barcaInfo,
   });
 
-  Barche barcaInfo;
+  final Barche barcaInfo;
 
   @override
   Widget build(BuildContext context) {

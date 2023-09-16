@@ -34,11 +34,13 @@ class _UserPageState extends State<UserPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AggiungiBarca(),
+              builder: (context) => const AggiungiBarca(),
             ),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
       body: SizedBox(
         height: height,
@@ -77,7 +79,7 @@ class _UserPageState extends State<UserPage> {
                             CustomBarcaDisplay(
                               barcaInfo: barche[index],
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                           ],
                         );
                       },

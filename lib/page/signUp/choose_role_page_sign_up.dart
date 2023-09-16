@@ -6,9 +6,12 @@ import 'package:easy_skipper/widget/custom_user.dart';
 import 'package:flutter/material.dart';
 
 class ChooseRoleSignUpPage extends StatefulWidget {
-  ChooseRoleSignUpPage({super.key, required this.user});
+  const ChooseRoleSignUpPage({
+    super.key,
+    required this.user,
+  });
 
-  CustomUser user;
+  final CustomUser user;
 
   @override
   State<ChooseRoleSignUpPage> createState() => _ChooseRoleSignUpPageState();
