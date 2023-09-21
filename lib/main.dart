@@ -1,9 +1,9 @@
-import 'package:easy_skipper/widget/custom_user.dart';
+import 'package:easy_skipper/page/signup_page.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_skipper/page/login_page.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -31,6 +31,12 @@ Future main() async {
   }
 
   bool isUserRegistered = FirebaseAuth.instance.currentUser != null;
+  CustomProfile userProfile = CustomProfile(
+    username: "",
+    UID: "",
+    isAgency: false,
+    isListView: true,
+  );
 
   if (isUserRegistered) {
     final response = await http.get(
@@ -38,24 +44,32 @@ Future main() async {
         'http://192.168.1.100:1337/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
       ),
     );
+    userProfile = CustomProfile.fromJson(jsonDecode(response.body));
   }
 
-  runApp(MyApp(isUserRegistered: isUserRegistered));
+  runApp(MyApp(
+    isUserRegistered: isUserRegistered,
+    userProfile: userProfile,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.isUserRegistered,
+    required this.userProfile,
   });
 
   final bool isUserRegistered;
+  final CustomProfile userProfile;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isUserRegistered ? HomePage(user: user) : const LogInPage(),
+      home: isUserRegistered
+          ? HomePage(userProfile: userProfile)
+          : SignUpPage(userProfile: userProfile),
     );
   }
 }

@@ -2,16 +2,19 @@ import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/page/signUp/signup_azienda.dart';
 import 'package:easy_skipper/page/signUp/signup_user.dart';
 import 'package:easy_skipper/page/signup_page.dart';
-import 'package:easy_skipper/widget/custom_user.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
+import 'package:easy_skipper/object/custom_user.dart';
 import 'package:flutter/material.dart';
 
 class ChooseRoleSignUpPage extends StatefulWidget {
   const ChooseRoleSignUpPage({
     super.key,
     required this.user,
+    required this.userProfile,
   });
 
   final CustomUser user;
+  final CustomProfile userProfile;
 
   @override
   State<ChooseRoleSignUpPage> createState() => _ChooseRoleSignUpPageState();
@@ -136,7 +139,9 @@ class _ChooseRoleSignUpPageState extends State<ChooseRoleSignUpPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignUpPage(),
+                        builder: (context) => SignUpPage(
+                          userProfile: widget.userProfile,
+                        ),
                       ),
                     );
                   },
@@ -174,18 +179,19 @@ class _ChooseRoleSignUpPageState extends State<ChooseRoleSignUpPage> {
                 GestureDetector(
                   onTap: () {
                     if (isUserCardSelected) {
-                      widget.user.isAgency = false;
+                      widget.userProfile.isAgency = false;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => UserSignUp(
+                            userProfile: widget.userProfile,
                             user: widget.user,
                           ),
                         ),
                       );
                     }
                     if (isAgencyCardSelected) {
-                      widget.user.isAgency = true;
+                      widget.userProfile.isAgency = true;
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -3,7 +3,8 @@ import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
-import 'package:easy_skipper/widget/custom_user.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
+import 'package:easy_skipper/object/custom_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,9 +14,11 @@ class UserSignUp extends StatefulWidget {
   const UserSignUp({
     super.key,
     required this.user,
+    required this.userProfile,
   });
 
   final CustomUser user;
+  final CustomProfile userProfile;
 
   @override
   State<UserSignUp> createState() => _UserSignUpState();
@@ -26,6 +29,8 @@ enum TipoBarca { vela, motore, _null }
 class _UserSignUpState extends State<UserSignUp> {
   int numeroMotori = 0;
   TipoBarca radioButtonValue = TipoBarca._null;
+
+  TextEditingController barcaNome = TextEditingController();
 
   TextEditingController barcaMotoreLarghezza = TextEditingController();
   TextEditingController barcaMotoreLunghezza = TextEditingController();
@@ -96,6 +101,21 @@ class _UserSignUpState extends State<UserSignUp> {
                             width: width,
                             child: Column(
                               children: [
+                                Container(
+                                  height: 50,
+                                  width: width,
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: TextField(
+                                    controller: barcaNome,
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                      hintText: "Nome della barca",
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
                                 Container(
                                   height: 50,
                                   width: width,
@@ -253,6 +273,21 @@ class _UserSignUpState extends State<UserSignUp> {
                                   margin: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: TextField(
+                                    controller: barcaNome,
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                      hintText: "Nome della barca",
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Container(
+                                  height: 50,
+                                  width: width,
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: TextField(
                                     controller: barcaVelaLunghezza,
                                     keyboardType: TextInputType.number,
                                     inputFormatters: [
@@ -316,7 +351,9 @@ class _UserSignUpState extends State<UserSignUp> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignUpPage(),
+                        builder: (context) => SignUpPage(
+                          userProfile: widget.userProfile,
+                        ),
                       ),
                     );
                   },
@@ -398,16 +435,40 @@ class _UserSignUpState extends State<UserSignUp> {
       return;
     }
 
+    if (barcaNome.text.isEmpty) {
+      customDialog(context, "Errore", "Inserire un nome per la barca");
+      return;
+    }
+
     User? user = await FirebaseAuthService().signUpWithEmailAndPassword(
       widget.user.email,
       widget.user.password,
     );
 
     if (user != null) {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      };
+      await http.post(
+        Uri.parse("http://192.168.1.100:1337/api/profiles"),
+        headers: headers,
+        body: jsonEncode(
+          {
+            "data": {
+              "username": widget.userProfile.username,
+              "UID": user.uid,
+              "isAgency": widget.userProfile.isAgency,
+              "isListView": widget.userProfile.isListView,
+            }
+          },
+        ),
+      );
       bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
+      String nome = barcaNome.text;
       if (radioButtonValue == TipoBarca.motore) {
-        int larghezza = int.parse(barcaMotoreLarghezza.text);
-        int lunghezza = int.parse(barcaMotoreLunghezza.text);
+        double larghezza = double.parse(barcaMotoreLarghezza.text);
+        double lunghezza = double.parse(barcaMotoreLunghezza.text);
         List<Map<String, dynamic>> motori = [];
         for (var i = 0; i < int.parse(barcaMotoreNumeroMotori.text); i++) {
           motori.add({
@@ -416,16 +477,13 @@ class _UserSignUpState extends State<UserSignUp> {
             "cavalli": int.parse(barcaMotoreNumeroCavalli[i].text),
           });
         }
-        Map<String, String> headers = {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        };
         await http.post(
           Uri.parse("http://192.168.1.100:1337/api/barche"),
           headers: headers,
           body: jsonEncode(
             {
               "data": {
+                "nome_barca": nome,
                 "larghezza": larghezza,
                 "lunghezza": lunghezza,
                 "UID": FirebaseAuth.instance.currentUser?.uid,
@@ -442,7 +500,9 @@ class _UserSignUpState extends State<UserSignUp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => HomePage(
+              userProfile: widget.userProfile,
+            ),
           ),
         );
       }
@@ -450,17 +510,13 @@ class _UserSignUpState extends State<UserSignUp> {
         double larghezza = double.parse(barcaVelaLarghezza.text);
         double lunghezza = double.parse(barcaVelaLunghezza.text);
         double altezza = double.parse(barcaVelaAltezza.text);
-
-        Map<String, String> headers = {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        };
         await http.post(
           Uri.parse("http://192.168.1.100:1337/api/barche"),
           headers: headers,
           body: jsonEncode(
             {
               "data": {
+                "nome_barca": nome,
                 "larghezza": larghezza,
                 "lunghezza": lunghezza,
                 "UID": FirebaseAuth.instance.currentUser?.uid,
@@ -479,7 +535,9 @@ class _UserSignUpState extends State<UserSignUp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => HomePage(
+              userProfile: widget.userProfile,
+            ),
           ),
         );
       }

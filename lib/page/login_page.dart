@@ -1,9 +1,12 @@
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_skipper/constant.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -241,7 +244,14 @@ class _LogInPageState extends State<LogInPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SignUpPage(),
+                    builder: (context) => SignUpPage(
+                      userProfile: CustomProfile(
+                        username: "",
+                        UID: "",
+                        isAgency: false,
+                        isListView: true,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -296,12 +306,23 @@ class _LogInPageState extends State<LogInPage> {
 
     User? user = await auth.signInWithEmailAndPassword(email, password);
 
+    final response = await http.get(
+      Uri.parse(
+        'http://192.168.1.100:1337/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
+      ),
+    );
+    CustomProfile userProfile = CustomProfile.fromJson(
+      jsonDecode(response.body),
+    );
+
     if (user != null) {
       print("Successfully Logged In");
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => HomePage(
+            userProfile: userProfile,
+          ),
         ),
       );
     } else {

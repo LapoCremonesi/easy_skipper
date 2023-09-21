@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
-import 'package:easy_skipper/page/user_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -348,12 +347,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
             child: GestureDetector(
               onTap: () {
                 addBarca();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UserPage(),
-                  ),
-                );
+                Navigator.pop(context);
               },
               child: const Icon(
                 Icons.add,
@@ -391,8 +385,8 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
     }
     bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
     if (radioButtonValue == TipoBarca.motore) {
-      int larghezza = int.parse(barcaMotoreLarghezza.text);
-      int lunghezza = int.parse(barcaMotoreLunghezza.text);
+      double larghezza = double.parse(barcaMotoreLarghezza.text);
+      double lunghezza = double.parse(barcaMotoreLunghezza.text);
       String nome = barcaMotoreNome.text;
       List<Map<String, dynamic>> motori = [];
       for (var i = 0; i < int.parse(barcaMotoreNumeroMotori.text); i++) {
@@ -428,9 +422,9 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
     }
 
     if (radioButtonValue == TipoBarca.vela) {
-      int larghezza = int.parse(barcaVelaLarghezza.text);
-      int lunghezza = int.parse(barcaVelaLunghezza.text);
-      int altezza = int.parse(barcaVelaAltezza.text);
+      double larghezza = double.parse(barcaVelaLarghezza.text);
+      double lunghezza = double.parse(barcaVelaLunghezza.text);
+      double altezza = double.parse(barcaVelaAltezza.text);
       String nome = barcaVelaNome.text;
       Map<String, String> headers = {
         'Content-Type': 'application/json',

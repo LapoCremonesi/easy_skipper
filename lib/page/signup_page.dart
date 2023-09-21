@@ -2,14 +2,20 @@ import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/page/login_page.dart';
 import 'package:easy_skipper/page/signUp/choose_role_page_sign_up.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/widget/custom_text_field.dart';
-import 'package:easy_skipper/widget/custom_user.dart';
+import 'package:easy_skipper/object/custom_user.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({
+    super.key,
+    required this.userProfile,
+  });
+
+  final CustomProfile userProfile;
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -309,13 +315,17 @@ class _SignUpPageState extends State<SignUpPage> {
     CustomUser user = CustomUser(
       password: password,
       email: email,
-      isAgency: false,
     );
+
+    widget.userProfile.username = username;
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChooseRoleSignUpPage(user: user),
+        builder: (context) => ChooseRoleSignUpPage(
+          user: user,
+          userProfile: widget.userProfile,
+        ),
       ),
     );
   }

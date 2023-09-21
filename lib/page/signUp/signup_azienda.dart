@@ -1,4 +1,4 @@
-import 'package:easy_skipper/widget/custom_user.dart';
+import 'package:easy_skipper/object/custom_user.dart';
 import 'package:flutter/material.dart';
 
 class AziendaSignUp extends StatelessWidget {

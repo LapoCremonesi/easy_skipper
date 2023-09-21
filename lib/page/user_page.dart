@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:easy_skipper/page/aggiungi_barca.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:easy_skipper/object/barca.dart';
@@ -7,7 +8,12 @@ import 'package:easy_skipper/widget/custom_barca_display.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+  const UserPage({
+    super.key,
+    required this.userProfile,
+  });
+
+  final CustomProfile userProfile;
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -29,6 +35,14 @@ class _UserPageState extends State<UserPage> {
     double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -58,6 +72,9 @@ class _UserPageState extends State<UserPage> {
                   height: 250,
                   width: width - width / 2.5,
                   color: Colors.yellow,
+                  child: Center(
+                    child: Text(widget.userProfile.username),
+                  ),
                 ),
               ],
             ),

@@ -1,14 +1,17 @@
-2023/09/16-16:59:40.294 2ae0 Log #3: 6 ops saved to Table #12 OK
-2023/09/16-16:59:40.337 2ae0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.39c6293\flutter_tools_chrome_device.f4536918\Default\Site Characteristics Database/000003.log: OK
-2023/09/16-16:59:40.337 2ae0 Log #6: 0 ops saved to Table #13 OK
-2023/09/16-16:59:40.367 2ae0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.39c6293\flutter_tools_chrome_device.f4536918\Default\Site Characteristics Database/000006.log: OK
-2023/09/16-16:59:40.453 2ae0 Log #10: 1 ops saved to Table #14 OK
-2023/09/16-16:59:40.453 2ae0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.39c6293\flutter_tools_chrome_device.f4536918\Default\Site Characteristics Database/000010.log: OK
-2023/09/16-16:59:40.454 2ae0 Table #4: 6 entries OK
-2023/09/16-16:59:40.454 2ae0 Table #6: 6 entries OK
-2023/09/16-16:59:40.454 2ae0 Table #7: 6 entries OK
-2023/09/16-16:59:40.454 2ae0 Table #11: 2 entries OK
-2023/09/16-16:59:40.454 2ae0 Table #12: 6 entries OK
-2023/09/16-16:59:40.454 2ae0 Table #14: 1 entries OK
-2023/09/16-16:59:40.457 2ae0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.39c6293\flutter_tools_chrome_device.f4536918\Default\Site Characteristics Database/MANIFEST-000001: OK
-2023/09/16-16:59:40.479 2ae0 **** Repaired leveldb C:\Users\guerc\AppData\Local\Temp\flutter_tools.39c6293\flutter_tools_chrome_device.f4536918\Default\Site Characteristics Database; recovered 6 files; 1537 bytes. Some data may have been lost. ****
+2023/09/21-14:43:34.146 1ca0 Reusing MANIFEST C:\Users\guerc\AppData\Local\Temp\flutter_tools.91f2e0d1\flutter_tools_chrome_device.c3ab16bd\Default\Site Characteristics Database/MANIFEST-000001
+2023/09/21-14:43:34.148 1ca0 Recovering log #3
+2023/09/21-14:43:34.148 1ca0 Level-0 table #19: started
+2023/09/21-14:43:34.231 1ca0 Level-0 table #19: 293 bytes OK
+2023/09/21-14:43:34.231 1ca0 Recovering log #6
+2023/09/21-14:43:34.231 1ca0 Recovering log #10
+2023/09/21-14:43:34.231 1ca0 Level-0 table #20: started
+2023/09/21-14:43:34.366 1ca0 Level-0 table #20: 168 bytes OK
+2023/09/21-14:43:34.366 1ca0 Recovering log #16
+2023/09/21-14:43:34.366 1ca0 Reusing old log C:\Users\guerc\AppData\Local\Temp\flutter_tools.91f2e0d1\flutter_tools_chrome_device.c3ab16bd\Default\Site Characteristics Database/000016.log 
+2023/09/21-14:43:34.368 1ca0 Delete type=0 #3
+2023/09/21-14:43:34.368 1ca0 Delete type=2 #4
+2023/09/21-14:43:34.368 1ca0 Delete type=2 #6
+2023/09/21-14:43:34.368 1ca0 Delete type=0 #6
+2023/09/21-14:43:34.369 1ca0 Delete type=2 #7
+2023/09/21-14:43:34.369 1ca0 Delete type=0 #10
+2023/09/21-14:43:34.369 1ca0 Delete type=2 #11
