@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 const bluOceanoProfondo = Color(0xFF004080);
 const blueCobalto = Color(0xFF0047AB);
 const verdeAcquaMarina = Color(0xFF00A693);
 const blueCieloChiaro = Color(0xFF87CEEB);
 const arancioneBoa = Color(0xFFFFA500);
+
+const String api = "http://192.168.1.100:1337";
+
+Map<String, dynamic> iconMap = {
+  "pulizia": const Icon(Icons.cleaning_services_outlined),
+  "manutenzione": const Icon(Ionicons.construct_outline),
+  "gestione": const Icon(Icons.anchor_outlined),
+  "trasporto": SvgPicture.asset('assets/trailer-solid.svg'),
+};
 
 Future customDialog(BuildContext context, String title, String body) {
   return showDialog(

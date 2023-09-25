@@ -80,13 +80,12 @@ class _UserPageState extends State<UserPage> {
             ),
             const SizedBox(height: 5),
             SizedBox(
-              height: height - 250 - statusBarHeight - 5,
+              height: height - 250 - statusBarHeight - 5 - 56,
               width: width,
               child: ListView.builder(
                 itemCount: 1,
                 itemBuilder: (context, _) {
-                  return Container(
-                    color: Colors.red,
+                  return SizedBox(
                     height: 100.0 * barche.length,
                     child: ListView.builder(
                       itemCount: barche.length,

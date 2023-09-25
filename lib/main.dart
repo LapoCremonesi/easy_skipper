@@ -34,6 +34,7 @@ Future main() async {
   CustomProfile userProfile = CustomProfile(
     username: "",
     UID: "",
+    id: 0,
     isAgency: false,
     isListView: true,
   );
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Noto'),
       debugShowCheckedModeBanner: false,
       home: isUserRegistered
           ? HomePage(userProfile: userProfile)
@@ -73,3 +75,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+/*
+
+isUserRegistered
+          ? HomePage(userProfile: userProfile)
+          : SignUpPage(userProfile: userProfile),
+
+
+*/

@@ -248,6 +248,7 @@ class _LogInPageState extends State<LogInPage> {
                       userProfile: CustomProfile(
                         username: "",
                         UID: "",
+                        id: 0,
                         isAgency: false,
                         isListView: true,
                       ),

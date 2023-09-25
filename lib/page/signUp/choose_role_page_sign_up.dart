@@ -196,6 +196,7 @@ class _ChooseRoleSignUpPageState extends State<ChooseRoleSignUpPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AziendaSignUp(
+                            profile: widget.userProfile,
                             user: widget.user,
                           ),
                         ),
