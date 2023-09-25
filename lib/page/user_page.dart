@@ -113,14 +113,14 @@ class _UserPageState extends State<UserPage> {
   Future<void> fetchAlbum() async {
     final response = await http.get(
       Uri.parse(
-        'http://192.168.1.100:1337/api/barche?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',
+        'http://192.168.1.100:1337/api/barche?filters[UID][eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',
       ),
     );
 
     int numeroBarche = jsonDecode(response.body)["meta"]["pagination"]["total"];
 
     if (response.statusCode == 200) {
-      for (var i = 0; i < numeroBarche; i++) {
+      for (int i = 0; i < numeroBarche; i++) {
         setState(() {
           barche.add(
             Barche.fromJson(

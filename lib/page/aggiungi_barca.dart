@@ -98,7 +98,6 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                   ),
                                   child: TextField(
                                     controller: barcaMotoreNome,
-                                    keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
                                       hintText: "Nome Barca",
                                       border: OutlineInputBorder(),
@@ -266,7 +265,6 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                   ),
                                   child: TextField(
                                     controller: barcaVelaNome,
-                                    keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
                                       hintText: "Nome Barca",
                                       border: OutlineInputBorder(),
