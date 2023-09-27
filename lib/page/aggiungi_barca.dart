@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:easy_skipper/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class AggiungiBarca extends StatefulWidget {
   const AggiungiBarca({super.key});
@@ -30,6 +32,8 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
   TextEditingController barcaVelaAltezza = TextEditingController();
   TextEditingController barcaVelaNome = TextEditingController();
 
+  File? image;
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -37,6 +41,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
     double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text(
           "Aggiungi una nuova barca",
@@ -181,8 +186,9 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 ),
                                 const SizedBox(height: 5),
                                 SizedBox(
-                                  height: 55.0 * numeroMotori,
+                                  height: 60.0 * numeroMotori,
                                   child: ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
                                     itemCount: numeroMotori,
                                     itemBuilder: (context, index) {
                                       return Row(
@@ -193,7 +199,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                             margin: const EdgeInsets.only(
                                               left: 10,
                                               right: 5,
-                                              bottom: 5,
+                                              bottom: 10,
                                             ),
                                             child: DropdownMenu(
                                               controller:
@@ -249,6 +255,30 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                     },
                                   ),
                                 ),
+                                const SizedBox(height: 5),
+                                GestureDetector(
+                                  onTap: () {
+                                    pickImageDialog();
+                                  },
+                                  child: Container(
+                                    height: 200,
+                                    width: width,
+                                    margin: const EdgeInsets.only(
+                                      left: 10,
+                                      right: 10,
+                                    ),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.add_a_photo_rounded,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
                               ],
                             ),
                           )
@@ -355,6 +385,119 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
           ),
         ],
       ),
+    );
+  }
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      setState(() {
+        this.image = File(image.path);
+        print(this.image);
+      });
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
+  void pickImageDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                height: 240,
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 60),
+                    GestureDetector(
+                      onTap: () {
+                        pickImage(ImageSource.gallery);
+                      },
+                      child: Container(
+                        height: 70,
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: const Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Icon(Icons.photo),
+                            SizedBox(width: 30),
+                            Text("Galleria"),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        pickImage(ImageSource.camera);
+                      },
+                      child: Container(
+                        height: 70,
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: const Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Icon(Icons.camera_alt),
+                            SizedBox(width: 30),
+                            Text("Camera"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                top: -40,
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.add_a_photo),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

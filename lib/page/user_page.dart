@@ -25,7 +25,7 @@ class _UserPageState extends State<UserPage> {
   @override
   void initState() {
     super.initState();
-    fetchAlbum();
+    getData();
   }
 
   @override
@@ -80,26 +80,17 @@ class _UserPageState extends State<UserPage> {
             ),
             const SizedBox(height: 5),
             SizedBox(
-              height: height - 250 - statusBarHeight - 5 - 56,
-              width: width,
+              height: height - 250 - statusBarHeight - 5 - 56 - 10,
               child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, _) {
-                  return SizedBox(
-                    height: 100.0 * barche.length,
-                    child: ListView.builder(
-                      itemCount: barche.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            CustomBarcaDisplay(
-                              barcaInfo: barche[index],
-                            ),
-                            const SizedBox(height: 5),
-                          ],
-                        );
-                      },
-                    ),
+                itemCount: barche.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      CustomBarcaDisplay(
+                        barcaInfo: barche[index],
+                      ),
+                      const SizedBox(height: 5),
+                    ],
                   );
                 },
               ),
@@ -110,7 +101,7 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  Future<void> fetchAlbum() async {
+  Future<void> getData() async {
     final response = await http.get(
       Uri.parse(
         'http://192.168.1.100:1337/api/barche?filters[UID][eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',

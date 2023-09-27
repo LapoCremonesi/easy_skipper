@@ -20,8 +20,8 @@ class Barche {
 
   factory Barche.fromJson(Map<String, dynamic> json) {
     return Barche(
-      larghezza: json["attributes"]['larghezza'],
-      lunghezza: json["attributes"]['lunghezza'],
+      larghezza: json["attributes"]['larghezza'] * 1.0,
+      lunghezza: json["attributes"]['lunghezza'] * 1.0,
       isMotor: json["attributes"]['isMotor'],
       nome: json["attributes"]['nome_barca'],
       motori: Motore.fromJson(json),
