@@ -8,7 +8,7 @@ const verdeAcquaMarina = Color(0xFF00A693);
 const blueCieloChiaro = Color(0xFF87CEEB);
 const arancioneBoa = Color(0xFFFFA500);
 
-const String api = "http://192.168.1.100:1337";
+const String api = "http://192.168.1.100:1337/api";
 
 Map<String, dynamic> iconMap = {
   "pulizia": const Icon(Icons.cleaning_services_outlined),

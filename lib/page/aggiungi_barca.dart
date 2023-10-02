@@ -395,7 +395,6 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
 
       setState(() {
         this.image = File(image.path);
-        print(this.image);
       });
     } on PlatformException catch (e) {
       print(e);
@@ -524,7 +523,12 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
+
     bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
     if (radioButtonValue == TipoBarca.motore) {
       double larghezza = double.parse(barcaMotoreLarghezza.text);
       double lunghezza = double.parse(barcaMotoreLunghezza.text);
@@ -536,10 +540,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
           "cavalli": int.parse(barcaMotoreNumeroCavalli[i].text),
         });
       }
-      Map<String, String> headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      };
+
       await http.post(
         Uri.parse("http://192.168.1.100:1337/api/barche"),
         headers: headers,
@@ -551,15 +552,32 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
               "lunghezza": lunghezza,
               "UID": FirebaseAuth.instance.currentUser?.uid,
               "isMotor": isMotor,
-              "image": {
-                "data": null,
-              },
               "Motore": motori,
               "Vela": null,
             }
           },
         ),
       );
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://192.168.1.100:1337/api/upload'),
+      );
+
+      var file = image;
+      var stream = http.ByteStream(file!.openRead());
+      var length = await file.length();
+
+      var multipartFile = http.MultipartFile(
+        'files',
+        stream,
+        length,
+        filename: 'download.jpg',
+      );
+
+      request.files.add(multipartFile);
+
+      await request.send();
     }
 
     if (radioButtonValue == TipoBarca.vela) {
@@ -567,10 +585,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       double lunghezza = double.parse(barcaVelaLunghezza.text);
       double altezza = double.parse(barcaVelaAltezza.text);
       String nome = barcaVelaNome.text;
-      Map<String, String> headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      };
+
       await http.post(
         Uri.parse("http://192.168.1.100:1337/api/barche"),
         headers: headers,

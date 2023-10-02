@@ -159,7 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: FlutterPwValidator(
                     controller: passwordFieldController,
                     width: width - 20,
-                    height: 100,
+                    height: 120,
                     minLength: 8,
                     uppercaseCharCount: 1,
                     specialCharCount: 1,
