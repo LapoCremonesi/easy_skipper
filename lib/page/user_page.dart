@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/page/aggiungi_barca.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,7 +115,7 @@ class _UserPageState extends State<UserPage> {
   Future<void> getData() async {
     final response = await http.get(
       Uri.parse(
-        'http://192.168.1.100:1337/api/barche?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',
+        '$api/barche?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',
       ),
     );
 

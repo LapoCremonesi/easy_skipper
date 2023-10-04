@@ -451,7 +451,7 @@ class _UserSignUpState extends State<UserSignUp> {
         'Accept': 'application/json'
       };
       await http.post(
-        Uri.parse("http://192.168.1.100:1337/api/profiles"),
+        Uri.parse("$api/profiles"),
         headers: headers,
         body: jsonEncode(
           {
@@ -478,7 +478,7 @@ class _UserSignUpState extends State<UserSignUp> {
           });
         }
         await http.post(
-          Uri.parse("http://192.168.1.100:1337/api/barche"),
+          Uri.parse("$api/barche"),
           headers: headers,
           body: jsonEncode(
             {
@@ -511,7 +511,7 @@ class _UserSignUpState extends State<UserSignUp> {
         double lunghezza = double.parse(barcaVelaLunghezza.text);
         double altezza = double.parse(barcaVelaAltezza.text);
         await http.post(
-          Uri.parse("http://192.168.1.100:1337/api/barche"),
+          Uri.parse("$api/barche"),
           headers: headers,
           body: jsonEncode(
             {

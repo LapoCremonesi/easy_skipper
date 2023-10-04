@@ -1,0 +1,26 @@
+2023/10/04-21:36:10.364 15dc Creating DB C:\Users\Lapo\AppData\Local\Temp\flutter_tools.5f781342\flutter_tools_chrome_device.75013a4b\Default\IndexedDB\http_localhost_56059.indexeddb.leveldb since it was missing.
+2023/10/04-21:36:10.377 15dc Reusing MANIFEST C:\Users\Lapo\AppData\Local\Temp\flutter_tools.5f781342\flutter_tools_chrome_device.75013a4b\Default\IndexedDB\http_localhost_56059.indexeddb.leveldb/MANIFEST-000001
+2023/10/04-21:36:10.404 2f44 Level-0 table #5: started
+2023/10/04-21:36:10.411 2f44 Level-0 table #5: 1197 bytes OK
+2023/10/04-21:36:10.416 2f44 Delete type=0 #3
+2023/10/04-21:36:10.417 2f44 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/04-21:37:27.734 2f44 Level-0 table #7: started
+2023/10/04-21:37:27.745 2f44 Level-0 table #7: 4551 bytes OK
+2023/10/04-21:37:27.755 2f44 Delete type=0 #4
+2023/10/04-21:37:27.755 2f44 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/04-21:38:06.164 15dc Compacting 1@1 + 1@2 files
+2023/10/04-21:38:06.168 15dc Generated table #8@1: 41 keys, 2989 bytes
+2023/10/04-21:38:06.168 15dc Compacted 1@1 + 1@2 files => 2989 bytes
+2023/10/04-21:38:06.173 15dc compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/04-21:38:06.173 15dc Delete type=2 #5
+2023/10/04-21:38:06.173 15dc Delete type=2 #7
+2023/10/04-21:38:16.649 2f44 Level-0 table #10: started
+2023/10/04-21:38:16.663 2f44 Level-0 table #10: 3298 bytes OK
+2023/10/04-21:38:16.673 2f44 Delete type=0 #6
+2023/10/04-21:38:16.674 2f44 Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/04-21:38:55.084 15dc Compacting 1@1 + 1@2 files
+2023/10/04-21:38:55.090 15dc Generated table #11@1: 41 keys, 2989 bytes
+2023/10/04-21:38:55.090 15dc Compacted 1@1 + 1@2 files => 2989 bytes
+2023/10/04-21:38:55.095 15dc compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/04-21:38:55.095 15dc Delete type=2 #8
+2023/10/04-21:38:55.095 15dc Delete type=2 #10

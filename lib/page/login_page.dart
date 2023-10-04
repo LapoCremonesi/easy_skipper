@@ -309,7 +309,7 @@ class _LogInPageState extends State<LogInPage> {
 
     final response = await http.get(
       Uri.parse(
-        'http://192.168.1.100:1337/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
+        '$api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
       ),
     );
     CustomProfile userProfile = CustomProfile.fromJson(

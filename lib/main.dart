@@ -1,3 +1,4 @@
+import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,7 +43,7 @@ Future main() async {
   if (isUserRegistered) {
     final response = await http.get(
       Uri.parse(
-        'http://192.168.1.100:1337/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
+        '$api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
       ),
     );
     userProfile = CustomProfile.fromJson(jsonDecode(response.body));
@@ -75,12 +76,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-/*
-
-isUserRegistered
-          ? HomePage(userProfile: userProfile)
-          : SignUpPage(userProfile: userProfile),
-
-
-*/

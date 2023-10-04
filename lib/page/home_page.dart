@@ -10,6 +10,13 @@ import 'package:easy_skipper/widget/homepage_tile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+final Map<String, bool> servizi = {
+  "manutenzione": false,
+  "trasporto": false,
+  "pulizia": false,
+  "gestione": false,
+};
+
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
@@ -26,13 +33,6 @@ class _HomePageState extends State<HomePage> {
   late bool isListView = widget.userProfile.isListView;
   late int j;
   List<CustomAgency> agenzie = [];
-
-  final Map<String, bool> servizi = {
-    "manutenzione": false,
-    "trasporto": false,
-    "pulizia": false,
-    "gestione": false,
-  };
 
   @override
   void initState() {
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return const ShowFilterOptions();
+                          return ShowFilterOptions();
                         },
                       );
                     },
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                     });
                     await http.put(
                       Uri.parse(
-                        "http://192.168.1.100:1337/api/profiles/${widget.userProfile.id}",
+                        "$api/profiles/${widget.userProfile.id}",
                       ),
                       headers: {
                         "Content-Type": "application/json",
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                     });
                     await http.put(
                       Uri.parse(
-                        "http://192.168.1.100:1337/api/profiles/${widget.userProfile.id}",
+                        "$api/profiles/${widget.userProfile.id}",
                       ),
                       headers: {
                         "Content-Type": "application/json",
@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: isListView
                       ? agenzie.length
                       : agenzie.length % 2 == 0
-                          ? agenzie.length
+                          ? agenzie.length ~/ 2
                           : (agenzie.length + 1) ~/ 2,
                   itemBuilder: (context, index) {
                     j += 2;
@@ -256,13 +256,13 @@ class _HomePageState extends State<HomePage> {
       Uri.parse("$api/agencies?populate=*"),
     );
 
-    for (int i = 0;
-        i < jsonDecode(response.body)["data"].length && i < 10;
-        i++) {
+    final json = jsonDecode(response.body)["data"];
+
+    for (int i = 0; i < json.length && i < 10; i++) {
       setState(() {
         agenzie.add(
           CustomAgency.fromJson(
-            jsonDecode(response.body)["data"][i],
+            json[i],
           ),
         );
       });
@@ -282,6 +282,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
   bool isTrasportoSelected = false;
   bool isPuliziaSelected = false;
   bool isGestioneSelected = false;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -315,6 +316,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isManutenzioneSelected = value!;
+                    servizi['manutenzione'] = isManutenzioneSelected;
                   });
                 },
               ),
@@ -326,6 +328,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isTrasportoSelected = value!;
+                    servizi['trasporto'] = isTrasportoSelected;
                   });
                 },
               ),
@@ -337,6 +340,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isPuliziaSelected = value!;
+                    servizi['pulizia'] = isPuliziaSelected;
                   });
                 },
               ),
@@ -348,6 +352,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isGestioneSelected = value!;
+                    servizi['gestione'] = isGestioneSelected;
                   });
                 },
               ),
@@ -357,16 +362,55 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Pulisci",
-                  style: TextStyle(
-                    fontSize: 25,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isManutenzioneSelected = false;
+                      isTrasportoSelected = false;
+                      isPuliziaSelected = false;
+                      isGestioneSelected = false;
+                    });
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 150,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.red,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Pulisci",
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                Text(
-                  "Cerca",
-                  style: TextStyle(
-                    fontSize: 25,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 150,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: verdeAcquaMarina,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Cerca",
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],

@@ -402,7 +402,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         'Accept': 'application/json'
       };
       await http.post(
-        Uri.parse("http://192.168.1.100:1337/api/profiles"),
+        Uri.parse("$api/profiles"),
         headers: headers,
         body: jsonEncode(
           {
@@ -416,7 +416,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         ),
       );
       await http.post(
-        Uri.parse("http://192.168.1.100:1337/api/agiencies"),
+        Uri.parse("$api/agiencies"),
         headers: headers,
         body: jsonEncode(
           {

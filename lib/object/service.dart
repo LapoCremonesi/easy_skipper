@@ -1,3 +1,4 @@
+import 'package:easy_skipper/constant.dart';
 import 'package:flutter/material.dart';
 
 class Service extends StatelessWidget {
@@ -10,10 +11,16 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 20,
       width: 20,
-      child: Image.asset("image/$service.png"),
+      decoration: const BoxDecoration(
+        color: blueCobalto,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+      ),
+      child: Center(
+        child: iconMap[service],
+      ),
     );
   }
 }

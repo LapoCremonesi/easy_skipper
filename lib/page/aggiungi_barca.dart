@@ -542,7 +542,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       }
 
       await http.post(
-        Uri.parse("http://192.168.1.100:1337/api/barche"),
+        Uri.parse("$api/barche"),
         headers: headers,
         body: jsonEncode(
           {
@@ -561,7 +561,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://192.168.1.100:1337/api/upload'),
+        Uri.parse('$api/upload'),
       );
 
       var file = image;
@@ -587,7 +587,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       String nome = barcaVelaNome.text;
 
       await http.post(
-        Uri.parse("http://192.168.1.100:1337/api/barche"),
+        Uri.parse("$api/barche"),
         headers: headers,
         body: jsonEncode(
           {
