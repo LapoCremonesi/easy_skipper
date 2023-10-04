@@ -1,8 +1,19 @@
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:flutter/material.dart';
 
-class HomePageTileView extends StatelessWidget {
-  const HomePageTileView({super.key});
+class HomePageTileView extends StatefulWidget {
+  const HomePageTileView({
+    super.key,
+    required this.agency,
+  });
 
+  final CustomAgency agency;
+
+  @override
+  State<HomePageTileView> createState() => _HomePageTileViewState();
+}
+
+class _HomePageTileViewState extends State<HomePageTileView> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

@@ -35,14 +35,6 @@ class _UserPageState extends State<UserPage> {
     double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -67,6 +59,24 @@ class _UserPageState extends State<UserPage> {
                   height: 250,
                   width: width / 2.5,
                   color: Colors.green,
+                  child: Stack(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 10,
+                          left: 10,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   height: 250,
@@ -104,7 +114,7 @@ class _UserPageState extends State<UserPage> {
   Future<void> getData() async {
     final response = await http.get(
       Uri.parse(
-        'http://192.168.1.100:1337/api/barche?filters[UID][eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',
+        'http://192.168.1.100:1337/api/barche?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*',
       ),
     );
 

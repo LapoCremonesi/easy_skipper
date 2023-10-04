@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'package:easy_skipper/constant.dart';
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/page/azienda_page.dart';
 import 'package:easy_skipper/page/user_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/widget/homepage_box_view.dart';
+import 'package:easy_skipper/widget/homepage_long_box_view.dart';
 import 'package:easy_skipper/widget/homepage_tile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,15 +24,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late bool isListView = widget.userProfile.isListView;
+  late int j;
+  List<CustomAgency> agenzie = [];
+
+  final Map<String, bool> servizi = {
+    "manutenzione": false,
+    "trasporto": false,
+    "pulizia": false,
+    "gestione": false,
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     double statusBarHeight = MediaQuery.of(context).padding.top;
+    j = 0;
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: verdeAcquaMarina,
         toolbarHeight: 100,
         centerTitle: true,
         title: const Text("HomePage"),
@@ -52,8 +72,21 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            child: const CircleAvatar(
-              backgroundColor: Colors.red,
+            child: CircleAvatar(
+              backgroundColor: blueCobalto,
+              child: widget.userProfile.isAgency
+                  ? const Center(
+                      child: Icon(
+                        Icons.business_rounded,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Center(
+                      child: Icon(
+                        Icons.person_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
             ),
           ),
         ),
@@ -69,9 +102,20 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.all(10),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: GestureDetector(
+                  prefixIcon: GestureDetector(
                     onTap: () {},
                     child: const Icon(Icons.search),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const ShowFilterOptions();
+                        },
+                      );
+                    },
+                    child: const Icon(Icons.filter_alt),
                   ),
                   border: const OutlineInputBorder(),
                   hintText: "Search",
@@ -167,20 +211,167 @@ class _HomePageState extends State<HomePage> {
                     ((height - 100 - 60 - 20 - 30 - 10 - statusBarHeight) /
                         300),
                 child: ListView.builder(
-                  itemCount: 30,
+                  itemCount: isListView
+                      ? agenzie.length
+                      : agenzie.length % 2 == 0
+                          ? agenzie.length
+                          : (agenzie.length + 1) ~/ 2,
                   itemBuilder: (context, index) {
-                    return isListView
-                        ? const HomePageTileView()
-                        : const Row(
-                            children: [
-                              HomePageBoxView(),
-                              HomePageBoxView(),
-                            ],
-                          );
+                    j += 2;
+
+                    if (isListView) {
+                      return HomePageTileView(agency: agenzie[index]);
+                    } else {
+                      if (agenzie.length % 2 == 0) {
+                        return Row(
+                          children: [
+                            HomePageBoxView(agency: agenzie[j - 2]),
+                            HomePageBoxView(agency: agenzie[j - 1]),
+                          ],
+                        );
+                      } else {
+                        if (j - 1 == agenzie.length) {
+                          return HomePageLongBoxView(agency: agenzie[j - 2]);
+                        }
+                        return Row(
+                          children: [
+                            HomePageBoxView(agency: agenzie[j - 2]),
+                            HomePageBoxView(agency: agenzie[j - 1]),
+                          ],
+                        );
+                      }
+                    }
                   },
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future getData() async {
+    final response = await http.get(
+      Uri.parse("$api/agencies?populate=*"),
+    );
+
+    for (int i = 0;
+        i < jsonDecode(response.body)["data"].length && i < 10;
+        i++) {
+      setState(() {
+        agenzie.add(
+          CustomAgency.fromJson(
+            jsonDecode(response.body)["data"][i],
+          ),
+        );
+      });
+    }
+  }
+}
+
+class ShowFilterOptions extends StatefulWidget {
+  const ShowFilterOptions({super.key});
+
+  @override
+  State<ShowFilterOptions> createState() => _ShowFilterOptionsState();
+}
+
+class _ShowFilterOptionsState extends State<ShowFilterOptions> {
+  bool isManutenzioneSelected = false;
+  bool isTrasportoSelected = false;
+  bool isPuliziaSelected = false;
+  bool isGestioneSelected = false;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      backgroundColor: Colors.white,
+      child: Container(
+        height: 500,
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            const Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Serivizi",
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ListTile(
+              leading: Checkbox(
+                value: isManutenzioneSelected,
+                onChanged: (value) {
+                  setState(() {
+                    isManutenzioneSelected = value!;
+                  });
+                },
+              ),
+              title: const Text("Manutenzione"),
+            ),
+            ListTile(
+              leading: Checkbox(
+                value: isTrasportoSelected,
+                onChanged: (value) {
+                  setState(() {
+                    isTrasportoSelected = value!;
+                  });
+                },
+              ),
+              title: const Text("Trasporto"),
+            ),
+            ListTile(
+              leading: Checkbox(
+                value: isPuliziaSelected,
+                onChanged: (value) {
+                  setState(() {
+                    isPuliziaSelected = value!;
+                  });
+                },
+              ),
+              title: const Text("Pulizia"),
+            ),
+            ListTile(
+              leading: Checkbox(
+                value: isGestioneSelected,
+                onChanged: (value) {
+                  setState(() {
+                    isGestioneSelected = value!;
+                  });
+                },
+              ),
+              title: const Text("Gestione"),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Pulisci",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+                Text(
+                  "Cerca",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

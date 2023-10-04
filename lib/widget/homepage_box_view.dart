@@ -1,8 +1,19 @@
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:flutter/material.dart';
 
-class HomePageBoxView extends StatelessWidget {
-  const HomePageBoxView({super.key});
+class HomePageBoxView extends StatefulWidget {
+  const HomePageBoxView({
+    super.key,
+    required this.agency,
+  });
 
+  final CustomAgency agency;
+
+  @override
+  State<HomePageBoxView> createState() => _HomePageBoxViewState();
+}
+
+class _HomePageBoxViewState extends State<HomePageBoxView> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -31,7 +42,7 @@ class HomePageBoxView extends StatelessWidget {
             "Nome Azienda",
             style: TextStyle(fontSize: 25),
           ),
-          const Text("Via Azeinda"),
+          const Text("Via Azienda"),
         ],
       ),
     );
