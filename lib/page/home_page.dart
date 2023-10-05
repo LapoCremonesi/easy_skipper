@@ -5,8 +5,8 @@ import 'package:easy_skipper/page/azienda_page.dart';
 import 'package:easy_skipper/page/user_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/widget/homepage_box_view.dart';
-import 'package:easy_skipper/widget/homepage_long_box_view.dart';
 import 'package:easy_skipper/widget/homepage_tile_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,14 +16,24 @@ final Map<String, bool> servizi = {
   "pulizia": false,
   "gestione": false,
 };
+List<CustomAgency> agenzie = [];
+CustomAgency agency = CustomAgency(
+  indirizzo: "",
+  nome: "",
+  telefono: "",
+  UID: "",
+  servizi: [],
+);
 
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
     required this.userProfile,
+    required this.api,
   });
 
   final CustomProfile userProfile;
+  final String api;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -32,12 +42,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late bool isListView = widget.userProfile.isListView;
   late int j;
-  List<CustomAgency> agenzie = [];
 
   @override
   void initState() {
     super.initState();
-    getData();
+    getData(widget.api);
+    getAgency();
   }
 
   @override
@@ -48,11 +58,12 @@ class _HomePageState extends State<HomePage> {
     j = 0;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: verdeAcquaMarina,
         toolbarHeight: 100,
         centerTitle: true,
-        title: const Text("HomePage"),
+        title: const Text("Easy Skipper"),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(20),
@@ -67,7 +78,10 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => widget.userProfile.isAgency
-                      ? const AziendaPage()
+                      ? AziendaPage(
+                          userProfile: widget.userProfile,
+                          agency: agency,
+                        )
                       : UserPage(userProfile: widget.userProfile),
                 ),
               );
@@ -111,7 +125,8 @@ class _HomePageState extends State<HomePage> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return ShowFilterOptions();
+                          return ShowFilterOptions(
+                              userProfile: widget.userProfile);
                         },
                       );
                     },
@@ -220,23 +235,46 @@ class _HomePageState extends State<HomePage> {
                     j += 2;
 
                     if (isListView) {
-                      return HomePageTileView(agency: agenzie[index]);
+                      return HomePageTileView(
+                        agency: agenzie[index],
+                        userProfile: widget.userProfile,
+                      );
                     } else {
                       if (agenzie.length % 2 == 0) {
                         return Row(
                           children: [
-                            HomePageBoxView(agency: agenzie[j - 2]),
-                            HomePageBoxView(agency: agenzie[j - 1]),
+                            HomePageBoxView(
+                              agency: agenzie[j - 2],
+                              userProfile: widget.userProfile,
+                            ),
+                            HomePageBoxView(
+                              agency: agenzie[j - 1],
+                              userProfile: widget.userProfile,
+                            ),
                           ],
                         );
                       } else {
                         if (j - 1 == agenzie.length) {
-                          return HomePageLongBoxView(agency: agenzie[j - 2]);
+                          return Row(
+                            children: [
+                              HomePageBoxView(
+                                agency: agenzie[j - 2],
+                                userProfile: widget.userProfile,
+                              ),
+                              const SizedBox(),
+                            ],
+                          );
                         }
                         return Row(
                           children: [
-                            HomePageBoxView(agency: agenzie[j - 2]),
-                            HomePageBoxView(agency: agenzie[j - 1]),
+                            HomePageBoxView(
+                              agency: agenzie[j - 2],
+                              userProfile: widget.userProfile,
+                            ),
+                            HomePageBoxView(
+                              agency: agenzie[j - 1],
+                              userProfile: widget.userProfile,
+                            ),
                           ],
                         );
                       }
@@ -251,37 +289,71 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future getData() async {
+  Future getAgency() async {
     final response = await http.get(
-      Uri.parse("$api/agencies?populate=*"),
+      Uri.parse(
+        "$api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*",
+      ),
     );
+    setState(() {
+      agency = CustomAgency.fromJson(jsonDecode(response.body)["data"][0]);
+    });
+  }
 
-    final json = jsonDecode(response.body)["data"];
+  Future getData(String endPoint) async {
+    if (endPoint.isEmpty) {
+      final response = await http.get(
+        Uri.parse("$api/agencies?populate=*"),
+      );
 
-    for (int i = 0; i < json.length && i < 10; i++) {
-      setState(() {
-        agenzie.add(
-          CustomAgency.fromJson(
-            json[i],
-          ),
-        );
-      });
+      final json = jsonDecode(response.body)["data"];
+
+      for (int i = 0; i < json.length && i < 10; i++) {
+        setState(() {
+          agenzie.add(
+            CustomAgency.fromJson(
+              json[i],
+            ),
+          );
+        });
+      }
+    } else {
+      final response = await http.get(
+        Uri.parse("$api/agencies?${endPoint}populate=*"),
+      );
+
+      final json = jsonDecode(response.body)["data"];
+
+      for (int i = 0; i < json.length && i < 10; i++) {
+        setState(() {
+          agenzie.add(
+            CustomAgency.fromJson(
+              json[i],
+            ),
+          );
+        });
+      }
     }
   }
 }
 
 class ShowFilterOptions extends StatefulWidget {
-  const ShowFilterOptions({super.key});
+  const ShowFilterOptions({
+    super.key,
+    required this.userProfile,
+  });
+
+  final CustomProfile userProfile;
 
   @override
   State<ShowFilterOptions> createState() => _ShowFilterOptionsState();
 }
 
 class _ShowFilterOptionsState extends State<ShowFilterOptions> {
-  bool isManutenzioneSelected = false;
-  bool isTrasportoSelected = false;
-  bool isPuliziaSelected = false;
-  bool isGestioneSelected = false;
+  bool? isManutenzioneSelected = servizi["manutenzione"];
+  bool? isTrasportoSelected = servizi["trasporto"];
+  bool? isPuliziaSelected = servizi["pulizia"];
+  bool? isGestioneSelected = servizi["gestione"];
 
   @override
   Widget build(BuildContext context) {
@@ -316,7 +388,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isManutenzioneSelected = value!;
-                    servizi['manutenzione'] = isManutenzioneSelected;
+                    servizi['manutenzione'] = isManutenzioneSelected!;
                   });
                 },
               ),
@@ -328,7 +400,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isTrasportoSelected = value!;
-                    servizi['trasporto'] = isTrasportoSelected;
+                    servizi['trasporto'] = isTrasportoSelected!;
                   });
                 },
               ),
@@ -340,7 +412,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isPuliziaSelected = value!;
-                    servizi['pulizia'] = isPuliziaSelected;
+                    servizi['pulizia'] = isPuliziaSelected!;
                   });
                 },
               ),
@@ -352,7 +424,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                 onChanged: (value) {
                   setState(() {
                     isGestioneSelected = value!;
-                    servizi['gestione'] = isGestioneSelected;
+                    servizi['gestione'] = isGestioneSelected!;
                   });
                 },
               ),
@@ -369,11 +441,14 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                       isTrasportoSelected = false;
                       isPuliziaSelected = false;
                       isGestioneSelected = false;
+                      servizi.forEach((key, value) {
+                        servizi[key] = false;
+                      });
                     });
                   },
                   child: Container(
                     height: 60,
-                    width: 150,
+                    width: MediaQuery.of(context).size.width / 2 - 70,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
@@ -391,12 +466,28 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
+                  onTap: () async {
+                    agenzie = [];
+                    String endPoint = "";
+                    servizi.forEach((key, value) {
+                      if (value) {
+                        endPoint +=
+                            "filters[Servizi][servizio][\$contains]=$key&";
+                      }
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(
+                          userProfile: widget.userProfile,
+                          api: endPoint,
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     height: 60,
-                    width: 150,
+                    width: MediaQuery.of(context).size.width / 2 - 70,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),

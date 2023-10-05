@@ -1,3 +1,4 @@
+import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/barca.dart';
 import 'package:easy_skipper/page/visualizza_barca.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class CustomBarcaDisplay extends StatelessWidget {
         width: width,
         margin: const EdgeInsets.only(left: 10, right: 10),
         decoration: const BoxDecoration(
-          color: Colors.amber,
+          color: arancioneBoa,
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
@@ -39,7 +40,19 @@ class CustomBarcaDisplay extends StatelessWidget {
             Container(
               height: 100,
               width: 100,
-              color: Colors.black,
+              decoration: const BoxDecoration(
+                color: arancioneBoa,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.directions_boat_filled_rounded,
+                  color: Colors.white,
+                ),
+              ),
             ),
             Container(
               height: 100,

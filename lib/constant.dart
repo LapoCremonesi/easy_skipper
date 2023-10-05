@@ -8,27 +8,27 @@ const verdeAcquaMarina = Color(0xFF00A693);
 const blueCieloChiaro = Color(0xFF87CEEB);
 const arancioneBoa = Color(0xFFFFA500);
 
-const String api = "http://localhost:1337/api";
+const String api = "http://192.168.1.100:1337/api";
 
 Map<String, dynamic> iconMap = {
   "pulizia": const Icon(
     Icons.cleaning_services_rounded,
-    color: Colors.white,
+    color: Colors.black,
     size: 20,
   ),
   "manutenzione": const Icon(
     Ionicons.construct,
-    color: Colors.white,
+    color: Colors.black,
     size: 20,
   ),
   "gestione": const Icon(
     Icons.anchor_rounded,
-    color: Colors.white,
+    color: Colors.black,
     size: 20,
   ),
   "trasporto": SvgPicture.asset(
     'assets/images/trailer-solid.svg',
-    color: Colors.white,
+    color: Colors.black,
   ),
 };
 

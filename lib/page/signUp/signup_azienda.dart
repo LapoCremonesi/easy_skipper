@@ -55,328 +55,319 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: ListView.builder(
-        itemCount: 1,
-        itemBuilder: (context, _) {
-          return SizedBox(
-            height: height,
-            width: width,
-            child: Column(
+      body: SizedBox(
+        height: height,
+        width: width,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: TextField(
+                controller: nomeAzienda,
+                decoration: const InputDecoration(
+                  hintText: "Nome Azienda",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: TextField(
+                controller: indirizzoAzienda,
+                decoration: const InputDecoration(
+                  hintText: "Indirizzo",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: TextField(
+                controller: telefonoAzienda,
+                decoration: const InputDecoration(
+                  hintText: "Telefono",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: TextField(
+                controller: codiceFiscaleAzienda,
+                decoration: const InputDecoration(
+                  hintText: "Codice Fiscale",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 50),
+            const Text(
+              "Seleziona i servizi",
+              style: TextStyle(
+                fontSize: 25,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
               children: [
-                const SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: TextField(
-                    controller: nomeAzienda,
-                    decoration: const InputDecoration(
-                      hintText: "Nome Azienda",
-                      border: OutlineInputBorder(),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isManutenzioneSelected = !isManutenzioneSelected;
+                      if (isManutenzioneSelected) {
+                        servizi.add(
+                          {
+                            "servizio": "manutenzione",
+                          },
+                        );
+                      } else {
+                        servizi.remove(
+                          {
+                            "servizio": "manutenzione",
+                          },
+                        );
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 40,
+                    width: width / 2 - 15,
+                    margin: const EdgeInsets.only(
+                      left: 10,
+                      right: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isManutenzioneSelected
+                          ? blueCobalto
+                          : blueCieloChiaro,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Icon(isManutenzioneSelected
+                            ? Ionicons.checkmark_outline
+                            : Icons.add),
+                        const SizedBox(width: 5),
+                        const Text("Manutenzione"),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: TextField(
-                    controller: indirizzoAzienda,
-                    decoration: const InputDecoration(
-                      hintText: "Indirizzo",
-                      border: OutlineInputBorder(),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isTrasportoSelected = !isTrasportoSelected;
+                      if (isTrasportoSelected) {
+                        servizi.add(
+                          {
+                            "servizio": "trasporto",
+                          },
+                        );
+                      } else {
+                        servizi.remove(
+                          {
+                            "servizio": "trasporto",
+                          },
+                        );
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 40,
+                    width: width / 2 - 15,
+                    margin: const EdgeInsets.only(
+                      left: 5,
+                      right: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          isTrasportoSelected ? blueCobalto : blueCieloChiaro,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Icon(isTrasportoSelected
+                            ? Ionicons.checkmark_outline
+                            : Icons.add),
+                        const SizedBox(width: 5),
+                        const Text("Trasporto"),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: TextField(
-                    controller: telefonoAzienda,
-                    decoration: const InputDecoration(
-                      hintText: "Telefono",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: TextField(
-                    controller: codiceFiscaleAzienda,
-                    decoration: const InputDecoration(
-                      hintText: "Codice Fiscale",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 50),
-                const Text(
-                  "Seleziona i servizi",
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isManutenzioneSelected = !isManutenzioneSelected;
-                          if (isManutenzioneSelected) {
-                            servizi.add(
-                              {
-                                "servizio": "manutenzione",
-                              },
-                            );
-                          } else {
-                            servizi.remove(
-                              {
-                                "servizio": "manutenzione",
-                              },
-                            );
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: 40,
-                        width: width / 2 - 15,
-                        margin: const EdgeInsets.only(
-                          left: 10,
-                          right: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isManutenzioneSelected
-                              ? blueCobalto
-                              : blueCieloChiaro,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 10),
-                            Icon(isManutenzioneSelected
-                                ? Ionicons.checkmark_outline
-                                : Icons.add),
-                            const SizedBox(width: 5),
-                            const Text("Manutenzione"),
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isTrasportoSelected = !isTrasportoSelected;
-                          if (isTrasportoSelected) {
-                            servizi.add(
-                              {
-                                "servizio": "trasporto",
-                              },
-                            );
-                          } else {
-                            servizi.remove(
-                              {
-                                "servizio": "trasporto",
-                              },
-                            );
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: 40,
-                        width: width / 2 - 15,
-                        margin: const EdgeInsets.only(
-                          left: 5,
-                          right: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isTrasportoSelected
-                              ? blueCobalto
-                              : blueCieloChiaro,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 10),
-                            Icon(isTrasportoSelected
-                                ? Ionicons.checkmark_outline
-                                : Icons.add),
-                            const SizedBox(width: 5),
-                            const Text("Trasporto"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isPuliziaSelected = !isPuliziaSelected;
-                          if (isPuliziaSelected) {
-                            servizi.add(
-                              {
-                                "servizio": "pulizia",
-                              },
-                            );
-                          } else {
-                            servizi.remove(
-                              {
-                                "servizio": "pulizia",
-                              },
-                            );
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: 40,
-                        width: width / 2 - 15,
-                        margin: const EdgeInsets.only(
-                          left: 10,
-                          right: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color:
-                              isPuliziaSelected ? blueCobalto : blueCieloChiaro,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 10),
-                            Icon(isPuliziaSelected
-                                ? Ionicons.checkmark_outline
-                                : Icons.add),
-                            const SizedBox(width: 5),
-                            const Text("Pulizia"),
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isGestioneSelected = !isGestioneSelected;
-                          if (isGestioneSelected) {
-                            servizi.add(
-                              {
-                                "servizio": "gestione",
-                              },
-                            );
-                          } else {
-                            servizi.remove(
-                              {
-                                "servizio": "gestione",
-                              },
-                            );
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: 40,
-                        width: width / 2 - 15,
-                        margin: const EdgeInsets.only(
-                          left: 5,
-                          right: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isGestioneSelected
-                              ? blueCobalto
-                              : blueCieloChiaro,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 10),
-                            Icon(isGestioneSelected
-                                ? Ionicons.checkmark_outline
-                                : Icons.add),
-                            const SizedBox(width: 5),
-                            const Text("Gestione"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignUpPage(
-                                userProfile: widget.profile,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 50,
-                          width: width / 2 - 15,
-                          margin: const EdgeInsets.only(left: 10, right: 5),
-                          decoration: BoxDecoration(
-                            color: arancioneBoa,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.arrow_back_rounded),
-                              Text(
-                                "Back",
-                                style: TextStyle(
-                                  fontSize: 25,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => signUp(),
-                        child: Container(
-                          height: 50,
-                          width: width / 2 - 15,
-                          margin: const EdgeInsets.only(left: 5, right: 10),
-                          decoration: BoxDecoration(
-                            color: arancioneBoa,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Next",
-                                style: TextStyle(
-                                  fontSize: 25,
-                                ),
-                              ),
-                              Icon(Icons.arrow_forward_rounded),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
               ],
             ),
-          );
-        },
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isPuliziaSelected = !isPuliziaSelected;
+                      if (isPuliziaSelected) {
+                        servizi.add(
+                          {
+                            "servizio": "pulizia",
+                          },
+                        );
+                      } else {
+                        servizi.remove(
+                          {
+                            "servizio": "pulizia",
+                          },
+                        );
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 40,
+                    width: width / 2 - 15,
+                    margin: const EdgeInsets.only(
+                      left: 10,
+                      right: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isPuliziaSelected ? blueCobalto : blueCieloChiaro,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Icon(isPuliziaSelected
+                            ? Ionicons.checkmark_outline
+                            : Icons.add),
+                        const SizedBox(width: 5),
+                        const Text("Pulizia"),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isGestioneSelected = !isGestioneSelected;
+                      if (isGestioneSelected) {
+                        servizi.add(
+                          {
+                            "servizio": "gestione",
+                          },
+                        );
+                      } else {
+                        servizi.remove(
+                          {
+                            "servizio": "gestione",
+                          },
+                        );
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 40,
+                    width: width / 2 - 15,
+                    margin: const EdgeInsets.only(
+                      left: 5,
+                      right: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isGestioneSelected ? blueCobalto : blueCieloChiaro,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Icon(isGestioneSelected
+                            ? Ionicons.checkmark_outline
+                            : Icons.add),
+                        const SizedBox(width: 5),
+                        const Text("Gestione"),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Expanded(child: SizedBox()),
+            SizedBox(
+              height: 50,
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUpPage(
+                            userProfile: widget.profile,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      width: width / 2 - 15,
+                      margin: const EdgeInsets.only(left: 10, right: 5),
+                      decoration: BoxDecoration(
+                        color: arancioneBoa,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_back_rounded),
+                          Text(
+                            "Back",
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => signUp(),
+                    child: Container(
+                      height: 50,
+                      width: width / 2 - 15,
+                      margin: const EdgeInsets.only(left: 5, right: 10),
+                      decoration: BoxDecoration(
+                        color: arancioneBoa,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Next",
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward_rounded),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }
@@ -416,14 +407,14 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         ),
       );
       await http.post(
-        Uri.parse("$api/agiencies"),
+        Uri.parse("$api/agencies"),
         headers: headers,
         body: jsonEncode(
           {
             "data": {
               "indirizzo": indirizzoAzienda.text,
               "nome": nomeAzienda.text,
-              "telefono": telefonoAzienda,
+              "telefono": telefonoAzienda.text,
               "codice_fiscale": codiceFiscaleAzienda.text,
               "UID": FirebaseAuth.instance.currentUser?.uid,
               "Servizi": servizi,
@@ -434,7 +425,10 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(userProfile: widget.profile),
+          builder: (context) => HomePage(
+            userProfile: widget.profile,
+            api: "",
+          ),
         ),
       );
     } else {

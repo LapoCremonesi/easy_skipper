@@ -14,6 +14,7 @@ class CustomProfile {
   late bool isListView;
 
   factory CustomProfile.fromJson(Map<String, dynamic> json) {
+    print(json);
     return CustomProfile(
       username: json["data"][0]["attributes"]["username"],
       UID: json["data"][0]["attributes"]["UID"],

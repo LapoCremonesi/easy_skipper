@@ -323,6 +323,7 @@ class _LogInPageState extends State<LogInPage> {
         MaterialPageRoute(
           builder: (context) => HomePage(
             userProfile: userProfile,
+            api: "",
           ),
         ),
       );

@@ -28,19 +28,9 @@ class _ChooseRoleSignUpPageState extends State<ChooseRoleSignUpPage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: height,
         width: width,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              blueCobalto,
-              blueCieloChiaro,
-            ],
-          ),
-        ),
         child: Column(
           children: [
             const Spacer(),

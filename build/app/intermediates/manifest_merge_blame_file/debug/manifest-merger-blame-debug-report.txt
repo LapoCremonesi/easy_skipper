@@ -35,8 +35,8 @@
 26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 26-->[androidx.core:core:1.10.1] C:\Users\guerc\.gradle\caches\transforms-3\17c44a9ee9728471e88635da67cac57c\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 27        android:debuggable="true"
-28        android:icon="@mipmap/ic_launcher"
-29        android:label="easy_skipper" >
+28        android:icon="@mipmap/launcher_icon"
+29        android:label="Easy Skipper" >
 30        <activity
 31            android:name="com.example.easy_skipper.MainActivity"
 32            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

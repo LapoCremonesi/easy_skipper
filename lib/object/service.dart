@@ -5,17 +5,21 @@ class Service extends StatelessWidget {
   const Service({
     super.key,
     required this.service,
+    required this.height,
+    required this.width,
   });
 
   final String service;
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
-      width: 20,
+      height: height,
+      width: width,
       decoration: const BoxDecoration(
-        color: blueCobalto,
+        color: arancioneBoa,
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: Center(

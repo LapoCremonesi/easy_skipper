@@ -49,6 +49,7 @@ class _UserSignUpState extends State<UserSignUp> {
     double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text(
           "Inserisci i dati per completare la registrazione",
@@ -90,7 +91,7 @@ class _UserSignUpState extends State<UserSignUp> {
             title: const Text("Vela"),
           ),
           SizedBox(
-            height: height - statusBarHeight - 10 - 50 - 56 - 112,
+            height: height - statusBarHeight - 10 - 50 - 56 - 112 - 10,
             child: ListView.builder(
               itemCount: 1,
               itemBuilder: (context, _) {
@@ -406,6 +407,7 @@ class _UserSignUpState extends State<UserSignUp> {
               ],
             ),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -502,6 +504,7 @@ class _UserSignUpState extends State<UserSignUp> {
           MaterialPageRoute(
             builder: (context) => HomePage(
               userProfile: widget.userProfile,
+              api: "",
             ),
           ),
         );
@@ -537,6 +540,7 @@ class _UserSignUpState extends State<UserSignUp> {
           MaterialPageRoute(
             builder: (context) => HomePage(
               userProfile: widget.userProfile,
+              api: "",
             ),
           ),
         );

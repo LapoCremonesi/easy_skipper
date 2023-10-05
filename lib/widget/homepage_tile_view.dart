@@ -1,14 +1,19 @@
+import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
+import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/object/service.dart';
+import 'package:easy_skipper/page/azienda_info.dart';
 import 'package:flutter/material.dart';
 
 class HomePageTileView extends StatefulWidget {
   const HomePageTileView({
     super.key,
     required this.agency,
+    required this.userProfile,
   });
 
   final CustomAgency agency;
+  final CustomProfile userProfile;
 
   @override
   State<HomePageTileView> createState() => _HomePageTileViewState();
@@ -19,72 +24,96 @@ class _HomePageTileViewState extends State<HomePageTileView> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    return Container(
-      height: 90,
-      width: width,
-      margin: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 20),
-      child: Row(
-        children: [
-          Container(
-            height: 90,
-            width: width / 4 - 10,
-            decoration: const BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AziendaInfo(
+              userProfile: widget.userProfile, agency: widget.agency),
+        ),
+      ),
+      child: Container(
+        height: 90,
+        width: width,
+        margin: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 20),
+        child: Row(
+          children: [
+            Container(
+              height: 90,
+              width: width / 4 - 10,
+              decoration: const BoxDecoration(
+                color: bluOceanoProfondo,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.business_rounded,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
             ),
-          ),
-          Container(
-            height: 90,
-            width: width - width / 4 - width / 5,
-            decoration: const BoxDecoration(
-              color: Colors.green,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 10, top: 5),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.agency.nome,
-                      style: const TextStyle(fontSize: 25),
+            Container(
+              height: 90,
+              width: width - width / 4 - 10,
+              decoration: const BoxDecoration(
+                color: bluOceanoProfondo,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 10, top: 5),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.agency.nome,
+                        style: const TextStyle(fontSize: 25),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.agency.indirizzo,
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.agency.indirizzo,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: 90,
-            width: width / 5 - 10,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: 25,
+                      width: 30.0 * widget.agency.servizi.length,
+                      margin: const EdgeInsets.only(left: 10),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: widget.agency.servizi.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.only(right: 5),
+                            child: Service(
+                              service: widget.agency.servizi[index]["servizio"],
+                              height: 25,
+                              width: 25,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: Column(
-              children: [
-                widget.agency.servizi.forEach(
-                  (element) => Service(service: element['servizio']),
-                )
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

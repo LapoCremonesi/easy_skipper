@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Noto'),
       debugShowCheckedModeBanner: false,
       home: isUserRegistered
-          ? HomePage(userProfile: userProfile)
+          ? HomePage(userProfile: userProfile, api: "")
           : SignUpPage(userProfile: userProfile),
     );
   }

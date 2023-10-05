@@ -59,12 +59,12 @@ class _UserPageState extends State<UserPage> {
                 Container(
                   height: 250,
                   width: width / 2.5,
-                  color: Colors.green,
+                  color: bluOceanoProfondo,
                   child: Stack(
                     children: [
                       Container(
                         margin: const EdgeInsets.only(
-                          top: 10,
+                          top: 40,
                           left: 10,
                         ),
                         child: IconButton(
@@ -76,15 +76,27 @@ class _UserPageState extends State<UserPage> {
                           ),
                         ),
                       ),
+                      const Center(
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 70,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 Container(
                   height: 250,
                   width: width - width / 2.5,
-                  color: Colors.yellow,
+                  color: bluOceanoProfondo,
                   child: Center(
-                    child: Text(widget.userProfile.username),
+                    child: Text(
+                      widget.userProfile.username,
+                      style: const TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
                   ),
                 ),
               ],
