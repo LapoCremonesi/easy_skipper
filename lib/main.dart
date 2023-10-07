@@ -6,18 +6,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_skipper/page/home_page.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemStatusBarContrastEnforced: true,
-    ),
-  );
   WidgetsFlutterBinding.ensureInitialized();
+
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -43,7 +37,7 @@ Future main() async {
   if (isUserRegistered) {
     final response = await http.get(
       Uri.parse(
-        '$api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
+        '$api/profiles?filters[UID][eq]=${FirebaseAuth.instance.currentUser?.uid}',
       ),
     );
     userProfile = CustomProfile.fromJson(jsonDecode(response.body));

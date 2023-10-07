@@ -23,6 +23,8 @@ class _AziendaInfoState extends State<AziendaInfo> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       body: SizedBox(
         height: height,
@@ -32,14 +34,28 @@ class _AziendaInfoState extends State<AziendaInfo> {
             Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 250 + statusBarHeight,
                   width: width,
                   color: bluOceanoProfondo,
                   child: Stack(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(
-                          top: 10,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              'http://192.168.1.36:1337${widget.agency.mediumImage}',
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: arancioneBoa,
+                          shape: BoxShape.circle,
+                        ),
+                        margin: EdgeInsets.only(
+                          top: statusBarHeight,
                           left: 10,
                         ),
                         child: IconButton(
@@ -49,13 +65,6 @@ class _AziendaInfoState extends State<AziendaInfo> {
                           icon: const Icon(
                             Icons.arrow_back_ios_new_outlined,
                           ),
-                        ),
-                      ),
-                      const Center(
-                        child: Icon(
-                          Icons.business_rounded,
-                          size: 50,
-                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -116,6 +125,8 @@ class _AziendaInfoState extends State<AziendaInfo> {
                       service: widget.agency.servizi[index]["servizio"],
                       height: 60,
                       width: 60,
+                      size: 30,
+                      padding: 10,
                     ),
                   );
                 },

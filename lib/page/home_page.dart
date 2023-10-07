@@ -22,6 +22,8 @@ CustomAgency agency = CustomAgency(
   nome: "",
   telefono: "",
   UID: "",
+  thumbnailImage: '',
+  mediumImage: '',
   servizi: [],
 );
 
@@ -126,7 +128,8 @@ class _HomePageState extends State<HomePage> {
                         context: context,
                         builder: (context) {
                           return ShowFilterOptions(
-                              userProfile: widget.userProfile);
+                            userProfile: widget.userProfile,
+                          );
                         },
                       );
                     },
@@ -166,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                     width: 50,
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
-                      color: isListView ? Colors.red : Colors.grey,
+                      color: isListView ? verdeAcquaMarina : Colors.grey,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
@@ -204,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                     height: 30,
                     width: 50,
                     decoration: BoxDecoration(
-                      color: !isListView ? Colors.red : Colors.grey,
+                      color: !isListView ? verdeAcquaMarina : Colors.grey,
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -475,6 +478,7 @@ class _ShowFilterOptionsState extends State<ShowFilterOptions> {
                             "filters[Servizi][servizio][\$contains]=$key&";
                       }
                     });
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -63,17 +63,23 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 150,
         centerTitle: true,
         title: const Text(
           "Sign Up",
-          style: TextStyle(color: Colors.black, fontSize: 30),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+          ),
         ),
-        backgroundColor: Colors.white,
         elevation: 0,
+        backgroundColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(20),
@@ -81,198 +87,224 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 10),
-          CustomTextField(
-            height: 50,
-            width: width,
-            labelText: "UserName",
-            textInputType: TextInputType.name,
-            leftMargin: 20,
-            rightMargin: 10,
-            controller: usernameFieldController,
-            textFieldIcon: const Icon(Icons.person_rounded),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background_login.png"),
+            fit: BoxFit.fill,
           ),
-          const SizedBox(height: 15),
-          CustomTextField(
-            height: 50,
-            width: width,
-            labelText: "Email",
-            textInputType: TextInputType.emailAddress,
-            controller: emailFieldController,
-            hintText: "example@domain.com",
-            leftMargin: 20,
-            rightMargin: 10,
-            textFieldIcon: const Icon(Icons.email),
-          ),
-          const SizedBox(height: 15),
-          Row(
-            children: [
-              Container(
-                height: 50,
-                width: width - 80,
-                margin: const EdgeInsets.only(left: 20),
-                child: TextField(
-                  focusNode: passwordFocusNode,
-                  obscureText: !isPasswordVisible,
-                  controller: passwordFieldController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: const InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                    icon: Icon(Icons.lock),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
-              ),
-              Container(
-                height: 50,
-                width: 50,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isPasswordVisible = !isPasswordVisible;
-                    });
-                  },
-                  icon: isPasswordVisible
-                      ? const Icon(Icons.visibility)
-                      : const Icon(Icons.visibility_off),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 5),
-          showPasswordRequierement
-              ? Container(
-                  width: width,
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: FlutterPwValidator(
-                    controller: passwordFieldController,
-                    width: width - 20,
-                    height: 120,
-                    minLength: 8,
-                    uppercaseCharCount: 1,
-                    specialCharCount: 1,
-                    onSuccess: () {
-                      setState(() {
-                        isPasswordCorrect = true;
-                      });
-                    },
-                    onFail: () {
-                      setState(() {
-                        isPasswordCorrect = false;
-                      });
-                    },
-                  ),
-                )
-              : Container(),
-          const SizedBox(height: 15),
-          Row(
-            children: [
-              CustomTextField(
-                height: 50,
-                width: width - 80,
-                labelText: "Confirm Password",
-                textInputType: TextInputType.visiblePassword,
-                controller: confirmPasswordFieldController,
-                obscureText: !isConfirmPasswordVisible,
-                textFieldIcon: const Icon(Icons.lock),
-                leftMargin: 20,
-              ),
-              Container(
-                height: 50,
-                width: 50,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isConfirmPasswordVisible = !isConfirmPasswordVisible;
-                    });
-                  },
-                  icon: isConfirmPasswordVisible
-                      ? const Icon(Icons.visibility)
-                      : const Icon(Icons.visibility_off),
-                ),
-              )
-            ],
-          ),
-          const Spacer(),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Column(
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 10,
+              margin: EdgeInsets.only(top: statusBarHeight + 150),
+            ),
+            CustomTextField(
+              height: 50,
+              width: width,
+              labelText: "UserName",
+              textInputType: TextInputType.name,
+              leftMargin: 20,
+              rightMargin: 10,
+              controller: usernameFieldController,
+              textFieldIcon: const Icon(Icons.person_rounded),
+            ),
+            const SizedBox(height: 15),
+            CustomTextField(
+              height: 50,
+              width: width,
+              labelText: "Email",
+              textInputType: TextInputType.emailAddress,
+              controller: emailFieldController,
+              hintText: "example@domain.com",
+              leftMargin: 20,
+              rightMargin: 10,
+              textFieldIcon: const Icon(Icons.email),
+            ),
+            const SizedBox(height: 15),
+            Row(
               children: [
                 Container(
                   height: 50,
-                  width: width,
+                  width: width - 80,
+                  margin: const EdgeInsets.only(left: 20),
+                  child: TextField(
+                    focusNode: passwordFocusNode,
+                    obscureText: !isPasswordVisible,
+                    controller: passwordFieldController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                      border: OutlineInputBorder(),
+                      icon: Icon(Icons.lock),
+                      filled: true,
+                      fillColor: Colors.white,
+                      iconColor: Colors.white,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: 50,
+                  margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
-                    color: arancioneBoa,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
                   ),
-                  margin: const EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    bottom: 15,
-                  ),
-                  child: TextButton(
+                  child: IconButton(
                     onPressed: () {
-                      signUp();
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
                     },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Next",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Icon(
-                          Icons.arrow_forward_rounded,
-                          color: Colors.black,
-                        )
-                      ],
-                    ),
+                    icon: isPasswordVisible
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LogInPage(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Already have an account: Log In",
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
-          )
-        ],
+            const SizedBox(height: 5),
+            showPasswordRequierement
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      width: width - 70,
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        color: Color.fromARGB(128, 255, 255, 255),
+                      ),
+                      child: FlutterPwValidator(
+                        defaultColor: Colors.black,
+                        controller: passwordFieldController,
+                        width: width - 70,
+                        height: 120,
+                        minLength: 8,
+                        uppercaseCharCount: 1,
+                        specialCharCount: 1,
+                        onSuccess: () {
+                          setState(() {
+                            isPasswordCorrect = true;
+                          });
+                        },
+                        onFail: () {
+                          setState(() {
+                            isPasswordCorrect = false;
+                          });
+                        },
+                      ),
+                    ),
+                  )
+                : Container(),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                CustomTextField(
+                  height: 50,
+                  width: width - 80,
+                  labelText: "Confirm Password",
+                  textInputType: TextInputType.visiblePassword,
+                  controller: confirmPasswordFieldController,
+                  obscureText: !isConfirmPasswordVisible,
+                  textFieldIcon: const Icon(Icons.lock),
+                  leftMargin: 20,
+                ),
+                Container(
+                  height: 50,
+                  width: 50,
+                  margin: const EdgeInsets.only(right: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                      });
+                    },
+                    icon: isConfirmPasswordVisible
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: Column(
+                children: [
+                  Container(
+                    height: 50,
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: arancioneBoa,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    margin: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      bottom: 15,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        signUp();
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Next",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 5),
+                          Icon(
+                            Icons.arrow_forward_rounded,
+                            color: Colors.black,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LogInPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Already have an account: Log In",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

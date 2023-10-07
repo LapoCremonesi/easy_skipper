@@ -7,10 +7,14 @@ class Service extends StatelessWidget {
     required this.service,
     required this.height,
     required this.width,
+    required this.size,
+    required this.padding,
   });
 
   final String service;
   final double height;
+  final double size;
+  final double padding;
   final double width;
 
   @override
@@ -18,12 +22,18 @@ class Service extends StatelessWidget {
     return Container(
       height: height,
       width: width,
+      padding: service == 'trasporto' ? EdgeInsets.all(padding) : null,
       decoration: const BoxDecoration(
         color: arancioneBoa,
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: Center(
-        child: iconMap[service],
+        child: service == 'trasporto'
+            ? iconMap[service]
+            : Icon(
+                iconMap[service],
+                size: size,
+              ),
       ),
     );
   }

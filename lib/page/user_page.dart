@@ -57,14 +57,18 @@ class _UserPageState extends State<UserPage> {
             Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 250 + statusBarHeight,
                   width: width / 2.5,
                   color: bluOceanoProfondo,
                   child: Stack(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(
-                          top: 40,
+                        decoration: const BoxDecoration(
+                          color: arancioneBoa,
+                          shape: BoxShape.circle,
+                        ),
+                        margin: EdgeInsets.only(
+                          top: statusBarHeight,
                           left: 10,
                         ),
                         child: IconButton(
@@ -87,7 +91,7 @@ class _UserPageState extends State<UserPage> {
                   ),
                 ),
                 Container(
-                  height: 250,
+                  height: 250 + statusBarHeight,
                   width: width - width / 2.5,
                   color: bluOceanoProfondo,
                   child: Center(

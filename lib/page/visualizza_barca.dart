@@ -19,6 +19,8 @@ class _VisualizzaBarcaState extends State<VisualizzaBarca> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       body: SizedBox(
         height: height,
@@ -28,15 +30,27 @@ class _VisualizzaBarcaState extends State<VisualizzaBarca> {
             Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 250 + statusBarHeight,
                   width: width,
-                  color: bluOceanoProfondo,
+                  decoration: BoxDecoration(
+                    color: bluOceanoProfondo,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'http://192.168.1.36:1337${widget.barcheInfo.smallImage}',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   child: Stack(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(
-                          top: 10,
+                        margin: EdgeInsets.only(
+                          top: statusBarHeight,
                           left: 10,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: arancioneBoa,
+                          shape: BoxShape.circle,
                         ),
                         child: IconButton(
                           onPressed: () {
@@ -45,13 +59,6 @@ class _VisualizzaBarcaState extends State<VisualizzaBarca> {
                           icon: const Icon(
                             Icons.arrow_back_ios_new_outlined,
                           ),
-                        ),
-                      ),
-                      const Center(
-                        child: Icon(
-                          Icons.business_rounded,
-                          size: 50,
-                          color: Colors.white,
                         ),
                       ),
                     ],

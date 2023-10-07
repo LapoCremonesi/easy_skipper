@@ -29,7 +29,9 @@ class _HomePageBoxViewState extends State<HomePageBoxView> {
         context,
         MaterialPageRoute(
           builder: (context) => AziendaInfo(
-              userProfile: widget.userProfile, agency: widget.agency),
+            userProfile: widget.userProfile,
+            agency: widget.agency,
+          ),
         ),
       ),
       child: Container(
@@ -44,18 +46,17 @@ class _HomePageBoxViewState extends State<HomePageBoxView> {
           children: [
             Container(
               height: 180,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: bluOceanoProfondo,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.business_rounded,
-                  size: 70,
-                  color: Colors.white,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'http://192.168.1.36:1337${widget.agency.mediumImage}',
+                  ),
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -79,6 +80,8 @@ class _HomePageBoxViewState extends State<HomePageBoxView> {
                       service: widget.agency.servizi[index]["servizio"],
                       height: 25,
                       width: 25,
+                      size: 20,
+                      padding: 3,
                     ),
                   );
                 },

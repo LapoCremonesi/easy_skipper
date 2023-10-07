@@ -4,6 +4,8 @@ class CustomAgency {
     required this.nome,
     required this.telefono,
     required this.UID,
+    required this.mediumImage,
+    required this.thumbnailImage,
     required this.servizi,
   });
 
@@ -11,6 +13,8 @@ class CustomAgency {
   late String nome;
   late String telefono;
   late String UID;
+  late String thumbnailImage;
+  late String mediumImage;
   late List servizi;
 
   factory CustomAgency.fromJson(Map<String, dynamic> json) {
@@ -19,6 +23,10 @@ class CustomAgency {
       nome: json["attributes"]["nome"],
       telefono: json["attributes"]["telefono"],
       UID: json["attributes"]["UID"],
+      thumbnailImage: json["attributes"]['image']['data']['attributes']
+          ['formats']['thumbnail']['url'],
+      mediumImage: json["attributes"]['image']['data']['attributes']['formats']
+          ['medium']['url'],
       servizi: json["attributes"]['Servizi'],
     );
   }

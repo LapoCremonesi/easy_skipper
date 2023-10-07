@@ -133,6 +133,8 @@ class _AziendaPageState extends State<AziendaPage> {
                       service: widget.agency.servizi[index]["servizio"],
                       height: 60,
                       width: 60,
+                      size: 30,
+                      padding: 10,
                     ),
                   );
                 },

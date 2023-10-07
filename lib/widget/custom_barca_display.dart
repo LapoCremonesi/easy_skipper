@@ -40,17 +40,17 @@ class CustomBarcaDisplay extends StatelessWidget {
             Container(
               height: 100,
               width: 100,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: arancioneBoa,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
                 ),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.directions_boat_filled_rounded,
-                  color: Colors.white,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'http://192.168.1.36:1337${barcaInfo.thumbnail}',
+                  ),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

@@ -41,18 +41,17 @@ class _HomePageTileViewState extends State<HomePageTileView> {
             Container(
               height: 90,
               width: width / 4 - 10,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: bluOceanoProfondo,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20),
                 ),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.business_rounded,
-                  color: Colors.white,
-                  size: 30,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'http://192.168.1.36:1337${widget.agency.thumbnailImage}',
+                  ),
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -68,25 +67,30 @@ class _HomePageTileViewState extends State<HomePageTileView> {
               ),
               child: Column(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, top: 5),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.agency.nome,
-                        style: const TextStyle(fontSize: 25),
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, top: 5),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            widget.agency.nome,
+                            style: const TextStyle(fontSize: 25),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.agency.indirizzo,
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, top: 7),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            widget.agency.indirizzo,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
+                  const Spacer(),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
@@ -103,12 +107,15 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                               service: widget.agency.servizi[index]["servizio"],
                               height: 25,
                               width: 25,
+                              size: 20,
+                              padding: 3,
                             ),
                           );
                         },
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
