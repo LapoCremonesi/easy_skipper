@@ -54,7 +54,7 @@ class _HomePageBoxViewState extends State<HomePageBoxView> {
                 ),
                 image: DecorationImage(
                   image: NetworkImage(
-                    'http://192.168.1.36:1337${widget.agency.mediumImage}',
+                    'http://192.168.1.100:1337${widget.agency.mediumImage}',
                   ),
                   fit: BoxFit.fill,
                 ),

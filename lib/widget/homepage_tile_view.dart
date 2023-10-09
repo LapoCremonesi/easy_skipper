@@ -49,7 +49,7 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                 ),
                 image: DecorationImage(
                   image: NetworkImage(
-                    'http://192.168.1.36:1337${widget.agency.thumbnailImage}',
+                    'http://192.168.1.100:1337${widget.agency.thumbnailImage}',
                   ),
                   fit: BoxFit.fill,
                 ),

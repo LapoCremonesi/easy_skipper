@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
-import 'package:easy_skipper/page/azienda_page.dart';
-import 'package:easy_skipper/page/user_page.dart';
+import 'package:easy_skipper/object/service.dart';
+import 'package:easy_skipper/page/agency_dialog.dart';
+import 'package:easy_skipper/page/user_dialog.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/widget/homepage_box_view.dart';
 import 'package:easy_skipper/widget/homepage_tile_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:easy_skipper/page/azienda_page.dart';
+import 'package:easy_skipper/page/user_page.dart';
 
 final Map<String, bool> servizi = {
   "manutenzione": false,
@@ -76,16 +79,13 @@ class _HomePageState extends State<HomePage> {
           margin: const EdgeInsets.only(left: 10),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => widget.userProfile.isAgency
-                      ? AziendaPage(
-                          userProfile: widget.userProfile,
-                          agency: agency,
-                        )
-                      : UserPage(userProfile: widget.userProfile),
-                ),
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return widget.userProfile.isAgency
+                      ? const AgencyDialog()
+                      : const UserDialog();
+                },
               );
             },
             child: CircleAvatar(
@@ -122,19 +122,6 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {},
                     child: const Icon(Icons.search),
                   ),
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return ShowFilterOptions(
-                            userProfile: widget.userProfile,
-                          );
-                        },
-                      );
-                    },
-                    child: const Icon(Icons.filter_alt),
-                  ),
                   border: const OutlineInputBorder(),
                   hintText: "Search",
                 ),
@@ -142,91 +129,92 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               children: [
-                const Spacer(),
-                GestureDetector(
-                  onTap: () async {
-                    setState(() {
-                      isListView = true;
-                    });
-                    await http.put(
-                      Uri.parse(
-                        "$api/profiles/${widget.userProfile.id}",
-                      ),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: jsonEncode(
-                        {
-                          "data": {
-                            "isListView": isListView,
-                          },
+                SizedBox(
+                  height: 50,
+                  width: width - 50 - (width - 250) / 10,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: servizi.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () async {
+                          final response = await http.get(
+                            Uri.parse(
+                              "$api/agencies?filters[Servizi][servizio][\$contains]=${servizi.keys.elementAt(index)}&populate=*",
+                            ),
+                          );
+
+                          agenzie = [];
+                          final json = jsonDecode(response.body)["data"];
+
+                          for (int i = 0; i < json.length && i < 10; i++) {
+                            setState(() {
+                              agenzie.add(
+                                CustomAgency.fromJson(
+                                  json[i],
+                                ),
+                              );
+                            });
+                          }
                         },
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 50,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: isListView ? verdeAcquaMarina : Colors.grey,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.view_list_rounded,
-                      ),
-                    ),
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            left: (width - 250) / 10,
+                            right: (width - 250) / 10,
+                          ),
+                          child: Service(
+                            service: servizi.keys.elementAt(index),
+                            height: 50,
+                            width: 50,
+                            size: 30,
+                            padding: 10,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 GestureDetector(
                   onTap: () async {
-                    setState(() {
-                      isListView = false;
-                    });
-                    await http.put(
-                      Uri.parse(
-                        "$api/profiles/${widget.userProfile.id}",
-                      ),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: jsonEncode(
-                        {
-                          "data": {
-                            "isListView": isListView,
-                          },
-                        },
-                      ),
+                    final response = await http.get(
+                      Uri.parse("$api/agencies?populate=*"),
                     );
+
+                    agenzie = [];
+                    final json = jsonDecode(response.body)["data"];
+
+                    for (int i = 0; i < json.length && i < 10; i++) {
+                      setState(() {
+                        agenzie.add(
+                          CustomAgency.fromJson(
+                            json[i],
+                          ),
+                        );
+                      });
+                    }
                   },
                   child: Container(
-                    height: 30,
+                    height: 50,
                     width: 50,
-                    decoration: BoxDecoration(
-                      color: !isListView ? verdeAcquaMarina : Colors.grey,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
+                    margin: EdgeInsets.only(right: (width - 250) / 10),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
-                    margin: const EdgeInsets.only(right: 10, bottom: 10),
                     child: const Center(
                       child: Icon(
-                        Icons.grid_3x3_rounded,
+                        Icons.close,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 10),
             SingleChildScrollView(
               child: SizedBox(
                 height: 300 *
-                    ((height - 100 - 60 - 20 - 30 - 10 - statusBarHeight) /
+                    ((height - 100 - 60 - 20 - 30 - 50 - 10 - statusBarHeight) /
                         300),
                 child: ListView.builder(
                   itemCount: isListView
@@ -304,216 +292,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future getData(String endPoint) async {
-    if (endPoint.isEmpty) {
-      final response = await http.get(
-        Uri.parse("$api/agencies?populate=*"),
-      );
-
-      final json = jsonDecode(response.body)["data"];
-
-      for (int i = 0; i < json.length && i < 10; i++) {
-        setState(() {
-          agenzie.add(
-            CustomAgency.fromJson(
-              json[i],
-            ),
-          );
-        });
-      }
-    } else {
-      final response = await http.get(
-        Uri.parse("$api/agencies?${endPoint}populate=*"),
-      );
-
-      final json = jsonDecode(response.body)["data"];
-
-      for (int i = 0; i < json.length && i < 10; i++) {
-        setState(() {
-          agenzie.add(
-            CustomAgency.fromJson(
-              json[i],
-            ),
-          );
-        });
-      }
-    }
-  }
-}
-
-class ShowFilterOptions extends StatefulWidget {
-  const ShowFilterOptions({
-    super.key,
-    required this.userProfile,
-  });
-
-  final CustomProfile userProfile;
-
-  @override
-  State<ShowFilterOptions> createState() => _ShowFilterOptionsState();
-}
-
-class _ShowFilterOptionsState extends State<ShowFilterOptions> {
-  bool? isManutenzioneSelected = servizi["manutenzione"];
-  bool? isTrasportoSelected = servizi["trasporto"];
-  bool? isPuliziaSelected = servizi["pulizia"];
-  bool? isGestioneSelected = servizi["gestione"];
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      backgroundColor: Colors.white,
-      child: Container(
-        height: 500,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            const Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Serivizi",
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              leading: Checkbox(
-                value: isManutenzioneSelected,
-                onChanged: (value) {
-                  setState(() {
-                    isManutenzioneSelected = value!;
-                    servizi['manutenzione'] = isManutenzioneSelected!;
-                  });
-                },
-              ),
-              title: const Text("Manutenzione"),
-            ),
-            ListTile(
-              leading: Checkbox(
-                value: isTrasportoSelected,
-                onChanged: (value) {
-                  setState(() {
-                    isTrasportoSelected = value!;
-                    servizi['trasporto'] = isTrasportoSelected!;
-                  });
-                },
-              ),
-              title: const Text("Trasporto"),
-            ),
-            ListTile(
-              leading: Checkbox(
-                value: isPuliziaSelected,
-                onChanged: (value) {
-                  setState(() {
-                    isPuliziaSelected = value!;
-                    servizi['pulizia'] = isPuliziaSelected!;
-                  });
-                },
-              ),
-              title: const Text("Pulizia"),
-            ),
-            ListTile(
-              leading: Checkbox(
-                value: isGestioneSelected,
-                onChanged: (value) {
-                  setState(() {
-                    isGestioneSelected = value!;
-                    servizi['gestione'] = isGestioneSelected!;
-                  });
-                },
-              ),
-              title: const Text("Gestione"),
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isManutenzioneSelected = false;
-                      isTrasportoSelected = false;
-                      isPuliziaSelected = false;
-                      isGestioneSelected = false;
-                      servizi.forEach((key, value) {
-                        servizi[key] = false;
-                      });
-                    });
-                  },
-                  child: Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width / 2 - 70,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: Colors.red,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Pulisci",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    agenzie = [];
-                    String endPoint = "";
-                    servizi.forEach((key, value) {
-                      if (value) {
-                        endPoint +=
-                            "filters[Servizi][servizio][\$contains]=$key&";
-                      }
-                    });
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(
-                          userProfile: widget.userProfile,
-                          api: endPoint,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width / 2 - 70,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: verdeAcquaMarina,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Cerca",
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+    final response = await http.get(
+      Uri.parse("$api/agencies?${endPoint}populate=*"),
     );
+
+    final json = jsonDecode(response.body)["data"];
+
+    for (int i = 0; i < json.length && i < 10; i++) {
+      setState(() {
+        agenzie.add(
+          CustomAgency.fromJson(
+            json[i],
+          ),
+        );
+      });
+    }
   }
 }
