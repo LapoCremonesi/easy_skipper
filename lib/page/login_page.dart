@@ -2,6 +2,7 @@ import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
+import 'package:fancy_snackbar/fancy_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_skipper/constant.dart';
@@ -306,28 +307,32 @@ class _LogInPageState extends State<LogInPage> {
 
     User? user = await auth.signInWithEmailAndPassword(email, password);
 
-    final response = await http.get(
-      Uri.parse(
-        '$api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
-      ),
-    );
-    CustomProfile userProfile = CustomProfile.fromJson(
-      jsonDecode(response.body),
-    );
-
     if (user != null) {
-      print("Successfully Logged In");
+      final response = await http.get(
+        Uri.parse(
+          '$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
+        ),
+      );
+      CustomProfile userProfile = CustomProfile.fromJson(
+        jsonDecode(response.body),
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => HomePage(
             userProfile: userProfile,
-            api: "",
           ),
         ),
       );
     } else {
-      print("some error occured");
+      FancySnackbar.showSnackbar(
+        context,
+        snackBarType: FancySnackBarType.error,
+        title: "Credenziali sbagliate",
+        message: "",
+        duration: 2.5,
+        color: SnackBarColors.error3,
+      );
     }
   }
 }

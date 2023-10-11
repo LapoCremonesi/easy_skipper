@@ -453,7 +453,7 @@ class _UserSignUpState extends State<UserSignUp> {
         'Accept': 'application/json'
       };
       await http.post(
-        Uri.parse("$api/profiles"),
+        Uri.parse("$api/api/profiles"),
         headers: headers,
         body: jsonEncode(
           {
@@ -480,7 +480,7 @@ class _UserSignUpState extends State<UserSignUp> {
           });
         }
         await http.post(
-          Uri.parse("$api/barche"),
+          Uri.parse("$api/api/barche"),
           headers: headers,
           body: jsonEncode(
             {
@@ -504,7 +504,6 @@ class _UserSignUpState extends State<UserSignUp> {
           MaterialPageRoute(
             builder: (context) => HomePage(
               userProfile: widget.userProfile,
-              api: "",
             ),
           ),
         );
@@ -514,7 +513,7 @@ class _UserSignUpState extends State<UserSignUp> {
         double lunghezza = double.parse(barcaVelaLunghezza.text);
         double altezza = double.parse(barcaVelaAltezza.text);
         await http.post(
-          Uri.parse("$api/barche"),
+          Uri.parse("$api/api/barche"),
           headers: headers,
           body: jsonEncode(
             {
@@ -540,7 +539,6 @@ class _UserSignUpState extends State<UserSignUp> {
           MaterialPageRoute(
             builder: (context) => HomePage(
               userProfile: widget.userProfile,
-              api: "",
             ),
           ),
         );

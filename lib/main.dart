@@ -38,10 +38,10 @@ Future main() async {
     isListView: true,
   );
 
-  if (isUserRegistered && !isConnected) {
+  if (isUserRegistered && isConnected) {
     final response = await http.get(
       Uri.parse(
-        '$api/profiles?filters[UID][eq]=${FirebaseAuth.instance.currentUser?.uid}',
+        '$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
       ),
     );
     userProfile = CustomProfile.fromJson(jsonDecode(response.body));
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: isConnected
           ? isUserRegistered
-              ? HomePage(userProfile: userProfile, api: "")
+              ? HomePage(userProfile: userProfile)
               : SignUpPage(userProfile: userProfile)
           : const NoConnectionPage(),
     );

@@ -542,7 +542,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       }
 
       await http.post(
-        Uri.parse("$api/barche"),
+        Uri.parse("$api/api/barche"),
         headers: headers,
         body: jsonEncode(
           {
@@ -558,26 +558,6 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
           },
         ),
       );
-
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('$api/upload'),
-      );
-
-      var file = image;
-      var stream = http.ByteStream(file!.openRead());
-      var length = await file.length();
-
-      var multipartFile = http.MultipartFile(
-        'files',
-        stream,
-        length,
-        filename: 'download.jpg',
-      );
-
-      request.files.add(multipartFile);
-
-      await request.send();
     }
 
     if (radioButtonValue == TipoBarca.vela) {
@@ -587,7 +567,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       String nome = barcaVelaNome.text;
 
       await http.post(
-        Uri.parse("$api/barche"),
+        Uri.parse("$api/api/barche"),
         headers: headers,
         body: jsonEncode(
           {

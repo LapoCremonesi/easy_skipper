@@ -48,7 +48,7 @@ class CustomBarcaDisplay extends StatelessWidget {
                 ),
                 image: DecorationImage(
                   image: NetworkImage(
-                    'http://192.168.1.36:1337${barcaInfo.thumbnail}',
+                    '$api${barcaInfo.thumbnail}',
                   ),
                   fit: BoxFit.cover,
                 ),

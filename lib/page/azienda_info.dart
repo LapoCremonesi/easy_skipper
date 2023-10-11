@@ -43,7 +43,7 @@ class _AziendaInfoState extends State<AziendaInfo> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(
-                              'http://192.168.1.36:1337${widget.agency.mediumImage}',
+                              '$api${widget.agency.mediumImage}',
                             ),
                             fit: BoxFit.fill,
                           ),
@@ -55,7 +55,7 @@ class _AziendaInfoState extends State<AziendaInfo> {
                           shape: BoxShape.circle,
                         ),
                         margin: EdgeInsets.only(
-                          top: statusBarHeight,
+                          top: 10.0 + statusBarHeight,
                           left: 10,
                         ),
                         child: IconButton(

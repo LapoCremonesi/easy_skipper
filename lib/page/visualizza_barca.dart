@@ -36,7 +36,7 @@ class _VisualizzaBarcaState extends State<VisualizzaBarca> {
                     color: bluOceanoProfondo,
                     image: DecorationImage(
                       image: NetworkImage(
-                        'http://192.168.1.36:1337${widget.barcheInfo.smallImage}',
+                        '$api${widget.barcheInfo.smallImage}',
                       ),
                       fit: BoxFit.cover,
                     ),

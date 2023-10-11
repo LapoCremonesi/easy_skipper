@@ -393,7 +393,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         'Accept': 'application/json'
       };
       await http.post(
-        Uri.parse("$api/profiles"),
+        Uri.parse("$api/api/profiles"),
         headers: headers,
         body: jsonEncode(
           {
@@ -407,7 +407,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         ),
       );
       await http.post(
-        Uri.parse("$api/agencies"),
+        Uri.parse("$api/api/agencies"),
         headers: headers,
         body: jsonEncode(
           {
@@ -427,7 +427,6 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         MaterialPageRoute(
           builder: (context) => HomePage(
             userProfile: widget.profile,
-            api: "",
           ),
         ),
       );
