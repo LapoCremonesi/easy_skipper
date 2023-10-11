@@ -1,6 +1,6 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/barca.dart';
-import 'package:easy_skipper/page/visualizza_barca.dart';
+import 'package:easy_skipper/page/barca_info.dart';
 import 'package:flutter/material.dart';
 
 class CustomBarcaDisplay extends StatelessWidget {
@@ -20,7 +20,7 @@ class CustomBarcaDisplay extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return VisualizzaBarca(barcheInfo: barcaInfo);
+              return BarcaInfo(barcheInfo: barcaInfo);
             },
           ),
         );

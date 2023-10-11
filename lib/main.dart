@@ -1,4 +1,5 @@
 import 'package:easy_skipper/constant.dart';
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/page/no_connection.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -37,20 +38,40 @@ Future main() async {
     isAgency: false,
     isListView: true,
   );
+  CustomAgency agency = CustomAgency(
+    indirizzo: '',
+    nome: '',
+    telefono: '',
+    UID: '',
+    mediumImage: '',
+    thumbnailImage: '',
+    servizi: [],
+  );
 
   if (isUserRegistered && isConnected) {
-    final response = await http.get(
+    final userProfileResponse = await http.get(
       Uri.parse(
         '$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
       ),
     );
-    userProfile = CustomProfile.fromJson(jsonDecode(response.body));
+    userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
+
+    final agencyResponse = await http.get(
+      Uri.parse(
+        "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
+      ),
+    );
+    agency = CustomAgency.fromJson(
+      jsonDecode(agencyResponse.body),
+      !userProfile.isAgency,
+    );
   }
 
   runApp(MyApp(
     isUserRegistered: isUserRegistered,
     userProfile: userProfile,
     isConnected: isConnected,
+    agency: agency,
   ));
 }
 
@@ -60,11 +81,13 @@ class MyApp extends StatelessWidget {
     required this.isUserRegistered,
     required this.userProfile,
     required this.isConnected,
+    required this.agency,
   });
 
   final bool isUserRegistered;
   final bool isConnected;
   final CustomProfile userProfile;
+  final CustomAgency agency;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +96,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: isConnected
           ? isUserRegistered
-              ? HomePage(userProfile: userProfile)
+              ? HomePage(userProfile: userProfile, agency: agency)
               : SignUpPage(userProfile: userProfile)
           : const NoConnectionPage(),
     );

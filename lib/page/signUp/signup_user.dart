@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -499,13 +500,17 @@ class _UserSignUpState extends State<UserSignUp> {
             },
           ),
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(
-              userProfile: widget.userProfile,
-            ),
+        navigate(
+          CustomAgency(
+            indirizzo: '',
+            nome: '',
+            telefono: '',
+            UID: '',
+            mediumImage: '',
+            thumbnailImage: '',
+            servizi: [],
           ),
+          widget.userProfile,
         );
       }
       if (radioButtonValue == TipoBarca.vela) {
@@ -534,17 +539,31 @@ class _UserSignUpState extends State<UserSignUp> {
             },
           ),
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(
-              userProfile: widget.userProfile,
-            ),
+        navigate(
+          CustomAgency(
+            indirizzo: '',
+            nome: '',
+            telefono: '',
+            UID: '',
+            mediumImage: '',
+            thumbnailImage: '',
+            servizi: [],
           ),
+          widget.userProfile,
         );
       }
-    } else {
-      print("Somthing went wrong");
-    }
+    } else {}
+  }
+
+  void navigate(CustomAgency agency, CustomProfile userProfile) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(
+          userProfile: widget.userProfile,
+          agency: agency,
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/object/custom_user.dart';
 import 'package:http/http.dart' as http;
 import 'package:easy_skipper/constant.dart';
@@ -422,16 +423,30 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
           },
         ),
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(
-            userProfile: widget.profile,
-          ),
+
+      final agencyResponse = await http.get(
+        Uri.parse(
+          "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
         ),
       );
-    } else {
-      print("Somthing went wrong");
-    }
+      CustomAgency agency = CustomAgency.fromJson(
+        jsonDecode(agencyResponse.body),
+        false,
+      );
+
+      navigate(agency, widget.profile);
+    } else {}
+  }
+
+  void navigate(CustomAgency agency, CustomProfile userProfile) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(
+          userProfile: widget.profile,
+          agency: agency,
+        ),
+      ),
+    );
   }
 }

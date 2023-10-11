@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
@@ -11,36 +13,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-final Map<String, bool> servizi = {
-  "manutenzione": false,
-  "trasporto": false,
-  "pulizia": false,
-  "gestione": false,
-};
-List<CustomAgency> agenzie = [];
-CustomAgency agency = CustomAgency(
-  indirizzo: "",
-  nome: "",
-  telefono: "",
-  UID: "",
-  thumbnailImage: '',
-  mediumImage: '',
-  servizi: [],
-);
-
 class HomePage extends StatefulWidget {
-  const HomePage({
+  HomePage({
     super.key,
     required this.userProfile,
+    required this.agency,
   });
 
   final CustomProfile userProfile;
+  late CustomAgency agency;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<CustomAgency> agenzie = [];
+  List<String> servizi = [
+    "manutenzione",
+    "trasporto",
+    "pulizia",
+    "gestione",
+  ];
   late bool isListView = widget.userProfile.isListView;
   late int j;
 
@@ -48,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getData();
-    getAgency();
+    widget.userProfile.isAgency ? getAgency() : null;
   }
 
   @override
@@ -81,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                   return widget.userProfile.isAgency
                       ? AgencyDialog(
                           userProfile: widget.userProfile,
-                          agency: agency,
+                          agency: widget.agency,
                         )
                       : UserDialog(userProfile: widget.userProfile);
                 },
@@ -139,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                         onTap: () async {
                           final response = await http.get(
                             Uri.parse(
-                              "$api/api/agencies?filters[Servizi][servizio][\$contains]=${servizi.keys.elementAt(index)}&populate=*",
+                              "$api/api/agencies?filters[Servizi][servizio][\$contains]=${servizi[index]}&populate=*",
                             ),
                           );
 
@@ -151,6 +145,7 @@ class _HomePageState extends State<HomePage> {
                               agenzie.add(
                                 CustomAgency.fromJson(
                                   json[i],
+                                  false,
                                 ),
                               );
                             });
@@ -162,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                             right: (width - 250) / 10,
                           ),
                           child: Service(
-                            service: servizi.keys.elementAt(index),
+                            service: servizi[index],
                             height: 50,
                             width: 50,
                             size: 30,
@@ -187,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                         agenzie.add(
                           CustomAgency.fromJson(
                             json[i],
+                            false,
                           ),
                         );
                       });
@@ -286,7 +282,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
     setState(() {
-      agency = CustomAgency.fromJson(jsonDecode(response.body)["data"][0]);
+      widget.agency = CustomAgency.fromJson(
+        jsonDecode(response.body)["data"][0],
+        false,
+      );
     });
   }
 
@@ -302,6 +301,7 @@ class _HomePageState extends State<HomePage> {
         agenzie.add(
           CustomAgency.fromJson(
             json[i],
+            false,
           ),
         );
       });

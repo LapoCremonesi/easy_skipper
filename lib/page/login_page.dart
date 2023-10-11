@@ -1,4 +1,5 @@
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
+import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -301,38 +302,56 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  void signIn() async {
+  Future signIn() async {
     String email = emailFieldController.text;
     String password = passwordFieldController.text;
 
     User? user = await auth.signInWithEmailAndPassword(email, password);
 
     if (user != null) {
-      final response = await http.get(
+      final userProfileResponse = await http.get(
         Uri.parse(
           '$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
         ),
       );
       CustomProfile userProfile = CustomProfile.fromJson(
-        jsonDecode(response.body),
+        jsonDecode(userProfileResponse.body),
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(
-            userProfile: userProfile,
-          ),
+      final agencyResponse = await http.get(
+        Uri.parse(
+          "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
         ),
       );
-    } else {
-      FancySnackbar.showSnackbar(
-        context,
-        snackBarType: FancySnackBarType.error,
-        title: "Credenziali sbagliate",
-        message: "",
-        duration: 2.5,
-        color: SnackBarColors.error3,
+      CustomAgency agency = CustomAgency.fromJson(
+        jsonDecode(agencyResponse.body),
+        !userProfile.isAgency,
       );
+      navigate(agency, userProfile);
+    } else {
+      showErrorSnackBar();
     }
+  }
+
+  void navigate(CustomAgency agency, CustomProfile userProfile) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(
+          userProfile: userProfile,
+          agency: agency,
+        ),
+      ),
+    );
+  }
+
+  void showErrorSnackBar() {
+    FancySnackbar.showSnackbar(
+      context,
+      snackBarType: FancySnackBarType.error,
+      title: "Credenziali sbagliate",
+      message: "",
+      duration: 2.5,
+      color: SnackBarColors.error3,
+    );
   }
 }

@@ -2,8 +2,8 @@ import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/barca.dart';
 import 'package:flutter/material.dart';
 
-class VisualizzaBarca extends StatefulWidget {
-  const VisualizzaBarca({
+class BarcaInfo extends StatefulWidget {
+  const BarcaInfo({
     super.key,
     required this.barcheInfo,
   });
@@ -11,10 +11,10 @@ class VisualizzaBarca extends StatefulWidget {
   final Barche barcheInfo;
 
   @override
-  State<VisualizzaBarca> createState() => _VisualizzaBarcaState();
+  State<BarcaInfo> createState() => _VisualizzaBarcaState();
 }
 
-class _VisualizzaBarcaState extends State<VisualizzaBarca> {
+class _VisualizzaBarcaState extends State<BarcaInfo> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

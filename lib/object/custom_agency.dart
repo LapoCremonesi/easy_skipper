@@ -17,7 +17,19 @@ class CustomAgency {
   late String mediumImage;
   late List servizi;
 
-  factory CustomAgency.fromJson(Map<String, dynamic> json) {
+  factory CustomAgency.fromJson(Map<String, dynamic> json, bool isNull) {
+    if (isNull) {
+      return CustomAgency(
+        indirizzo: '',
+        nome: '',
+        telefono: '',
+        UID: '',
+        mediumImage: '',
+        thumbnailImage: '',
+        servizi: [],
+      );
+    }
+
     return CustomAgency(
       indirizzo: json["attributes"]["indirizzo"],
       nome: json["attributes"]["nome"],
