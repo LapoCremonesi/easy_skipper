@@ -1,4 +1,4 @@
-#Mon Oct 09 16:54:09 CEST 2023
+#Thu Oct 12 17:39:36 CEST 2023
 base.0=C\:\\easy_skipper\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 base.1=C\:\\easy_skipper\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 base.2=C\:\\easy_skipper\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex

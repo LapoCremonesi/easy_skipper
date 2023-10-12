@@ -16,8 +16,8 @@
 15-->C:\easy_skipper\android\app\src\debug\AndroidManifest.xml:6:5-66
 15-->C:\easy_skipper\android\app\src\debug\AndroidManifest.xml:6:22-64
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->[com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:26:5-79
-16-->[com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:26:22-76
+16-->[:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+16-->[:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
 17
 18    <permission
 18-->[androidx.core:core:1.10.1] C:\Users\guerc\.gradle\caches\transforms-3\17c44a9ee9728471e88635da67cac57c\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47

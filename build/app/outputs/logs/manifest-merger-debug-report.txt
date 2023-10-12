@@ -57,6 +57,7 @@ MERGED from [:cloud_firestore] C:\easy_skipper\build\cloud_firestore\intermediat
 MERGED from [:firebase_core] C:\easy_skipper\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:image_picker_android] C:\easy_skipper\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\easy_skipper\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:17:1-75:12
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\guerc\.gradle\caches\transforms-3\9c645efb41dcacbd160e32d5a3e1894c\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.firebase:firebase-storage:20.2.1] C:\Users\guerc\.gradle\caches\transforms-3\87a15225ca2200652383524ee03b932c\transformed\jetified-firebase-storage-20.2.1\AndroidManifest.xml:15:1-38:12
@@ -132,6 +133,8 @@ MERGED from [:image_picker_android] C:\easy_skipper\build\image_picker_android\i
 MERGED from [:image_picker_android] C:\easy_skipper\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] C:\easy_skipper\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] C:\easy_skipper\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\guerc\.gradle\caches\transforms-3\9c645efb41dcacbd160e32d5a3e1894c\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:5:5-44
@@ -303,7 +306,9 @@ ADDED from [:image_picker_android] C:\easy_skipper\build\image_picker_android\in
 	android:name
 		ADDED from [:image_picker_android] C:\easy_skipper\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:26:5-79
+ADDED from [:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+MERGED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:26:5-79
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\guerc\.gradle\caches\transforms-3\9c645efb41dcacbd160e32d5a3e1894c\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:8:5-79
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\guerc\.gradle\caches\transforms-3\9c645efb41dcacbd160e32d5a3e1894c\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:8:5-79
 MERGED from [com.google.firebase:firebase-storage:20.2.1] C:\Users\guerc\.gradle\caches\transforms-3\87a15225ca2200652383524ee03b932c\transformed\jetified-firebase-storage-20.2.1\AndroidManifest.xml:25:5-79
@@ -313,7 +318,7 @@ MERGED from [com.google.firebase:firebase-firestore:24.7.1] C:\Users\guerc\.grad
 MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\guerc\.gradle\caches\transforms-3\b8d152da90f8ad50ccb85843bc53a8de\transformed\jetified-grpc-android-1.52.1\AndroidManifest.xml:9:5-79
 MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\guerc\.gradle\caches\transforms-3\b8d152da90f8ad50ccb85843bc53a8de\transformed\jetified-grpc-android-1.52.1\AndroidManifest.xml:9:5-79
 	android:name
-		ADDED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:26:22-76
+		ADDED from [:connectivity_plus] C:\easy_skipper\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
 activity#com.google.firebase.auth.internal.GenericIdpActivity
 ADDED from [com.google.firebase:firebase-auth:22.1.1] C:\Users\guerc\.gradle\caches\transforms-3\013977f773ffa7f588a4a066bf9a9246\transformed\jetified-firebase-auth-22.1.1\AndroidManifest.xml:29:9-46:20
 	android:excludeFromRecents

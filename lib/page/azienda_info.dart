@@ -1,7 +1,6 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
-import 'package:easy_skipper/object/service.dart';
 import 'package:flutter/material.dart';
 
 class AziendaInfo extends StatefulWidget {
@@ -107,31 +106,6 @@ class _AziendaInfoState extends State<AziendaInfo> {
               ),
             ),
             const SizedBox(height: 5),
-            const Text(
-              "Servizi",
-              style: TextStyle(fontSize: 25),
-            ),
-            Container(
-              height: 60,
-              width: width,
-              margin: const EdgeInsets.only(left: 10, right: 10),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.agency.servizi.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(right: 5),
-                    child: Service(
-                      service: widget.agency.servizi[index]["servizio"],
-                      height: 60,
-                      width: 60,
-                      size: 30,
-                      padding: 10,
-                    ),
-                  );
-                },
-              ),
-            ),
           ],
         ),
       ),
