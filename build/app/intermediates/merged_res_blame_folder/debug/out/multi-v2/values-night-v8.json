@@ -4,7 +4,7 @@
             "outputFile": "com.example.easy_skipper.app-mergeDebugResources-25:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\easy_skipper\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\Lapo\\Desktop\\easyskipper\\easy_skipper\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

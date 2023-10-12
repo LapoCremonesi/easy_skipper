@@ -1,6 +1,7 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
+import 'package:easy_skipper/widget/calendar.dart';
 import 'package:flutter/material.dart';
 
 class AziendaInfo extends StatefulWidget {
@@ -106,6 +107,40 @@ class _AziendaInfoState extends State<AziendaInfo> {
               ),
             ),
             const SizedBox(height: 5),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                  ),
+                  builder: (context) {
+                    return BottomCalendar();
+                  },
+                );
+              },
+              child: Container(
+                height: 200,
+                width: width,
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: const Text(
+                  'Calendario',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
