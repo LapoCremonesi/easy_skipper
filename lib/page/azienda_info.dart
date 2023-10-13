@@ -119,7 +119,10 @@ class _AziendaInfoState extends State<AziendaInfo> {
                     ),
                   ),
                   builder: (context) {
-                    return BottomCalendar();
+                    return BottomCalendar(
+                      startDate: DateTime.now(),
+                      endDate: DateTime.now().add(const Duration(days: 365)),
+                    );
                   },
                 );
               },
@@ -133,10 +136,12 @@ class _AziendaInfoState extends State<AziendaInfo> {
                     Radius.circular(20),
                   ),
                 ),
-                child: const Text(
-                  'Calendario',
-                  style: TextStyle(
-                    fontSize: 20,
+                child: const Center(
+                  child: Text(
+                    'Calendario',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),

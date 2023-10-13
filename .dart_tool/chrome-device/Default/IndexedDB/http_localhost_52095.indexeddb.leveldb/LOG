@@ -1,0 +1,26 @@
+2023/10/13-17:01:33.993 3ba4 Creating DB C:\Users\Lapo\AppData\Local\Temp\flutter_tools.ea20d942\flutter_tools_chrome_device.ba5fe51a\Default\IndexedDB\http_localhost_52095.indexeddb.leveldb since it was missing.
+2023/10/13-17:01:34.006 3ba4 Reusing MANIFEST C:\Users\Lapo\AppData\Local\Temp\flutter_tools.ea20d942\flutter_tools_chrome_device.ba5fe51a\Default\IndexedDB\http_localhost_52095.indexeddb.leveldb/MANIFEST-000001
+2023/10/13-17:01:34.033 4980 Level-0 table #5: started
+2023/10/13-17:01:34.043 4980 Level-0 table #5: 1282 bytes OK
+2023/10/13-17:01:34.050 4980 Delete type=0 #3
+2023/10/13-17:01:34.050 4980 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/13-17:04:53.314 4980 Level-0 table #7: started
+2023/10/13-17:04:53.324 4980 Level-0 table #7: 4657 bytes OK
+2023/10/13-17:04:53.334 4980 Delete type=0 #4
+2023/10/13-17:04:53.334 4980 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/13-17:05:31.743 4a64 Compacting 1@1 + 1@2 files
+2023/10/13-17:05:31.747 4a64 Generated table #8@1: 41 keys, 3006 bytes
+2023/10/13-17:05:31.747 4a64 Compacted 1@1 + 1@2 files => 3006 bytes
+2023/10/13-17:05:31.752 4a64 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/13-17:05:31.752 4a64 Delete type=2 #5
+2023/10/13-17:05:31.752 4a64 Delete type=2 #7
+2023/10/13-17:23:58.934 4980 Level-0 table #10: started
+2023/10/13-17:23:58.946 4980 Level-0 table #10: 3380 bytes OK
+2023/10/13-17:23:58.956 4980 Delete type=0 #6
+2023/10/13-17:23:58.956 4980 Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/13-17:24:37.376 4a64 Compacting 1@1 + 1@2 files
+2023/10/13-17:24:37.380 4a64 Generated table #11@1: 41 keys, 3008 bytes
+2023/10/13-17:24:37.380 4a64 Compacted 1@1 + 1@2 files => 3008 bytes
+2023/10/13-17:24:37.385 4a64 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/13-17:24:37.385 4a64 Delete type=2 #8
+2023/10/13-17:24:37.385 4a64 Delete type=2 #10
