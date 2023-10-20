@@ -72,23 +72,6 @@ class _AziendaInfoState extends State<AziendaInfo> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            Container(
-              height: 60,
-              width: width,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 190, 189, 189),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              margin: const EdgeInsets.only(left: 10, right: 10),
-              child: Center(
-                child: Text(
-                  "Nome Azienda: ${widget.agency.nome}",
-                ),
-              ),
-            ),
             const SizedBox(height: 5),
             Container(
               height: 60,
@@ -100,52 +83,23 @@ class _AziendaInfoState extends State<AziendaInfo> {
                 ),
               ),
               margin: const EdgeInsets.only(left: 10, right: 10),
-              child: Center(
-                child: Text(
-                  "Via Azienda: ${widget.agency.indirizzo}",
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.agency.nome,
+                    style: const TextStyle(fontSize: 30),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    widget.agency.indirizzo,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 5),
-            GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
-                  ),
-                  builder: (context) {
-                    return BottomCalendar(
-                      startDate: DateTime.now(),
-                      endDate: DateTime.now().add(const Duration(days: 365)),
-                    );
-                  },
-                );
-              },
-              child: Container(
-                height: 200,
-                width: width,
-                margin: const EdgeInsets.only(left: 10, right: 10),
-                decoration: const BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Calendario',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            const Spacer(),
+            BottomCalendar(startDate: DateTime.now(), agency: widget.agency),
           ],
         ),
       ),

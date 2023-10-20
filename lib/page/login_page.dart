@@ -120,9 +120,7 @@ class _LogInPageState extends State<LogInPage> {
                         isPasswordVisible = !isPasswordVisible;
                       });
                     },
-                    icon: isPasswordVisible
-                        ? const Icon(Icons.visibility)
-                        : const Icon(Icons.visibility_off),
+                    icon: isPasswordVisible ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
                   ),
                 )
               ],
@@ -142,23 +140,6 @@ class _LogInPageState extends State<LogInPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(
-                            5.0,
-                            5.0,
-                          ),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                        ),
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 0.0),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                        ),
-                      ],
                     ),
                     child: Image.asset(
                       "assets/images/google_logo.png",
@@ -177,23 +158,6 @@ class _LogInPageState extends State<LogInPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(
-                            5.0,
-                            5.0,
-                          ),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                        ),
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 0.0),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                        ),
-                      ],
                     ),
                     child: Image.asset(
                       "assets/images/apple_logo.png",
@@ -212,23 +176,6 @@ class _LogInPageState extends State<LogInPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(
-                            5.0,
-                            5.0,
-                          ),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                        ),
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 0.0),
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                        ),
-                      ],
                     ),
                     child: Image.asset(
                       "assets/images/facebook_logo.png",
