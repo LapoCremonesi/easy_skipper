@@ -13,7 +13,7 @@ class CustomImage {
     return CustomImage(
       thumbnail: json['thumbnail']['url'] ?? '',
       small: json['small']['url'] ?? '',
-      medium: json['medium'] == null ? '' : json['medium']['url'],
+      medium: json['medium']['url'] ?? '',
     );
   }
 }
