@@ -188,7 +188,7 @@ class BottomCalendarState extends State<BottomCalendar> {
                                       ),
                                       child: Row(
                                         children: [
-                                          Text(widget.agency.servizi),
+                                          Text('widget.agency.servizi'),
                                         ],
                                       ),
                                     ),

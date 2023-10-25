@@ -198,7 +198,6 @@ class _LogInPageState extends State<LogInPage> {
                         UID: "",
                         id: 0,
                         isAgency: false,
-                        isListView: true,
                       ),
                     ),
                   ),

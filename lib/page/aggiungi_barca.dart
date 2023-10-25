@@ -120,9 +120,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                   child: TextField(
                                     controller: barcaMotoreLunghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Lunghezza Barca",
                                       border: OutlineInputBorder(),
@@ -133,14 +131,11 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaMotoreLarghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Larghezza Barca",
                                       border: OutlineInputBorder(),
@@ -158,23 +153,15 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     controller: barcaMotoreNumeroMotori,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     onChanged: (value) {
                                       setState(() {
                                         barcaMotoreNumeroCavalli = [];
                                         barcaMotoreMarcaMotori = [];
-                                        numeroMotori = barcaMotoreNumeroMotori
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(
-                                                barcaMotoreNumeroMotori.text);
+                                        numeroMotori = barcaMotoreNumeroMotori.text.isEmpty ? 0 : int.parse(barcaMotoreNumeroMotori.text);
                                         for (var i = 0; i < numeroMotori; i++) {
-                                          barcaMotoreNumeroCavalli
-                                              .add(TextEditingController());
-                                          barcaMotoreMarcaMotori
-                                              .add(TextEditingController());
+                                          barcaMotoreNumeroCavalli.add(TextEditingController());
+                                          barcaMotoreMarcaMotori.add(TextEditingController());
                                         }
                                       });
                                     },
@@ -188,7 +175,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 SizedBox(
                                   height: 60.0 * numeroMotori,
                                   child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     itemCount: numeroMotori,
                                     itemBuilder: (context, index) {
                                       return Row(
@@ -202,8 +189,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                               bottom: 10,
                                             ),
                                             child: DropdownMenu(
-                                              controller:
-                                                  barcaMotoreMarcaMotori[index],
+                                              controller: barcaMotoreMarcaMotori[index],
                                               width: width / 2 - 15,
                                               hintText: "Marca motore",
                                               dropdownMenuEntries: const [
@@ -229,21 +215,11 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                           Container(
                                             height: 50,
                                             width: width / 2 - 15,
-                                            margin: const EdgeInsets.only(
-                                              left: 5,
-                                              right: 10,
-                                              bottom: 5,
-                                            ),
+                                            margin: const EdgeInsets.only(left: 5, right: 10, bottom: 5),
                                             child: TextField(
-                                              controller:
-                                                  barcaMotoreNumeroCavalli[
-                                                      index],
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .digitsOnly
-                                              ],
+                                              controller: barcaMotoreNumeroCavalli[index],
+                                              keyboardType: TextInputType.number,
+                                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                               decoration: const InputDecoration(
                                                 hintText: "Numero cavalli",
                                                 border: OutlineInputBorder(),
@@ -257,25 +233,24 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 ),
                                 const SizedBox(height: 5),
                                 GestureDetector(
-                                  onTap: () {
-                                    pickImageDialog();
-                                  },
+                                  onTap: () => pickImageDialog(),
                                   child: Container(
                                     height: 200,
                                     width: width,
-                                    margin: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
+                                    margin: const EdgeInsets.only(left: 10, right: 10),
                                     decoration: const BoxDecoration(
                                       color: Colors.red,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
-                                    child: const Icon(
-                                      Icons.add_a_photo_rounded,
-                                    ),
+                                    child: image == null
+                                        ? const Icon(Icons.add_a_photo_rounded)
+                                        : ClipRRect(
+                                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                            child: Image.network(
+                                              image!.path,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -305,14 +280,11 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaVelaLunghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Lunghezza Barca",
                                       border: OutlineInputBorder(),
@@ -323,14 +295,11 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaVelaLarghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Larghezza Barca",
                                       border: OutlineInputBorder(),
@@ -341,18 +310,40 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaVelaAltezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Altezza Barca",
                                       border: OutlineInputBorder(),
                                     ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                GestureDetector(
+                                  onTap: () => pickImageDialog(),
+                                  child: Container(
+                                    height: 200,
+                                    width: width,
+                                    margin: const EdgeInsets.only(
+                                      left: 10,
+                                      right: 10,
+                                    ),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: image == null
+                                        ? const Icon(Icons.add_a_photo_rounded)
+                                        : ClipRRect(
+                                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                            child: Image.network(
+                                              image!.path,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -368,9 +359,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
             margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
             decoration: const BoxDecoration(
               color: arancioneBoa,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: GestureDetector(
               onTap: () {
@@ -396,6 +385,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       setState(() {
         this.image = File(image.path);
       });
+      Navigator.pop(context);
     } on PlatformException catch (e) {
       print(e);
     }
@@ -422,9 +412,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                   children: [
                     const SizedBox(height: 60),
                     GestureDetector(
-                      onTap: () {
-                        pickImage(ImageSource.gallery);
-                      },
+                      onTap: () => pickImage(ImageSource.gallery),
                       child: Container(
                         height: 70,
                         width: MediaQuery.of(context).size.width,
@@ -434,9 +422,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                         ),
                         decoration: const BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: const Row(
                           children: [
@@ -450,9 +436,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                     ),
                     const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () {
-                        pickImage(ImageSource.camera);
-                      },
+                      onTap: () => pickImage(ImageSource.camera),
                       child: Container(
                         height: 70,
                         width: MediaQuery.of(context).size.width,
@@ -462,9 +446,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
                         ),
                         decoration: const BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: const Row(
                           children: [
@@ -509,26 +491,17 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       );
       return;
     }
-    if ((barcaMotoreLarghezza.text.isEmpty ||
-            barcaMotoreLunghezza.text.isEmpty ||
-            barcaMotoreNumeroMotori.text.isEmpty) &&
-        radioButtonValue == TipoBarca.motore) {
+    if ((barcaMotoreLarghezza.text.isEmpty || barcaMotoreLunghezza.text.isEmpty || barcaMotoreNumeroMotori.text.isEmpty) && radioButtonValue == TipoBarca.motore) {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
-    if ((barcaVelaLarghezza.text.isEmpty ||
-            barcaVelaLunghezza.text.isEmpty ||
-            barcaVelaAltezza.text.isEmpty) &&
-        radioButtonValue == TipoBarca.vela) {
+    if ((barcaVelaLarghezza.text.isEmpty || barcaVelaLunghezza.text.isEmpty || barcaVelaAltezza.text.isEmpty) && radioButtonValue == TipoBarca.vela) {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
 
     bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
+    Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     if (radioButtonValue == TipoBarca.motore) {
       double larghezza = double.parse(barcaMotoreLarghezza.text);
       double lunghezza = double.parse(barcaMotoreLunghezza.text);

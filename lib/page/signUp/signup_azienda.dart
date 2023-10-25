@@ -142,9 +142,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
                       right: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: isManutenzioneSelected
-                          ? blueCobalto
-                          : blueCieloChiaro,
+                      color: isManutenzioneSelected ? blueCobalto : blueCieloChiaro,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
@@ -152,9 +150,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
                     child: Row(
                       children: [
                         const SizedBox(width: 10),
-                        Icon(isManutenzioneSelected
-                            ? Ionicons.checkmark_outline
-                            : Icons.add),
+                        Icon(isManutenzioneSelected ? Ionicons.checkmark_outline : Icons.add),
                         const SizedBox(width: 5),
                         const Text("Manutenzione"),
                       ],
@@ -188,8 +184,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
                       right: 10,
                     ),
                     decoration: BoxDecoration(
-                      color:
-                          isTrasportoSelected ? blueCobalto : blueCieloChiaro,
+                      color: isTrasportoSelected ? blueCobalto : blueCieloChiaro,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
@@ -197,9 +192,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
                     child: Row(
                       children: [
                         const SizedBox(width: 10),
-                        Icon(isTrasportoSelected
-                            ? Ionicons.checkmark_outline
-                            : Icons.add),
+                        Icon(isTrasportoSelected ? Ionicons.checkmark_outline : Icons.add),
                         const SizedBox(width: 5),
                         const Text("Trasporto"),
                       ],
@@ -246,9 +239,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
                     child: Row(
                       children: [
                         const SizedBox(width: 10),
-                        Icon(isPuliziaSelected
-                            ? Ionicons.checkmark_outline
-                            : Icons.add),
+                        Icon(isPuliziaSelected ? Ionicons.checkmark_outline : Icons.add),
                         const SizedBox(width: 5),
                         const Text("Pulizia"),
                       ],
@@ -290,9 +281,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
                     child: Row(
                       children: [
                         const SizedBox(width: 10),
-                        Icon(isGestioneSelected
-                            ? Ionicons.checkmark_outline
-                            : Icons.add),
+                        Icon(isGestioneSelected ? Ionicons.checkmark_outline : Icons.add),
                         const SizedBox(width: 5),
                         const Text("Gestione"),
                       ],
@@ -374,11 +363,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
   }
 
   void signUp() async {
-    if (nomeAzienda.text.isEmpty ||
-        indirizzoAzienda.text.isEmpty ||
-        telefonoAzienda.text.isEmpty ||
-        codiceFiscaleAzienda.text.isEmpty ||
-        servizi.isEmpty) {
+    if (nomeAzienda.text.isEmpty || indirizzoAzienda.text.isEmpty || telefonoAzienda.text.isEmpty || codiceFiscaleAzienda.text.isEmpty || servizi.isEmpty) {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
@@ -389,10 +374,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
     );
 
     if (user != null) {
-      Map<String, String> headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      };
+      Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
       await http.post(
         Uri.parse("$api/api/profiles"),
         headers: headers,
@@ -402,7 +384,6 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
               "username": widget.profile.username,
               "UID": user.uid,
               "isAgency": widget.profile.isAgency,
-              "isListView": widget.profile.isListView,
             }
           },
         ),

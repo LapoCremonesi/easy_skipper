@@ -1,8 +1,8 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
-import 'package:easy_skipper/main.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/page/aggiungi_barca.dart';
+import 'package:easy_skipper/page/user_barche_page.dart';
 import 'package:flutter/material.dart';
 
 class UserDialog extends StatefulWidget {
@@ -18,11 +18,7 @@ class UserDialog extends StatefulWidget {
 }
 
 class _UserDialogState extends State<UserDialog> {
-  late bool isListView = widget.userProfile.isListView;
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +83,16 @@ class _UserDialogState extends State<UserDialog> {
                 children: [
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const UserBarche();
+                          },
+                        ),
+                      );
+                    },
                     child: Container(
                       height: 70,
                       width: width - 20,

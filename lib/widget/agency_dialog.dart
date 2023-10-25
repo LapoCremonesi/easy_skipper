@@ -18,11 +18,7 @@ class AgencyDialog extends StatefulWidget {
 }
 
 class _AgencyDialogState extends State<AgencyDialog> {
-  late bool isListView = widget.userProfile.isListView;
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
 
   @override
   Widget build(BuildContext context) {

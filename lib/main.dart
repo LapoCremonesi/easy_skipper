@@ -1,5 +1,6 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
+import 'package:easy_skipper/object/image.dart';
 import 'package:easy_skipper/page/login_page.dart';
 import 'package:easy_skipper/page/no_connection.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -36,31 +37,21 @@ Future main() async {
     UID: "",
     id: 0,
     isAgency: false,
-    isListView: true,
   );
   CustomAgency agency = CustomAgency(
     indirizzo: '',
     nome: '',
     telefono: '',
     UID: '',
-    mediumImage: '',
-    thumbnailImage: '',
+    image: CustomImage(),
     servizi: [],
   );
 
   if (isUserRegistered && isConnected) {
-    final userProfileResponse = await http.get(
-      Uri.parse(
-        '$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
-      ),
-    );
+    final userProfileResponse = await http.get(Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}'));
     userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
-    final agencyResponse = await http.get(
-      Uri.parse(
-        "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
-      ),
-    );
+    final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}"));
     agency = CustomAgency.fromJson(
       jsonDecode(agencyResponse.body),
       !userProfile.isAgency,
@@ -101,38 +92,6 @@ class MyApp extends StatelessWidget {
               ? HomePage(userProfile: userProfile, agency: agency)
               : const LogInPage()
           : const NoConnectionPage(),
-    );
-  }
-}
-
-class RestartWidget extends StatefulWidget {
-  const RestartWidget({super.key, required this.child});
-
-  final Widget child;
-
-  static void restartApp(BuildContext context) {
-    context.findAncestorStateOfType<_RestartWidgetState>()?.restartApp();
-  }
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _RestartWidgetState createState() => _RestartWidgetState();
-}
-
-class _RestartWidgetState extends State<RestartWidget> {
-  Key key = UniqueKey();
-
-  void restartApp() {
-    setState(() {
-      key = UniqueKey();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return KeyedSubtree(
-      key: key,
-      child: widget.child,
     );
   }
 }

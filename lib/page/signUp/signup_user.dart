@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
+import 'package:easy_skipper/object/image.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -106,8 +107,7 @@ class _UserSignUpState extends State<UserSignUp> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaNome,
                                     keyboardType: TextInputType.number,
@@ -128,9 +128,7 @@ class _UserSignUpState extends State<UserSignUp> {
                                   child: TextField(
                                     controller: barcaMotoreLunghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Lunghezza Barca",
                                       border: OutlineInputBorder(),
@@ -141,14 +139,11 @@ class _UserSignUpState extends State<UserSignUp> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaMotoreLarghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Larghezza Barca",
                                       border: OutlineInputBorder(),
@@ -166,23 +161,15 @@ class _UserSignUpState extends State<UserSignUp> {
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     controller: barcaMotoreNumeroMotori,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     onChanged: (value) {
                                       setState(() {
                                         barcaMotoreNumeroCavalli = [];
                                         barcaMotoreMarcaMotori = [];
-                                        numeroMotori = barcaMotoreNumeroMotori
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(
-                                                barcaMotoreNumeroMotori.text);
+                                        numeroMotori = barcaMotoreNumeroMotori.text.isEmpty ? 0 : int.parse(barcaMotoreNumeroMotori.text);
                                         for (var i = 0; i < numeroMotori; i++) {
-                                          barcaMotoreNumeroCavalli
-                                              .add(TextEditingController());
-                                          barcaMotoreMarcaMotori
-                                              .add(TextEditingController());
+                                          barcaMotoreNumeroCavalli.add(TextEditingController());
+                                          barcaMotoreMarcaMotori.add(TextEditingController());
                                         }
                                       });
                                     },
@@ -209,8 +196,7 @@ class _UserSignUpState extends State<UserSignUp> {
                                               bottom: 5,
                                             ),
                                             child: DropdownMenu(
-                                              controller:
-                                                  barcaMotoreMarcaMotori[index],
+                                              controller: barcaMotoreMarcaMotori[index],
                                               width: width / 2 - 15,
                                               hintText: "Marca motore",
                                               dropdownMenuEntries: const [
@@ -242,15 +228,9 @@ class _UserSignUpState extends State<UserSignUp> {
                                               bottom: 5,
                                             ),
                                             child: TextField(
-                                              controller:
-                                                  barcaMotoreNumeroCavalli[
-                                                      index],
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .digitsOnly
-                                              ],
+                                              controller: barcaMotoreNumeroCavalli[index],
+                                              keyboardType: TextInputType.number,
+                                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                               decoration: const InputDecoration(
                                                 hintText: "Numero cavalli",
                                                 border: OutlineInputBorder(),
@@ -272,8 +252,7 @@ class _UserSignUpState extends State<UserSignUp> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaNome,
                                     keyboardType: TextInputType.number,
@@ -287,14 +266,11 @@ class _UserSignUpState extends State<UserSignUp> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaVelaLunghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Lunghezza Barca",
                                       border: OutlineInputBorder(),
@@ -305,14 +281,11 @@ class _UserSignUpState extends State<UserSignUp> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaVelaLarghezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Larghezza Barca",
                                       border: OutlineInputBorder(),
@@ -323,14 +296,11 @@ class _UserSignUpState extends State<UserSignUp> {
                                 Container(
                                   height: 50,
                                   width: width,
-                                  margin: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
                                     controller: barcaVelaAltezza,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                     decoration: const InputDecoration(
                                       hintText: "Altezza Barca",
                                       border: OutlineInputBorder(),
@@ -423,17 +393,11 @@ class _UserSignUpState extends State<UserSignUp> {
       );
       return;
     }
-    if ((barcaMotoreLarghezza.text.isEmpty ||
-            barcaMotoreLunghezza.text.isEmpty ||
-            barcaMotoreNumeroMotori.text.isEmpty) &&
-        radioButtonValue == TipoBarca.motore) {
+    if ((barcaMotoreLarghezza.text.isEmpty || barcaMotoreLunghezza.text.isEmpty || barcaMotoreNumeroMotori.text.isEmpty) && radioButtonValue == TipoBarca.motore) {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
-    if ((barcaVelaLarghezza.text.isEmpty ||
-            barcaVelaLunghezza.text.isEmpty ||
-            barcaVelaAltezza.text.isEmpty) &&
-        radioButtonValue == TipoBarca.vela) {
+    if ((barcaVelaLarghezza.text.isEmpty || barcaVelaLunghezza.text.isEmpty || barcaVelaAltezza.text.isEmpty) && radioButtonValue == TipoBarca.vela) {
       customDialog(context, "Errore", "Inserire i valori in tutti i campi");
       return;
     }
@@ -449,10 +413,7 @@ class _UserSignUpState extends State<UserSignUp> {
     );
 
     if (user != null) {
-      Map<String, String> headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      };
+      Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
       await http.post(
         Uri.parse("$api/api/profiles"),
         headers: headers,
@@ -462,7 +423,6 @@ class _UserSignUpState extends State<UserSignUp> {
               "username": widget.userProfile.username,
               "UID": user.uid,
               "isAgency": widget.userProfile.isAgency,
-              "isListView": widget.userProfile.isListView,
             }
           },
         ),
@@ -506,8 +466,7 @@ class _UserSignUpState extends State<UserSignUp> {
             nome: '',
             telefono: '',
             UID: '',
-            mediumImage: '',
-            thumbnailImage: '',
+            image: CustomImage(),
             servizi: [],
           ),
           widget.userProfile,
@@ -545,8 +504,7 @@ class _UserSignUpState extends State<UserSignUp> {
             nome: '',
             telefono: '',
             UID: '',
-            mediumImage: '',
-            thumbnailImage: '',
+            image: CustomImage(),
             servizi: [],
           ),
           widget.userProfile,

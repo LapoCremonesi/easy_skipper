@@ -28,8 +28,7 @@ class _HomePageTileViewState extends State<HomePageTileView> {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AziendaInfo(
-              userProfile: widget.userProfile, agency: widget.agency),
+          builder: (context) => AziendaInfo(userProfile: widget.userProfile, agency: widget.agency),
         ),
       ),
       child: Container(
@@ -49,7 +48,7 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                 ),
                 image: DecorationImage(
                   image: NetworkImage(
-                    '$api${widget.agency.thumbnailImage}',
+                    '$api${widget.agency.image.thumbnail}',
                   ),
                   fit: BoxFit.fill,
                 ),

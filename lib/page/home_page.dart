@@ -6,7 +6,6 @@ import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/object/service.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/widget/agency_dialog.dart';
-import 'package:easy_skipper/widget/homepage_box_view.dart';
 import 'package:easy_skipper/widget/homepage_tile_view.dart';
 import 'package:easy_skipper/widget/user_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +34,6 @@ class _HomePageState extends State<HomePage> {
     "pulizia",
     "gestione",
   ];
-  late bool isListView = widget.userProfile.isListView;
   late int j;
 
   @override
@@ -208,63 +206,14 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             SingleChildScrollView(
               child: SizedBox(
-                height: 300 *
-                    ((height - 100 - 60 - 20 - 30 - 50 - 10 - statusBarHeight) /
-                        300),
+                height: 300 * ((height - 100 - 60 - 20 - 30 - 50 - 10 - statusBarHeight) / 300),
                 child: ListView.builder(
-                  itemCount: isListView
-                      ? agenzie.length
-                      : agenzie.length % 2 == 0
-                          ? agenzie.length ~/ 2
-                          : (agenzie.length + 1) ~/ 2,
+                  itemCount: agenzie.length,
                   itemBuilder: (context, index) {
-                    j += 2;
-
-                    if (isListView) {
-                      return HomePageTileView(
-                        agency: agenzie[index],
-                        userProfile: widget.userProfile,
-                      );
-                    } else {
-                      if (agenzie.length % 2 == 0) {
-                        return Row(
-                          children: [
-                            HomePageBoxView(
-                              agency: agenzie[j - 2],
-                              userProfile: widget.userProfile,
-                            ),
-                            HomePageBoxView(
-                              agency: agenzie[j - 1],
-                              userProfile: widget.userProfile,
-                            ),
-                          ],
-                        );
-                      } else {
-                        if (j - 1 == agenzie.length) {
-                          return Row(
-                            children: [
-                              HomePageBoxView(
-                                agency: agenzie[j - 2],
-                                userProfile: widget.userProfile,
-                              ),
-                              const SizedBox(),
-                            ],
-                          );
-                        }
-                        return Row(
-                          children: [
-                            HomePageBoxView(
-                              agency: agenzie[j - 2],
-                              userProfile: widget.userProfile,
-                            ),
-                            HomePageBoxView(
-                              agency: agenzie[j - 1],
-                              userProfile: widget.userProfile,
-                            ),
-                          ],
-                        );
-                      }
-                    }
+                    return HomePageTileView(
+                      agency: agenzie[index],
+                      userProfile: widget.userProfile,
+                    );
                   },
                 ),
               ),
