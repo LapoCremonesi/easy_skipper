@@ -1,0 +1,26 @@
+2023/10/26-20:39:28.468 49c8 Creating DB C:\Users\Lapo\AppData\Local\Temp\flutter_tools.96ed08a2\flutter_tools_chrome_device.dd34569\Default\IndexedDB\http_localhost_50760.indexeddb.leveldb since it was missing.
+2023/10/26-20:39:28.480 49c8 Reusing MANIFEST C:\Users\Lapo\AppData\Local\Temp\flutter_tools.96ed08a2\flutter_tools_chrome_device.dd34569\Default\IndexedDB\http_localhost_50760.indexeddb.leveldb/MANIFEST-000001
+2023/10/26-20:39:28.512 cdc Level-0 table #5: started
+2023/10/26-20:39:28.519 cdc Level-0 table #5: 1282 bytes OK
+2023/10/26-20:39:28.529 cdc Delete type=0 #3
+2023/10/26-20:39:28.529 cdc Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/26-20:48:49.334 cdc Level-0 table #7: started
+2023/10/26-20:48:49.341 cdc Level-0 table #7: 4649 bytes OK
+2023/10/26-20:48:49.351 cdc Delete type=0 #4
+2023/10/26-20:48:49.351 cdc Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/26-20:49:27.767 3714 Compacting 1@1 + 1@2 files
+2023/10/26-20:49:27.772 3714 Generated table #8@1: 41 keys, 3005 bytes
+2023/10/26-20:49:27.772 3714 Compacted 1@1 + 1@2 files => 3005 bytes
+2023/10/26-20:49:27.777 3714 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/26-20:49:27.777 3714 Delete type=2 #5
+2023/10/26-20:49:27.777 3714 Delete type=2 #7
+2023/10/26-20:52:26.622 cdc Level-0 table #10: started
+2023/10/26-20:52:26.636 cdc Level-0 table #10: 3380 bytes OK
+2023/10/26-20:52:26.646 cdc Delete type=0 #6
+2023/10/26-20:52:26.647 cdc Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/10/26-20:53:05.051 3714 Compacting 1@1 + 1@2 files
+2023/10/26-20:53:05.055 3714 Generated table #11@1: 41 keys, 3002 bytes
+2023/10/26-20:53:05.055 3714 Compacted 1@1 + 1@2 files => 3002 bytes
+2023/10/26-20:53:05.061 3714 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/26-20:53:05.062 3714 Delete type=2 #8
+2023/10/26-20:53:05.062 3714 Delete type=2 #10

@@ -1,10 +1,2 @@
-2023/10/26-14:21:48.156 cb0 Log #3: 1 ops saved to Table #7 OK
-2023/10/26-14:21:48.158 cb0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.42cdcec\flutter_tools_chrome_device.23e7fc91\Default\Site Characteristics Database/000003.log: OK
-2023/10/26-14:21:48.258 cb0 Log #6: 3 ops saved to Table #8 OK
-2023/10/26-14:21:48.259 cb0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.42cdcec\flutter_tools_chrome_device.23e7fc91\Default\Site Characteristics Database/000006.log: OK
-2023/10/26-14:21:48.259 cb0 Table #4: 1 entries OK
-2023/10/26-14:21:48.259 cb0 Table #6: 1 entries OK
-2023/10/26-14:21:48.259 cb0 Table #7: 1 entries OK
-2023/10/26-14:21:48.259 cb0 Table #8: 3 entries OK
-2023/10/26-14:21:48.263 cb0 Archiving C:\Users\guerc\AppData\Local\Temp\flutter_tools.42cdcec\flutter_tools_chrome_device.23e7fc91\Default\Site Characteristics Database/MANIFEST-000001: OK
-2023/10/26-14:21:48.296 cb0 **** Repaired leveldb C:\Users\guerc\AppData\Local\Temp\flutter_tools.42cdcec\flutter_tools_chrome_device.23e7fc91\Default\Site Characteristics Database; recovered 4 files; 618 bytes. Some data may have been lost. ****
+2023/10/26-14:21:48.300 cb0 Reusing MANIFEST C:\Users\guerc\AppData\Local\Temp\flutter_tools.42cdcec\flutter_tools_chrome_device.23e7fc91\Default\Site Characteristics Database/MANIFEST-000001
+2023/10/26-14:21:48.324 3154 Moved #8 to level-1 228 bytes OK: files[ 3 1 0 0 0 0 0 ]

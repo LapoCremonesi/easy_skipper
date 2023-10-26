@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,7 +10,7 @@ const verdeAcquaMarina = Color(0xFF00A693);
 const blueCieloChiaro = Color(0xFF87CEEB);
 const arancioneBoa = Color(0xFFFFA500);
 
-const String api = "http://192.168.1.100:1337";
+const String api = "http://192.168.1.36:1337";
 
 Map<String, dynamic> iconMap = {
   "pulizia": Icons.cleaning_services_rounded,

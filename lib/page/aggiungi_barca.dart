@@ -386,8 +386,8 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
         this.image = File(image.path);
       });
       Navigator.pop(context);
-    } on PlatformException catch (e) {
-      print(e);
+    } on PlatformException {
+      null;
     }
   }
 
@@ -500,6 +500,11 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       return;
     }
 
+    if (image == null) {
+      customDialog(context, 'Errore', 'Selezionare una foto');
+      return;
+    }
+
     bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
     Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     if (radioButtonValue == TipoBarca.motore) {
@@ -541,13 +546,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
         },
       );
       addImage.files.add(await http.MultipartFile.fromPath('files', image!.path));
-      http.StreamedResponse response = await addImage.send();
-
-      if (response.statusCode == 200) {
-        print(await response.stream.bytesToString());
-      } else {
-        print(response.reasonPhrase);
-      }
+      await addImage.send();
     }
 
     if (radioButtonValue == TipoBarca.vela) {
@@ -556,7 +555,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       double altezza = double.parse(barcaVelaAltezza.text);
       String nome = barcaVelaNome.text;
 
-      await http.post(
+      final addBarca = await http.post(
         Uri.parse("$api/api/barche"),
         headers: headers,
         body: jsonEncode(
@@ -578,6 +577,17 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
           },
         ),
       );
+
+      var addImage = http.MultipartRequest('POST', Uri.parse('$api/api/upload'));
+      addImage.fields.addAll(
+        {
+          'ref': 'api::barca.barca',
+          'refId': jsonDecode(addBarca.body)["data"]["id"].toString(),
+          'field': 'image',
+        },
+      );
+      addImage.files.add(await http.MultipartFile.fromPath('files', image!.path));
+      await addImage.send();
     }
   }
 }

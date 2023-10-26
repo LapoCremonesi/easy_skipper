@@ -104,47 +104,24 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
               ),
             ),
             const Spacer(),
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 70,
-                    width: width / 2 - 15,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                      color: Colors.blue.shade200,
-                    ),
-                    margin: const EdgeInsets.only(left: 10, right: 5),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/images/pencil.svg',
-                        height: 30,
-                        width: 30,
-                      ),
-                    ),
+            GestureDetector(
+              onTap: () => showConfirmDialog(),
+              child: Container(
+                height: 70,
+                width: width,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  color: Colors.red,
+                ),
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: const Center(
+                  child: Icon(
+                    Icons.delete,
+                    size: 30,
+                    color: Colors.white,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () => showConfirmDialog(),
-                  child: Container(
-                    height: 70,
-                    width: width / 2 - 15,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: Colors.red,
-                    ),
-                    margin: const EdgeInsets.only(left: 5, right: 10),
-                    child: const Center(
-                      child: Icon(
-                        Icons.delete,
-                        size: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
             const SizedBox(height: 10),
           ],

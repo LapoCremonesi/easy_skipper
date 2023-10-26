@@ -1,4 +1,5 @@
 import 'package:easy_skipper/calendar_const.dart';
+import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
 import 'package:easy_skipper/object/service.dart';
 import 'package:fancy_snackbar/fancy_snackbar.dart';
@@ -182,14 +183,20 @@ class BottomCalendarState extends State<BottomCalendar> {
                                       width: 300,
                                       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
                                       decoration: const BoxDecoration(
-                                        color: Colors.red,
+                                        color: arancioneBoa,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(15),
                                         ),
                                       ),
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Text(widget.agency.servizi[index]['servizio']),
+                                          Text(
+                                            '${widget.agency.servizi[index]['servizio']}',
+                                            style: const TextStyle(
+                                              fontSize: 25,
+                                            ),
+                                          ),
                                           Service(service: widget.agency.servizi[index]['servizio'], height: 100, width: 100, size: 40, padding: 30),
                                         ],
                                       ),

@@ -14,7 +14,7 @@ class FirebaseAuthService {
       );
       return userCredential.user;
     } catch (e) {
-      print("Some error occured");
+      null;
     }
     return null;
   }
@@ -30,7 +30,7 @@ class FirebaseAuthService {
       );
       return userCredential.user;
     } catch (e) {
-      print("Some error occured");
+      null;
     }
     return null;
   }

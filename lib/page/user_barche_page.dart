@@ -98,7 +98,7 @@ class _UserBarcheState extends State<UserBarche> {
 
     for (var i = 0; i < json.length; i++) {
       setState(() {
-        barche.add(Barche.fromJson(json[i]));
+        barche.add(Barche.fromJson(jsonDecode(response.body), i));
       });
     }
   }
