@@ -8,7 +8,7 @@ const verdeAcquaMarina = Color(0xFF00A693);
 const blueCieloChiaro = Color(0xFF87CEEB);
 const arancioneBoa = Color(0xFFFFA500);
 
-const String api = "http://192.168.1.36:1337";
+const String api = "http://192.168.1.100:1337";
 
 Map<String, dynamic> iconMap = {
   "pulizia": Icons.cleaning_services_rounded,
@@ -19,38 +19,6 @@ Map<String, dynamic> iconMap = {
     color: Colors.black,
   ),
 };
-
-class RestartWidget extends StatefulWidget {
-  const RestartWidget({super.key, required this.child});
-
-  final Widget child;
-
-  static void restartApp(BuildContext context) {
-    context.findAncestorStateOfType<_RestartWidgetState>()?.restartApp();
-  }
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _RestartWidgetState createState() => _RestartWidgetState();
-}
-
-class _RestartWidgetState extends State<RestartWidget> {
-  Key key = UniqueKey();
-
-  void restartApp() {
-    setState(() {
-      key = UniqueKey();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return KeyedSubtree(
-      key: key,
-      child: widget.child,
-    );
-  }
-}
 
 Future customDialog(BuildContext context, String title, String body) {
   return showDialog(

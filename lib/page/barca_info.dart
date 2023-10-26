@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
+import 'package:easy_skipper/main.dart';
 import 'package:easy_skipper/object/barca.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,7 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
                     margin: const EdgeInsets.only(left: 10, right: 5),
                     child: Center(
                       child: SvgPicture.asset(
-                        'images/pencil.svg',
+                        'assets/images/pencil.svg',
                         height: 30,
                         width: 30,
                       ),
@@ -157,12 +158,9 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
       context: context,
       builder: (context) {
         return Dialog(
-          child: Container(
+          child: SizedBox(
             height: 200,
             width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(25)),
-            ),
             child: Column(
               children: [
                 const SizedBox(height: 30),
@@ -175,7 +173,9 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        Navigator.pop(context);
                         deleteBarca();
+                        RestartMain.restartApp(context);
                       },
                       child: Container(
                         height: 70,

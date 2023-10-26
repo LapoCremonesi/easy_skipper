@@ -1,5 +1,6 @@
 import 'package:easy_skipper/calendar_const.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
+import 'package:easy_skipper/object/service.dart';
 import 'package:fancy_snackbar/fancy_snackbar.dart';
 import 'package:flutter/material.dart';
 
@@ -173,7 +174,7 @@ class BottomCalendarState extends State<BottomCalendar> {
                             width: 300,
                             child: ListView.builder(
                               itemCount: widget.agency.servizi.length,
-                              itemBuilder: (context, _) {
+                              itemBuilder: (context, index) {
                                 return Column(
                                   children: [
                                     Container(
@@ -188,7 +189,8 @@ class BottomCalendarState extends State<BottomCalendar> {
                                       ),
                                       child: Row(
                                         children: [
-                                          Text('widget.agency.servizi'),
+                                          Text(widget.agency.servizi[index]['servizio']),
+                                          Service(service: widget.agency.servizi[index]['servizio'], height: 100, width: 100, size: 40, padding: 30),
                                         ],
                                       ),
                                     ),

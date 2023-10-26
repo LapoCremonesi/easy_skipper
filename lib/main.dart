@@ -58,7 +58,7 @@ Future main() async {
     );
   }
 
-  runApp(RestartWidget(
+  runApp(RestartMain(
     child: MyApp(
       isUserRegistered: isUserRegistered,
       userProfile: userProfile,
@@ -92,6 +92,38 @@ class MyApp extends StatelessWidget {
               ? HomePage(userProfile: userProfile, agency: agency)
               : const LogInPage()
           : const NoConnectionPage(),
+    );
+  }
+}
+
+class RestartMain extends StatefulWidget {
+  const RestartMain({super.key, required this.child});
+
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartMainState>()?.restartApp();
+  }
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _RestartMainState createState() => _RestartMainState();
+}
+
+class _RestartMainState extends State<RestartMain> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
     );
   }
 }

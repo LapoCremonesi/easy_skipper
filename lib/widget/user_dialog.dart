@@ -1,5 +1,6 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
+import 'package:easy_skipper/main.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
 import 'package:easy_skipper/page/aggiungi_barca.dart';
 import 'package:easy_skipper/page/user_barche_page.dart';
@@ -167,7 +168,7 @@ class _UserDialogState extends State<UserDialog> {
                   GestureDetector(
                     onTap: () {
                       FirebaseAuthService().signOut();
-                      RestartWidget.restartApp(context);
+                      RestartMain.restartApp(context);
                     },
                     child: Container(
                       height: 70,
