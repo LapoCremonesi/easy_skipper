@@ -30,7 +30,7 @@ class _UserDialogState extends State<UserDialog> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
-        height: 510,
+        height: 580,
         width: width - 20,
         child: Column(
           children: [
@@ -72,7 +72,7 @@ class _UserDialogState extends State<UserDialog> {
             ),
             Container(
               width: width - 20,
-              height: 260,
+              height: 330,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -100,24 +100,14 @@ class _UserDialogState extends State<UserDialog> {
                       margin: const EdgeInsets.only(left: 10, right: 10),
                       decoration: const BoxDecoration(
                         color: blueCieloChiaro,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: const Row(
                         children: [
                           Spacer(flex: 2),
-                          Text(
-                            "Le mie Barche",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
+                          Text("Le mie Barche", style: TextStyle(fontSize: 20)),
                           SizedBox(width: 10),
-                          Icon(
-                            Icons.directions_boat_filled_rounded,
-                            size: 30,
-                          ),
+                          Icon(Icons.directions_boat_filled_rounded, size: 30),
                           Spacer(flex: 2),
                         ],
                       ),
@@ -141,24 +131,36 @@ class _UserDialogState extends State<UserDialog> {
                       margin: const EdgeInsets.only(left: 10, right: 10),
                       decoration: const BoxDecoration(
                         color: blueCieloChiaro,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: const Row(
                         children: [
                           Spacer(flex: 2),
-                          Text(
-                            "Aggiungi Barca",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
+                          Text("Aggiungi Barca", style: TextStyle(fontSize: 20)),
                           SizedBox(width: 10),
-                          Icon(
-                            Icons.add,
-                            size: 30,
-                          ),
+                          Icon(Icons.add, size: 30),
+                          Spacer(flex: 2),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 70,
+                      width: width - 20,
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: const BoxDecoration(
+                        color: blueCieloChiaro,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: const Row(
+                        children: [
+                          Spacer(flex: 2),
+                          Text("Prenotazioni", style: TextStyle(fontSize: 20)),
+                          SizedBox(width: 10),
+                          Icon(Icons.calendar_month_rounded, size: 30),
                           Spacer(flex: 2),
                         ],
                       ),
@@ -176,29 +178,20 @@ class _UserDialogState extends State<UserDialog> {
                       margin: const EdgeInsets.only(left: 10, right: 10),
                       decoration: const BoxDecoration(
                         color: blueCieloChiaro,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: const Row(
                         children: [
                           Spacer(flex: 2),
-                          Text(
-                            "Log Out",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
+                          Text("Log Out", style: TextStyle(fontSize: 20)),
                           SizedBox(width: 10),
-                          Icon(
-                            Icons.logout_outlined,
-                            size: 30,
-                          ),
+                          Icon(Icons.logout_outlined, size: 30),
                           Spacer(flex: 2),
                         ],
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),

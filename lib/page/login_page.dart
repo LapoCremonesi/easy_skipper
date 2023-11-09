@@ -42,10 +42,7 @@ class _LogInPageState extends State<LogInPage> {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(
-                top: 100,
-                bottom: 50,
-              ),
+              margin: const EdgeInsets.only(top: 100, bottom: 50),
               child: const Text(
                 "Log In",
                 style: TextStyle(
@@ -58,10 +55,7 @@ class _LogInPageState extends State<LogInPage> {
             Container(
               height: 50,
               width: width,
-              margin: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-              ),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               child: TextField(
                 controller: emailFieldController,
                 keyboardType: TextInputType.emailAddress,
@@ -109,9 +103,7 @@ class _LogInPageState extends State<LogInPage> {
                   margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Colors.white,
-                    ),
+                    border: Border.all(color: Colors.white),
                     color: Colors.white,
                   ),
                   child: IconButton(
@@ -125,94 +117,7 @@ class _LogInPageState extends State<LogInPage> {
                 )
               ],
             ),
-            const Spacer(
-              flex: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Image.asset(
-                      "assets/images/google_logo.png",
-                      height: 50,
-                      width: 50,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 15),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Image.asset(
-                      "assets/images/apple_logo.png",
-                      height: 50,
-                      width: 50,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 15),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Image.asset(
-                      "assets/images/facebook_logo.png",
-                      height: 50,
-                      width: 50,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignUpPage(
-                      userProfile: CustomProfile(
-                        username: "",
-                        UID: "",
-                        id: 0,
-                        isAgency: false,
-                      ),
-                    ),
-                  ),
-                );
-              },
-              child: const Text(
-                "Don't have an account: Sign Up",
-                style: TextStyle(
-                  fontSize: 15,
-                ),
-              ),
-            ),
-            const Spacer(
-              flex: 1,
-            ),
+            const Spacer(flex: 8),
             Container(
               height: 50,
               width: width,
@@ -223,9 +128,7 @@ class _LogInPageState extends State<LogInPage> {
               ),
               decoration: const BoxDecoration(
                 color: arancioneBoa,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: TextButton(
                 onPressed: () {
@@ -241,7 +144,30 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                 ),
               ),
-            )
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignUpPage(
+                      userProfile: CustomProfile(
+                        username: "",
+                        UID: "",
+                        id: 0,
+                        isAgency: false,
+                        prenotazioni: [],
+                      ),
+                    ),
+                  ),
+                );
+              },
+              child: const Text(
+                "Don't have an account: Sign Up",
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+            ),
+            const SizedBox(height: 15)
           ],
         ),
       ),

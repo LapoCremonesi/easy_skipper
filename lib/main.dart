@@ -37,6 +37,7 @@ Future main() async {
     UID: "",
     id: 0,
     isAgency: false,
+    prenotazioni: [],
   );
   CustomAgency agency = CustomAgency(
     indirizzo: '',
@@ -45,13 +46,14 @@ Future main() async {
     UID: '',
     image: CustomImage(),
     servizi: [],
+    prenotazioni: [],
   );
 
   if (isUserRegistered && isConnected) {
-    final userProfileResponse = await http.get(Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}'));
+    final userProfileResponse = await http.get(Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*'));
     userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
-    final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}"));
+    final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
     agency = CustomAgency.fromJson(
       jsonDecode(agencyResponse.body),
       !userProfile.isAgency,

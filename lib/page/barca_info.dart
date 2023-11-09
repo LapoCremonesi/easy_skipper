@@ -4,7 +4,6 @@ import 'package:easy_skipper/main.dart';
 import 'package:easy_skipper/object/barca.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
 class BarcaInfo extends StatefulWidget {

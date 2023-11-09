@@ -468,6 +468,7 @@ class _UserSignUpState extends State<UserSignUp> {
             UID: '',
             image: CustomImage(),
             servizi: [],
+            prenotazioni: [],
           ),
           widget.userProfile,
         );
@@ -506,6 +507,7 @@ class _UserSignUpState extends State<UserSignUp> {
             UID: '',
             image: CustomImage(),
             servizi: [],
+            prenotazioni: [],
           ),
           widget.userProfile,
         );

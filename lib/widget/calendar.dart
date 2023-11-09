@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:easy_skipper/calendar_const.dart';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
+import 'package:easy_skipper/object/prenotazione.dart';
 import 'package:easy_skipper/object/service.dart';
 import 'package:fancy_snackbar/fancy_snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class BottomCalendar extends StatefulWidget {
   const BottomCalendar({
@@ -155,6 +160,7 @@ class BottomCalendarState extends State<BottomCalendar> {
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 message: '',
+                onCloseEvent: () {},
               )
             : showDialog(
                 context: context,
@@ -165,10 +171,7 @@ class BottomCalendarState extends State<BottomCalendar> {
                       child: Column(
                         children: [
                           const SizedBox(height: 5),
-                          const Text(
-                            'Seleziona un servizio',
-                            style: TextStyle(fontSize: 20),
-                          ),
+                          const Text('Seleziona un servizio', style: TextStyle(fontSize: 20)),
                           const SizedBox(height: 5),
                           SizedBox(
                             height: widget.agency.servizi.length * 110,
@@ -178,27 +181,25 @@ class BottomCalendarState extends State<BottomCalendar> {
                               itemBuilder: (context, index) {
                                 return Column(
                                   children: [
-                                    Container(
-                                      height: 100,
-                                      width: 300,
-                                      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
-                                      decoration: const BoxDecoration(
-                                        color: arancioneBoa,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '${widget.agency.servizi[index]['servizio']}',
-                                            style: const TextStyle(
-                                              fontSize: 25,
-                                            ),
+                                    GestureDetector(
+                                      onTap: () => addService(widget.agency.servizi[index]['servizio'], giorno),
+                                      child: Container(
+                                        height: 100,
+                                        width: 300,
+                                        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                                        decoration: const BoxDecoration(
+                                          color: arancioneBoa,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(15),
                                           ),
-                                          Service(service: widget.agency.servizi[index]['servizio'], height: 100, width: 100, size: 40, padding: 30),
-                                        ],
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('${widget.agency.servizi[index]['servizio']}', style: const TextStyle(fontSize: 25)),
+                                            Service(service: widget.agency.servizi[index]['servizio'], height: 100, width: 100, size: 40, padding: 30),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -224,29 +225,25 @@ class BottomCalendarState extends State<BottomCalendar> {
       ),
     );
   }
-}
 
-class PrenoteService extends StatefulWidget {
-  const PrenoteService({super.key});
-
-  @override
-  State<PrenoteService> createState() => PrenoteServiceState();
-}
-
-class PrenoteServiceState extends State<PrenoteService> {
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        height: 200,
-        width: MediaQuery.of(context).size.width / 2,
-        color: Colors.white,
-        child: const Column(
-          children: [
-            Text('Quale servizio vuoi prenotare'),
-          ],
-        ),
+  void addService(String service, DateTime giorno) async {
+    final response = await http.post(
+      Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}'),
+      body: jsonEncode(
+        {
+          'data': {
+            'Prenotazione': [
+              {
+                'servizio': service,
+                'giorno': giorno.toString(),
+                'state': StatoPrenotazione.Pending.toString(),
+              }
+            ]
+          }
+        },
       ),
     );
+
+    print(response.statusCode);
   }
 }

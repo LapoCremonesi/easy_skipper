@@ -8,6 +8,7 @@ class CustomAgency {
     required this.UID,
     required this.image,
     required this.servizi,
+    required this.prenotazioni,
   });
 
   late String indirizzo;
@@ -16,6 +17,7 @@ class CustomAgency {
   late String UID;
   late CustomImage image;
   late List servizi;
+  late List prenotazioni;
 
   factory CustomAgency.fromJson(Map<String, dynamic> json, bool isNull) {
     if (isNull) {
@@ -26,6 +28,7 @@ class CustomAgency {
         UID: '',
         image: CustomImage(),
         servizi: [],
+        prenotazioni: [],
       );
     }
 
@@ -36,6 +39,7 @@ class CustomAgency {
       UID: json["attributes"]["UID"],
       image: CustomImage.fromJson(json['attributes']['image']['data']['attributes']['formats']),
       servizi: json["attributes"]['Servizi'],
+      prenotazioni: json['attributes']['Prenotazione'],
     );
   }
 }
