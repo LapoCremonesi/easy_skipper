@@ -28,12 +28,7 @@ class Service extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: Center(
-        child: service == 'trasporto'
-            ? iconMap[service]
-            : Icon(
-                iconMap[service],
-                size: size,
-              ),
+        child: service == 'trasporto' ? iconMap[service] : Icon(iconMap[service], size: size, color: Colors.black),
       ),
     );
   }

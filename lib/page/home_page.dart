@@ -129,11 +129,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () async {
-                          final response = await http.get(
-                            Uri.parse(
-                              "$api/api/agencies?filters[Servizi][servizio][\$contains]=${servizi[index]}&populate=*",
-                            ),
-                          );
+                          final response = await http.get(Uri.parse("$api/api/agencies?filters[Servizi][servizio][\$contains]=${servizi[index]}&populate=*"));
 
                           agenzie = [];
                           final json = jsonDecode(response.body)["data"];
@@ -168,9 +164,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final response = await http.get(
-                      Uri.parse("$api/api/agencies?populate=*"),
-                    );
+                    final response = await http.get(Uri.parse("$api/api/agencies?populate=*"));
 
                     agenzie = [];
                     final json = jsonDecode(response.body)["data"];
@@ -225,11 +219,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future getAgency() async {
-    final response = await http.get(
-      Uri.parse(
-        "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*",
-      ),
-    );
+    final response = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
     setState(() {
       widget.agency = CustomAgency.fromJson(
         jsonDecode(response.body)["data"][0],
@@ -248,10 +238,7 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < json.length && i < 10; i++) {
       setState(() {
         agenzie.add(
-          CustomAgency.fromJson(
-            json[i],
-            false,
-          ),
+          CustomAgency.fromJson(json[i], false),
         );
       });
     }

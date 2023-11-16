@@ -405,11 +405,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
         ),
       );
 
-      final agencyResponse = await http.get(
-        Uri.parse(
-          "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
-        ),
-      );
+      final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
       CustomAgency agency = CustomAgency.fromJson(
         jsonDecode(agencyResponse.body),
         false,

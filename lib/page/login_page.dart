@@ -181,23 +181,12 @@ class _LogInPageState extends State<LogInPage> {
     User? user = await auth.signInWithEmailAndPassword(email, password);
 
     if (user != null) {
-      final userProfileResponse = await http.get(
-        Uri.parse(
-          '$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}',
-        ),
-      );
-      CustomProfile userProfile = CustomProfile.fromJson(
-        jsonDecode(userProfileResponse.body),
-      );
-      final agencyResponse = await http.get(
-        Uri.parse(
-          "$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}",
-        ),
-      );
-      CustomAgency agency = CustomAgency.fromJson(
-        jsonDecode(agencyResponse.body),
-        !userProfile.isAgency,
-      );
+      final userProfileResponse = await http.get(Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*'));
+      CustomProfile userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
+
+      final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
+      CustomAgency agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body), !userProfile.isAgency);
+
       navigate(agency, userProfile);
     } else {
       showErrorSnackBar();

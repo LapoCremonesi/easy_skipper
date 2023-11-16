@@ -15,9 +15,9 @@ class CustomProfile {
 
   factory CustomProfile.fromJson(Map<String, dynamic> json) {
     return CustomProfile(
+      id: json["data"][0]["id"],
       username: json["data"][0]["attributes"]["username"],
       UID: json["data"][0]["attributes"]["UID"],
-      id: json["data"][0]["id"],
       isAgency: json["data"][0]["attributes"]["isAgency"],
       prenotazioni: json['data'][0]['attributes']['Prenotazione'],
     );
