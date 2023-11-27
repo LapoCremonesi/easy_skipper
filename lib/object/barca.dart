@@ -25,14 +25,14 @@ class Barche {
 
   factory Barche.fromJson(Map<String, dynamic> json, int index) {
     return Barche(
-      id: json['data'][index]['id'],
-      larghezza: json['data'][index]["attributes"]['larghezza'] * 1.0,
-      lunghezza: json['data'][index]["attributes"]['lunghezza'] * 1.0,
-      isMotor: json['data'][index]["attributes"]['isMotor'],
-      nome: json['data'][index]["attributes"]['nome_barca'],
-      image: CustomImage.fromJson(json['data'][index]['attributes']['image']['data']['attributes']['formats']),
-      motori: Motore.fromJson(json['data'][index]),
-      vela: Vela.fromJson(json['data'][index]),
+      id: json[index]['id'],
+      larghezza: json[index]["attributes"]['larghezza'] * 1.0,
+      lunghezza: json[index]["attributes"]['lunghezza'] * 1.0,
+      isMotor: json[index]["attributes"]['isMotor'],
+      nome: json[index]["attributes"]['nome_barca'],
+      image: CustomImage.fromJson(json[index]['attributes']['image']['attributes']['formats']),
+      motori: Motore.fromJson(json[index]),
+      vela: Vela.fromJson(json[index]),
     );
   }
 }

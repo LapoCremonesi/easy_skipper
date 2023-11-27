@@ -519,34 +519,21 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
         });
       }
 
-      final addBarca = await http.post(
-        Uri.parse("$api/api/barche"),
+      await http.post(
+        Uri.parse("$api/api/post_barcha"),
         headers: headers,
         body: jsonEncode(
           {
-            "data": {
-              "nome_barca": nome,
-              "larghezza": larghezza,
-              "lunghezza": lunghezza,
-              "UID": FirebaseAuth.instance.currentUser?.uid,
-              "isMotor": isMotor,
-              "Motore": motori,
-              "Vela": null,
-            }
+            "nome_barca": nome,
+            "larghezza": larghezza,
+            "lunghezza": lunghezza,
+            "UID": FirebaseAuth.instance.currentUser?.uid,
+            "isMotor": isMotor,
+            "Motore": motori,
+            "Vela": {},
           },
         ),
       );
-
-      var addImage = http.MultipartRequest('POST', Uri.parse('$api/api/upload'));
-      addImage.fields.addAll(
-        {
-          'ref': 'api::barca.barca',
-          'refId': jsonDecode(addBarca.body)["data"]["id"].toString(),
-          'field': 'image',
-        },
-      );
-      addImage.files.add(await http.MultipartFile.fromPath('files', image!.path));
-      await addImage.send();
     }
 
     if (radioButtonValue == TipoBarca.vela) {
@@ -555,39 +542,26 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       double altezza = double.parse(barcaVelaAltezza.text);
       String nome = barcaVelaNome.text;
 
-      final addBarca = await http.post(
-        Uri.parse("$api/api/barche"),
+      await http.post(
+        Uri.parse("$api/api/post_barcha"),
         headers: headers,
         body: jsonEncode(
           {
-            "data": {
-              "larghezza": larghezza,
-              "lunghezza": lunghezza,
-              "nome_barca": nome,
-              "UID": FirebaseAuth.instance.currentUser?.uid,
-              "isMotor": isMotor,
-              "image": {
-                "data": null,
-              },
-              "Motore": [],
-              "Vela": {
-                "altezza": altezza,
-              },
-            }
+            "larghezza": larghezza,
+            "lunghezza": lunghezza,
+            "nome_barca": nome,
+            "UID": FirebaseAuth.instance.currentUser?.uid,
+            "isMotor": isMotor,
+            "image": {
+              "data": null,
+            },
+            "Motore": [],
+            "Vela": {
+              "altezza": altezza,
+            },
           },
         ),
       );
-
-      var addImage = http.MultipartRequest('POST', Uri.parse('$api/api/upload'));
-      addImage.fields.addAll(
-        {
-          'ref': 'api::barca.barca',
-          'refId': jsonDecode(addBarca.body)["data"]["id"].toString(),
-          'field': 'image',
-        },
-      );
-      addImage.files.add(await http.MultipartFile.fromPath('files', image!.path));
-      await addImage.send();
     }
   }
 }

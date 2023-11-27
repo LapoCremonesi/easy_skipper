@@ -19,19 +19,7 @@ class CustomAgency {
   late List servizi;
   late List prenotazioni;
 
-  factory CustomAgency.fromJson(Map<String, dynamic> json, bool isNull) {
-    if (isNull) {
-      return CustomAgency(
-        indirizzo: '',
-        nome: '',
-        telefono: '',
-        UID: '',
-        image: CustomImage(),
-        servizi: [],
-        prenotazioni: [],
-      );
-    }
-
+  factory CustomAgency.fromJson(Map<String, dynamic> json) {
     return CustomAgency(
       indirizzo: json["attributes"]["indirizzo"],
       nome: json["attributes"]["nome"],

@@ -413,17 +413,14 @@ class _UserSignUpState extends State<UserSignUp> {
     );
 
     if (user != null) {
-      Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
       await http.post(
-        Uri.parse("$api/api/profiles"),
-        headers: headers,
+        Uri.parse("$api/api/post_profile"),
         body: jsonEncode(
           {
-            "data": {
-              "username": widget.userProfile.username,
-              "UID": user.uid,
-              "isAgency": widget.userProfile.isAgency,
-            }
+            "username": widget.userProfile.username,
+            "UID": user.uid,
+            "isAgency": widget.userProfile.isAgency,
+            "Prenotazione": [],
           },
         ),
       );
@@ -441,22 +438,17 @@ class _UserSignUpState extends State<UserSignUp> {
           });
         }
         await http.post(
-          Uri.parse("$api/api/barche"),
-          headers: headers,
+          Uri.parse("$api/api/post_barca"),
           body: jsonEncode(
             {
-              "data": {
-                "nome_barca": nome,
-                "larghezza": larghezza,
-                "lunghezza": lunghezza,
-                "UID": FirebaseAuth.instance.currentUser?.uid,
-                "isMotor": isMotor,
-                "image": {
-                  "data": null,
-                },
-                "Motore": motori,
-                "Vela": null,
-              }
+              "nome_barca": nome,
+              "larghezza": larghezza,
+              "lunghezza": lunghezza,
+              "UID": FirebaseAuth.instance.currentUser?.uid,
+              "isMotor": isMotor,
+              "image": '',
+              "Motore": motori,
+              "Vela": {},
             },
           ),
         );
@@ -478,24 +470,19 @@ class _UserSignUpState extends State<UserSignUp> {
         double lunghezza = double.parse(barcaVelaLunghezza.text);
         double altezza = double.parse(barcaVelaAltezza.text);
         await http.post(
-          Uri.parse("$api/api/barche"),
-          headers: headers,
+          Uri.parse("$api/api/post_barca"),
           body: jsonEncode(
             {
-              "data": {
-                "nome_barca": nome,
-                "larghezza": larghezza,
-                "lunghezza": lunghezza,
-                "UID": FirebaseAuth.instance.currentUser?.uid,
-                "isMotor": isMotor,
-                "image": {
-                  "data": null,
-                },
-                "Motore": [],
-                "Vela": {
-                  "altezza": altezza,
-                },
-              }
+              "nome_barca": nome,
+              "larghezza": larghezza,
+              "lunghezza": lunghezza,
+              "UID": FirebaseAuth.instance.currentUser?.uid,
+              "isMotor": isMotor,
+              "image": '',
+              "Motore": [],
+              "Vela": {
+                "altezza": altezza,
+              },
             },
           ),
         );

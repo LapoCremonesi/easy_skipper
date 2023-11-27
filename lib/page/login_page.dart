@@ -1,5 +1,6 @@
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
+import 'package:easy_skipper/object/image.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -181,11 +182,14 @@ class _LogInPageState extends State<LogInPage> {
     User? user = await auth.signInWithEmailAndPassword(email, password);
 
     if (user != null) {
-      final userProfileResponse = await http.get(Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*'));
+      CustomAgency agency = CustomAgency(indirizzo: '', nome: '', telefono: '', UID: '', image: CustomImage(), servizi: [], prenotazioni: []);
+      final userProfileResponse = await http.get(Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'));
       CustomProfile userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
-      final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
-      CustomAgency agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body), !userProfile.isAgency);
+      if (userProfile.isAgency) {
+        final agencyResponse = await http.get(Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"));
+        agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body));
+      }
 
       navigate(agency, userProfile);
     } else {

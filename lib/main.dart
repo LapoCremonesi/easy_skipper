@@ -32,32 +32,17 @@ Future main() async {
   final connection = await Connectivity().checkConnectivity();
   bool isConnected = connection == ConnectivityResult.none ? false : true;
   bool isUserRegistered = FirebaseAuth.instance.currentUser != null;
-  CustomProfile userProfile = CustomProfile(
-    username: "",
-    UID: "",
-    id: 0,
-    isAgency: false,
-    prenotazioni: [],
-  );
-  CustomAgency agency = CustomAgency(
-    indirizzo: '',
-    nome: '',
-    telefono: '',
-    UID: '',
-    image: CustomImage(),
-    servizi: [],
-    prenotazioni: [],
-  );
+  CustomProfile userProfile = CustomProfile(username: "", UID: "", id: 0, isAgency: false, prenotazioni: []);
+  CustomAgency agency = CustomAgency(indirizzo: '', nome: '', telefono: '', UID: '', image: CustomImage(), servizi: [], prenotazioni: []);
 
   if (isUserRegistered && isConnected) {
-    final userProfileResponse = await http.get(Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*'));
+    final userProfileResponse = await http.get(Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'));
     userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
-    final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
-    agency = CustomAgency.fromJson(
-      jsonDecode(agencyResponse.body),
-      !userProfile.isAgency,
-    );
+    if (userProfile.isAgency) {
+      final agencyResponse = await http.get(Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"));
+      agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body));
+    }
   }
 
   runApp(RestartMain(

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/main.dart';
 import 'package:easy_skipper/object/barca.dart';
@@ -199,9 +198,6 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
   }
 
   void deleteBarca() async {
-    final getID = await http.get(Uri.parse("$api/api/barche?filters[nome_barca][\$eq]=${widget.barcheInfo.nome}&filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}"));
-    final barcaID = jsonDecode(getID.body)["data"][0]["id"];
-
-    await http.delete(Uri.parse("$api/api/barche/$barcaID"));
+    await http.delete(Uri.parse("$api/api/delete_barca?UID=${FirebaseAuth.instance.currentUser?.uid}&nome_barca=${widget.barcheInfo.nome}"));
   }
 }

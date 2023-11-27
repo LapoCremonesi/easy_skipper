@@ -93,8 +93,8 @@ class _UserBarcheState extends State<UserBarche> {
 
   void getBarche() async {
     barche = [];
-    final response = await http.get(Uri.parse("$api/api/barche?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
-    final json = jsonDecode(response.body)["data"];
+    final response = await http.post(Uri.parse("$api/api/get_barca?UID=${FirebaseAuth.instance.currentUser?.uid}"));
+    final json = jsonDecode(response.body);
 
     for (var i = 0; i < json.length; i++) {
       setState(() {

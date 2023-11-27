@@ -374,42 +374,38 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
     );
 
     if (user != null) {
-      Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
       await http.post(
-        Uri.parse("$api/api/profiles"),
-        headers: headers,
+        Uri.parse("$api/api/post_profile"),
         body: jsonEncode(
           {
-            "data": {
-              "username": widget.profile.username,
-              "UID": user.uid,
-              "isAgency": widget.profile.isAgency,
-            }
+            "username": widget.profile.username,
+            "UID": user.uid,
+            "isAgency": widget.profile.isAgency,
+            "Prenotazione": [],
           },
         ),
       );
       await http.post(
-        Uri.parse("$api/api/agencies"),
-        headers: headers,
+        Uri.parse("$api/api/post_agency"),
         body: jsonEncode(
           {
-            "data": {
-              "indirizzo": indirizzoAzienda.text,
-              "nome": nomeAzienda.text,
-              "telefono": telefonoAzienda.text,
-              "codice_fiscale": codiceFiscaleAzienda.text,
-              "UID": FirebaseAuth.instance.currentUser?.uid,
-              "Servizi": servizi,
-            },
+            "indirizzo": indirizzoAzienda.text,
+            "nome": nomeAzienda.text,
+            "telefono": telefonoAzienda.text,
+            "codice_fiscale": codiceFiscaleAzienda.text,
+            "UID": FirebaseAuth.instance.currentUser?.uid,
+            "Servizi": servizi,
           },
         ),
       );
 
-      final agencyResponse = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
-      CustomAgency agency = CustomAgency.fromJson(
-        jsonDecode(agencyResponse.body),
-        false,
+      final agencyResponse = await http.post(
+        Uri.parse("$api/api/post_agency"),
+        body: {
+          "UID": FirebaseAuth.instance.currentUser?.uid,
+        },
       );
+      CustomAgency agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body));
 
       navigate(agency, widget.profile);
     } else {}

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:easy_skipper/calendar_const.dart';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
@@ -227,23 +226,21 @@ class BottomCalendarState extends State<BottomCalendar> {
   }
 
   void addService(String service, DateTime giorno) async {
-    final response = await http.post(
-      Uri.parse('$api/api/profiles?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}'),
+    await http.put(
+      Uri.parse('$api/api/add_prenotazione'),
       body: jsonEncode(
         {
-          'data': {
-            'Prenotazione': [
-              {
-                'servizio': service,
-                'giorno': giorno.toString(),
-                'state': StatoPrenotazione.Pending.toString(),
-              }
-            ]
-          }
+          'profile_UID': FirebaseAuth.instance.currentUser?.uid,
+          'agency_UID': widget.agency.UID,
+          'Prenotazione': [
+            {
+              'servizio': service,
+              'giorno': giorno.toString(),
+              'state': StatoPrenotazione.Pending.toString(),
+            }
+          ]
         },
       ),
     );
-
-    print(response.statusCode);
   }
 }

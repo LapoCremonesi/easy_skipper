@@ -137,10 +137,7 @@ class _HomePageState extends State<HomePage> {
                           for (int i = 0; i < json.length && i < 10; i++) {
                             setState(() {
                               agenzie.add(
-                                CustomAgency.fromJson(
-                                  json[i],
-                                  false,
-                                ),
+                                CustomAgency.fromJson(json[i]),
                               );
                             });
                           }
@@ -172,10 +169,7 @@ class _HomePageState extends State<HomePage> {
                     for (int i = 0; i < json.length && i < 10; i++) {
                       setState(() {
                         agenzie.add(
-                          CustomAgency.fromJson(
-                            json[i],
-                            false,
-                          ),
+                          CustomAgency.fromJson(json[i]),
                         );
                       });
                     }
@@ -219,18 +213,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future getAgency() async {
-    final response = await http.get(Uri.parse("$api/api/agencies?filters[UID][\$eq]=${FirebaseAuth.instance.currentUser?.uid}&populate=*"));
+    final response = await http.get(Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"));
     setState(() {
-      widget.agency = CustomAgency.fromJson(
-        jsonDecode(response.body)["data"][0],
-        false,
-      );
+      widget.agency = CustomAgency.fromJson(jsonDecode(response.body)["data"][0]);
     });
   }
 
   Future getData() async {
-    final response = await http.get(
-      Uri.parse("$api/api/agencies?populate=*"),
+    final response = await http.post(
+      Uri.parse("$api/api/get_agency"),
+      body: {
+        "UID": FirebaseAuth.instance.currentUser?.uid,
+      },
     );
 
     final json = jsonDecode(response.body)["data"];
@@ -238,7 +232,7 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < json.length && i < 10; i++) {
       setState(() {
         agenzie.add(
-          CustomAgency.fromJson(json[i], false),
+          CustomAgency.fromJson(json[i]),
         );
       });
     }
