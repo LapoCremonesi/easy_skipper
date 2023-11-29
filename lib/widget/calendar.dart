@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:easy_skipper/calendar_const.dart';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
-import 'package:easy_skipper/object/prenotazione.dart';
 import 'package:easy_skipper/object/service.dart';
 import 'package:fancy_snackbar/fancy_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -236,7 +235,6 @@ class BottomCalendarState extends State<BottomCalendar> {
             {
               'servizio': service,
               'giorno': giorno.toString(),
-              'state': StatoPrenotazione.Pending.toString(),
             }
           ]
         },

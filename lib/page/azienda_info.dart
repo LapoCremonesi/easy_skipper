@@ -42,9 +42,7 @@ class _AziendaInfoState extends State<AziendaInfo> {
                       Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(
-                              '$api${widget.agency.image.medium}',
-                            ),
+                            image: NetworkImage(widget.agency.image),
                             fit: BoxFit.fill,
                           ),
                         ),

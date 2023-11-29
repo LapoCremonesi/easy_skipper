@@ -1,6 +1,6 @@
 import 'package:easy_skipper/constant.dart';
-import 'package:easy_skipper/main.dart';
 import 'package:easy_skipper/object/barca.dart';
+import 'package:easy_skipper/page/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -38,7 +38,7 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
                   decoration: BoxDecoration(
                     color: bluOceanoProfondo,
                     image: DecorationImage(
-                      image: NetworkImage('$api${widget.barcheInfo.image.small}'),
+                      image: NetworkImage(widget.barcheInfo.image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -150,7 +150,7 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
                       onTap: () {
                         Navigator.pop(context);
                         deleteBarca();
-                        RestartMain.restartApp(context);
+                        RestartHomePage.restartApp(context);
                       },
                       child: Container(
                         height: 70,

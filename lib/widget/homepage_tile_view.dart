@@ -47,9 +47,7 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                   bottomLeft: Radius.circular(20),
                 ),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    '$api${widget.agency.image.thumbnail}',
-                  ),
+                  image: NetworkImage(widget.agency.image),
                   fit: BoxFit.fill,
                 ),
               ),

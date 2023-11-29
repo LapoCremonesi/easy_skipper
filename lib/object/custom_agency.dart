@@ -1,5 +1,3 @@
-import 'package:easy_skipper/object/image.dart';
-
 class CustomAgency {
   CustomAgency({
     required this.indirizzo,
@@ -15,19 +13,19 @@ class CustomAgency {
   late String nome;
   late String telefono;
   late String UID;
-  late CustomImage image;
+  late String image;
   late List servizi;
   late List prenotazioni;
 
   factory CustomAgency.fromJson(Map<String, dynamic> json) {
     return CustomAgency(
-      indirizzo: json["attributes"]["indirizzo"],
-      nome: json["attributes"]["nome"],
-      telefono: json["attributes"]["telefono"],
-      UID: json["attributes"]["UID"],
-      image: CustomImage.fromJson(json['attributes']['image']['data']['attributes']['formats']),
-      servizi: json["attributes"]['Servizi'],
-      prenotazioni: json['attributes']['Prenotazione'],
+      indirizzo: json["indirizzo"],
+      nome: json["nome"],
+      telefono: json["telefono"],
+      UID: json["UID"],
+      image: json['image'],
+      servizi: json['Servizi'],
+      prenotazioni: json['Prenotazione'],
     );
   }
 }

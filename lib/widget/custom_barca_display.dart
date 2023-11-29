@@ -47,9 +47,7 @@ class CustomBarcaDisplay extends StatelessWidget {
                   bottomLeft: Radius.circular(20),
                 ),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    '$api${barcaInfo.image.thumbnail}',
-                  ),
+                  image: NetworkImage(barcaInfo.image),
                   fit: BoxFit.cover,
                 ),
               ),

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/firebase/firebase_auth_services.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
-import 'package:easy_skipper/object/image.dart';
 import 'package:easy_skipper/page/home_page.dart';
 import 'package:easy_skipper/page/signup_page.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -458,7 +457,7 @@ class _UserSignUpState extends State<UserSignUp> {
             nome: '',
             telefono: '',
             UID: '',
-            image: CustomImage(),
+            image: '',
             servizi: [],
             prenotazioni: [],
           ),
@@ -492,7 +491,7 @@ class _UserSignUpState extends State<UserSignUp> {
             nome: '',
             telefono: '',
             UID: '',
-            image: CustomImage(),
+            image: '',
             servizi: [],
             prenotazioni: [],
           ),

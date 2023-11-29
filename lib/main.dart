@@ -1,6 +1,5 @@
 import 'package:easy_skipper/constant.dart';
 import 'package:easy_skipper/object/custom_agency.dart';
-import 'package:easy_skipper/object/image.dart';
 import 'package:easy_skipper/page/login_page.dart';
 import 'package:easy_skipper/page/no_connection.dart';
 import 'package:easy_skipper/object/custom_profile.dart';
@@ -32,11 +31,11 @@ Future main() async {
   final connection = await Connectivity().checkConnectivity();
   bool isConnected = connection == ConnectivityResult.none ? false : true;
   bool isUserRegistered = FirebaseAuth.instance.currentUser != null;
-  CustomProfile userProfile = CustomProfile(username: "", UID: "", id: 0, isAgency: false, prenotazioni: []);
-  CustomAgency agency = CustomAgency(indirizzo: '', nome: '', telefono: '', UID: '', image: CustomImage(), servizi: [], prenotazioni: []);
+  CustomProfile userProfile = CustomProfile(username: "", UID: "", isAgency: false, prenotazioni: []);
+  CustomAgency agency = CustomAgency(indirizzo: '', nome: '', telefono: '', UID: '', image: '', servizi: [], prenotazioni: []);
 
   if (isUserRegistered && isConnected) {
-    final userProfileResponse = await http.get(Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'));
+    final userProfileResponse = await http.get(Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'), headers: {"Access-Control-Allow-Origin": "*", 'Content-Type': 'application/json', 'Accept': '*/*'});
     userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
     if (userProfile.isAgency) {
