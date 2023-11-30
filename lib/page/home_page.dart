@@ -130,17 +130,20 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () async {
-                            final response = await http.get(Uri.parse("$api/api/agencies?filters[Servizi][servizio][\$contains]=${servizi[index]}&populate=*"));
-
+                            final response = await http.get(Uri.parse("$api/api/random_agency"));
                             agenzie = [];
-                            final json = jsonDecode(response.body)["data"];
+                            final json = jsonDecode(response.body);
 
-                            for (int i = 0; i < json.length && i < 10; i++) {
-                              setState(() {
-                                agenzie.add(
-                                  CustomAgency.fromJson(json[i]),
-                                );
-                              });
+                            for (int i = 0; i < json.length; i++) {
+                              final singleAzienda = await http.get(Uri.parse("$api/api/get_agency?UID=${json[i]}"));
+                              final azienda = CustomAgency.fromJson(jsonDecode(singleAzienda.body));
+                              for (int j = 0; j < azienda.servizi.length; j++) {
+                                if (azienda.servizi[j]["servizio"] == servizi[index]) {
+                                  setState(() {
+                                    agenzie.add(azienda);
+                                  });
+                                }
+                              }
                             }
                           },
                           child: Container(
@@ -209,6 +212,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future getData() async {
+    agenzie = [];
     final response = await http.get(Uri.parse("$api/api/random_agency"));
 
     final json = jsonDecode(response.body);

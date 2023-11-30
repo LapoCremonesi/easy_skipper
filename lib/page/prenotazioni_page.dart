@@ -14,7 +14,6 @@ class PrenotazioniPage extends StatefulWidget {
 class PrenotazioniPageState extends State<PrenotazioniPage> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -38,8 +37,8 @@ class PrenotazioniPageState extends State<PrenotazioniPage> {
                 color: Colors.red,
               ),
               child: ListTile(
-                leading: Service(service: widget.profile.prenotazioni[index]['servizio'], height: 40, width: 40, size: 30, padding: 5),
-                title: Text(widget.profile.prenotazioni[index]['servizio']),
+                leading: Service(service: widget.profile.prenotazioni[index][0]['servizio'], height: 40, width: 40, size: 30, padding: 5),
+                title: Text(widget.profile.prenotazioni[index][0]['servizio']),
               ),
             );
           },

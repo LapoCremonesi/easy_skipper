@@ -500,11 +500,6 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       return;
     }
 
-    if (image == null) {
-      customDialog(context, 'Errore', 'Selezionare una foto');
-      return;
-    }
-
     bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
     Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     if (radioButtonValue == TipoBarca.motore) {
@@ -520,7 +515,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       }
 
       await http.post(
-        Uri.parse("$api/api/post_barcha"),
+        Uri.parse("$api/api/post_barca"),
         headers: headers,
         body: jsonEncode(
           {
@@ -528,6 +523,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
             "larghezza": larghezza,
             "lunghezza": lunghezza,
             "UID": FirebaseAuth.instance.currentUser?.uid,
+            "image": "",
             "isMotor": isMotor,
             "Motore": motori,
             "Vela": {},
@@ -543,7 +539,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       String nome = barcaVelaNome.text;
 
       await http.post(
-        Uri.parse("$api/api/post_barcha"),
+        Uri.parse("$api/api/post_barca"),
         headers: headers,
         body: jsonEncode(
           {
@@ -552,9 +548,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
             "nome_barca": nome,
             "UID": FirebaseAuth.instance.currentUser?.uid,
             "isMotor": isMotor,
-            "image": {
-              "data": null,
-            },
+            "image": "",
             "Motore": [],
             "Vela": {
               "altezza": altezza,
