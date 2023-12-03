@@ -63,7 +63,11 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                         bottomLeft: Radius.circular(20),
                       ),
                     ),
-                    child: const Icon(Icons.business),
+                    child: const Icon(
+                      Icons.business,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
             Container(
               height: 90,
