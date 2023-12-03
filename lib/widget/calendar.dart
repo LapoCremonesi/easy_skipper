@@ -158,7 +158,7 @@ class BottomCalendarState extends State<BottomCalendar> {
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 message: '',
-                onCloseEvent: () {},
+                onCloseEvent: () => addService(widget.agency.servizi[0]["servizio"], giorno),
               )
             : showDialog(
                 context: context,
@@ -227,7 +227,7 @@ class BottomCalendarState extends State<BottomCalendar> {
   void addService(String service, DateTime giorno) async {
     await http.put(
       Uri.parse('$api/api/add_prenotazione'),
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      headers: headers,
       body: jsonEncode(
         {
           'profile_UID': FirebaseAuth.instance.currentUser?.uid,
@@ -235,7 +235,7 @@ class BottomCalendarState extends State<BottomCalendar> {
           'Prenotazione': [
             {
               'servizio': service,
-              'giorno': "${giorno.year.toString()}-${giorno.month.toString()}-${giorno.day.toString()}",
+              'giorno': "${giorno.day.toString()}-${giorno.month.toString()}-${giorno.year.toString()}",
               "stato": "Pending",
             }
           ]

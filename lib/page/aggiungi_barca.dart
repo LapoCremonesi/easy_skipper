@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AggiungiBarca extends StatefulWidget {
   const AggiungiBarca({super.key});
@@ -33,6 +34,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
   TextEditingController barcaVelaNome = TextEditingController();
 
   File? image;
+  String imageURL = '';
 
   @override
   Widget build(BuildContext context) {
@@ -382,6 +384,16 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
 
+      Reference reference = FirebaseStorage.instance.ref();
+      Reference referenceDirImages = reference.child('image');
+      Reference referenceImageToUpload = referenceDirImages.child('${DateTime.now().millisecondsSinceEpoch}');
+
+      await referenceImageToUpload.putFile(File(image.path));
+
+      setState(() async {
+        imageURL = await referenceImageToUpload.getDownloadURL();
+      });
+
       setState(() {
         this.image = File(image.path);
       });
@@ -501,7 +513,6 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
     }
 
     bool isMotor = radioButtonValue == TipoBarca.motore ? true : false;
-    Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     if (radioButtonValue == TipoBarca.motore) {
       double larghezza = double.parse(barcaMotoreLarghezza.text);
       double lunghezza = double.parse(barcaMotoreLunghezza.text);
@@ -523,7 +534,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
             "larghezza": larghezza,
             "lunghezza": lunghezza,
             "UID": FirebaseAuth.instance.currentUser?.uid,
-            "image": "",
+            "image": imageURL,
             "isMotor": isMotor,
             "Motore": motori,
             "Vela": {},
@@ -548,7 +559,7 @@ class _AggiungiBarcaState extends State<AggiungiBarca> {
             "nome_barca": nome,
             "UID": FirebaseAuth.instance.currentUser?.uid,
             "isMotor": isMotor,
-            "image": "",
+            "image": imageURL,
             "Motore": [],
             "Vela": {
               "altezza": altezza,

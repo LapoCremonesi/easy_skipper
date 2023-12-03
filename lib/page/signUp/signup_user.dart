@@ -414,6 +414,7 @@ class _UserSignUpState extends State<UserSignUp> {
     if (user != null) {
       await http.post(
         Uri.parse("$api/api/post_profile"),
+        headers: headers,
         body: jsonEncode(
           {
             "username": widget.userProfile.username,
@@ -438,6 +439,7 @@ class _UserSignUpState extends State<UserSignUp> {
         }
         await http.post(
           Uri.parse("$api/api/post_barca"),
+          headers: headers,
           body: jsonEncode(
             {
               "nome_barca": nome,
@@ -470,6 +472,7 @@ class _UserSignUpState extends State<UserSignUp> {
         double altezza = double.parse(barcaVelaAltezza.text);
         await http.post(
           Uri.parse("$api/api/post_barca"),
+          headers: headers,
           body: jsonEncode(
             {
               "nome_barca": nome,

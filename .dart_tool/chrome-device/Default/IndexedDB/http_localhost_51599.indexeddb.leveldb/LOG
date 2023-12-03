@@ -1,0 +1,26 @@
+2023/12/01-17:14:40.400 4fc8 Creating DB C:\Users\Lapo\AppData\Local\Temp\flutter_tools.ccaded8d\flutter_tools_chrome_device.d1fb0370\Default\IndexedDB\http_localhost_51599.indexeddb.leveldb since it was missing.
+2023/12/01-17:14:40.415 4fc8 Reusing MANIFEST C:\Users\Lapo\AppData\Local\Temp\flutter_tools.ccaded8d\flutter_tools_chrome_device.d1fb0370\Default\IndexedDB\http_localhost_51599.indexeddb.leveldb/MANIFEST-000001
+2023/12/01-17:14:40.448 1600 Level-0 table #5: started
+2023/12/01-17:14:40.456 1600 Level-0 table #5: 1282 bytes OK
+2023/12/01-17:14:40.468 1600 Delete type=0 #3
+2023/12/01-17:14:40.468 1600 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/12/01-17:30:23.550 1600 Level-0 table #7: started
+2023/12/01-17:30:23.562 1600 Level-0 table #7: 4658 bytes OK
+2023/12/01-17:30:23.574 1600 Delete type=0 #4
+2023/12/01-17:30:23.574 1600 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/12/01-17:31:01.992 4fc8 Compacting 1@1 + 1@2 files
+2023/12/01-17:31:01.996 4fc8 Generated table #8@1: 41 keys, 3005 bytes
+2023/12/01-17:31:01.996 4fc8 Compacted 1@1 + 1@2 files => 3005 bytes
+2023/12/01-17:31:02.002 4fc8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/12/01-17:31:02.002 4fc8 Delete type=2 #5
+2023/12/01-17:31:02.002 4fc8 Delete type=2 #7
+2023/12/01-17:33:13.914 1600 Level-0 table #10: started
+2023/12/01-17:33:13.925 1600 Level-0 table #10: 3369 bytes OK
+2023/12/01-17:33:13.937 1600 Delete type=0 #6
+2023/12/01-17:33:13.937 e4c Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/12/01-17:33:51.562 4fc8 Compacting 1@1 + 1@2 files
+2023/12/01-17:33:51.567 4fc8 Generated table #11@1: 41 keys, 3002 bytes
+2023/12/01-17:33:51.567 4fc8 Compacted 1@1 + 1@2 files => 3002 bytes
+2023/12/01-17:33:51.573 4fc8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/12/01-17:33:51.573 4fc8 Delete type=2 #8
+2023/12/01-17:33:51.573 4fc8 Delete type=2 #10

@@ -37,21 +37,38 @@ class CustomBarcaDisplay extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                color: arancioneBoa,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
-                image: DecorationImage(
-                  image: NetworkImage(barcaInfo.image),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            barcaInfo.image != ""
+                ? Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: arancioneBoa,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage(barcaInfo.image),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : Container(
+                    height: 100,
+                    width: 100,
+                    decoration: const BoxDecoration(
+                      color: arancioneBoa,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.directions_boat_filled_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
             Container(
               height: 100,
               width: width - 100 - 20,

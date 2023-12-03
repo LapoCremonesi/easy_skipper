@@ -35,11 +35,17 @@ Future main() async {
   CustomAgency agency = CustomAgency(indirizzo: '', nome: '', telefono: '', UID: '', image: '', servizi: [], prenotazioni: []);
 
   if (isUserRegistered && isConnected) {
-    final userProfileResponse = await http.get(Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'), headers: {"Access-Control-Allow-Origin": "*", 'Content-Type': 'application/json', 'Accept': '*/*'});
+    final userProfileResponse = await http.get(
+      Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'),
+      headers: headers,
+    );
     userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
     if (userProfile.isAgency) {
-      final agencyResponse = await http.get(Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"));
+      final agencyResponse = await http.get(
+        Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"),
+        headers: headers,
+      );
       agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body));
     }
   }

@@ -37,21 +37,34 @@ class _HomePageTileViewState extends State<HomePageTileView> {
         margin: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 20),
         child: Row(
           children: [
-            Container(
-              height: 90,
-              width: width / 4 - 10,
-              decoration: BoxDecoration(
-                color: bluOceanoProfondo,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
-                image: DecorationImage(
-                  image: NetworkImage(widget.agency.image),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
+            widget.agency.image != ""
+                ? Container(
+                    height: 90,
+                    width: width / 4 - 10,
+                    decoration: BoxDecoration(
+                      color: bluOceanoProfondo,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage(widget.agency.image),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  )
+                : Container(
+                    height: 90,
+                    width: width / 4 - 10,
+                    decoration: const BoxDecoration(
+                      color: bluOceanoProfondo,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: const Icon(Icons.business),
+                  ),
             Container(
               height: 90,
               width: width - width / 4 - 10,
@@ -72,7 +85,7 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             widget.agency.nome,
-                            style: const TextStyle(fontSize: 25),
+                            style: const TextStyle(fontSize: 25, color: Colors.white),
                           ),
                         ),
                       ),
@@ -82,6 +95,7 @@ class _HomePageTileViewState extends State<HomePageTileView> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             widget.agency.indirizzo,
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),

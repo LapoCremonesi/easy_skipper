@@ -18,8 +18,6 @@ class AgencyDialog extends StatefulWidget {
 }
 
 class _AgencyDialogState extends State<AgencyDialog> {
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

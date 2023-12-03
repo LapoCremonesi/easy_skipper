@@ -181,11 +181,17 @@ class _LogInPageState extends State<LogInPage> {
 
     if (user != null) {
       CustomAgency agency = CustomAgency(indirizzo: '', nome: '', telefono: '', UID: '', image: '', servizi: [], prenotazioni: []);
-      final userProfileResponse = await http.get(Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'));
+      final userProfileResponse = await http.get(
+        Uri.parse('$api/api/get_profile?UID=${FirebaseAuth.instance.currentUser?.uid}'),
+        headers: headers,
+      );
       CustomProfile userProfile = CustomProfile.fromJson(jsonDecode(userProfileResponse.body));
 
       if (userProfile.isAgency) {
-        final agencyResponse = await http.get(Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"));
+        final agencyResponse = await http.get(
+          Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"),
+          headers: headers,
+        );
         agency = CustomAgency.fromJson(jsonDecode(agencyResponse.body));
       }
 

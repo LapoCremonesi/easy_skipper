@@ -104,21 +104,7 @@ class _HomePageState extends State<HomePage> {
           width: width,
           child: Column(
             children: [
-              Container(
-                height: 60,
-                width: width,
-                margin: const EdgeInsets.all(10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: GestureDetector(
-                      onTap: () {},
-                      child: const Icon(Icons.search),
-                    ),
-                    border: const OutlineInputBorder(),
-                    hintText: "Search",
-                  ),
-                ),
-              ),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   SizedBox(
@@ -130,12 +116,18 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () async {
-                            final response = await http.get(Uri.parse("$api/api/random_agency"));
+                            final response = await http.get(
+                              Uri.parse("$api/api/random_agency"),
+                              headers: headers,
+                            );
                             agenzie = [];
                             final json = jsonDecode(response.body);
 
                             for (int i = 0; i < json.length; i++) {
-                              final singleAzienda = await http.get(Uri.parse("$api/api/get_agency?UID=${json[i]}"));
+                              final singleAzienda = await http.get(
+                                Uri.parse("$api/api/get_agency?UID=${json[i]}"),
+                                headers: headers,
+                              );
                               final azienda = CustomAgency.fromJson(jsonDecode(singleAzienda.body));
                               for (int j = 0; j < azienda.servizi.length; j++) {
                                 if (azienda.servizi[j]["servizio"] == servizi[index]) {
@@ -205,7 +197,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future getAgency() async {
-    final response = await http.get(Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"));
+    final response = await http.get(
+      Uri.parse("$api/api/get_agency?UID=${FirebaseAuth.instance.currentUser?.uid}"),
+      headers: headers,
+    );
     setState(() {
       widget.agency = CustomAgency.fromJson(jsonDecode(response.body));
     });
@@ -213,12 +208,18 @@ class _HomePageState extends State<HomePage> {
 
   Future getData() async {
     agenzie = [];
-    final response = await http.get(Uri.parse("$api/api/random_agency"));
+    final response = await http.get(
+      Uri.parse("$api/api/random_agency"),
+      headers: headers,
+    );
 
     final json = jsonDecode(response.body);
 
     for (int i = 0; i < json.length; i++) {
-      final agencyData = await http.get(Uri.parse("$api/api/get_agency?UID=${json[i]}"));
+      final agencyData = await http.get(
+        Uri.parse("$api/api/get_agency?UID=${json[i]}"),
+        headers: headers,
+      );
       setState(() {
         agenzie.add(CustomAgency.fromJson(jsonDecode(agencyData.body)));
       });

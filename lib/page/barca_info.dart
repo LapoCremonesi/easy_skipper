@@ -32,34 +32,64 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
           children: [
             Row(
               children: [
-                Container(
-                  height: 250 + statusBarHeight,
-                  width: width,
-                  decoration: BoxDecoration(
-                    color: bluOceanoProfondo,
-                    image: DecorationImage(
-                      image: NetworkImage(widget.barcheInfo.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: statusBarHeight + 10, left: 10),
-                        decoration: const BoxDecoration(
-                          color: arancioneBoa,
-                          shape: BoxShape.circle,
+                widget.barcheInfo.image != ""
+                    ? Container(
+                        height: 250 + statusBarHeight,
+                        width: width,
+                        decoration: BoxDecoration(
+                          color: bluOceanoProfondo,
+                          image: DecorationImage(
+                            image: NetworkImage(widget.barcheInfo.image),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: statusBarHeight + 10, left: 10),
+                              decoration: const BoxDecoration(
+                                color: arancioneBoa,
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.arrow_back_ios_new_outlined),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(
+                        height: 250 + statusBarHeight,
+                        width: width,
+                        decoration: const BoxDecoration(color: bluOceanoProfondo),
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: statusBarHeight + 10, left: 10),
+                              decoration: const BoxDecoration(
+                                color: arancioneBoa,
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.arrow_back_ios_new_outlined),
+                              ),
+                            ),
+                            const Center(
+                              child: Icon(
+                                Icons.directions_boat_filled_rounded,
+                                size: 60,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -198,6 +228,9 @@ class _VisualizzaBarcaState extends State<BarcaInfo> {
   }
 
   void deleteBarca() async {
-    await http.delete(Uri.parse("$api/api/delete_barca?UID=${FirebaseAuth.instance.currentUser?.uid}&nome_barca=${widget.barcheInfo.nome}"));
+    await http.delete(
+      Uri.parse("$api/api/delete_barca?UID=${FirebaseAuth.instance.currentUser?.uid}&nome_barca=${widget.barcheInfo.nome}"),
+      headers: headers,
+    );
   }
 }

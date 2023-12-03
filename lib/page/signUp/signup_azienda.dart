@@ -376,6 +376,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
     if (user != null) {
       await http.post(
         Uri.parse("$api/api/post_profile"),
+        headers: headers,
         body: jsonEncode(
           {
             "username": widget.profile.username,
@@ -387,6 +388,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
       );
       await http.post(
         Uri.parse("$api/api/post_agency"),
+        headers: headers,
         body: jsonEncode(
           {
             "indirizzo": indirizzoAzienda.text,
@@ -401,6 +403,7 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
 
       final agencyResponse = await http.post(
         Uri.parse("$api/api/post_agency"),
+        headers: headers,
         body: {
           "UID": FirebaseAuth.instance.currentUser?.uid,
         },
