@@ -10,7 +10,7 @@ const verdeAcquaMarina = Color(0xFF00A693);
 const blueCieloChiaro = Color(0xFF87CEEB);
 const arancioneBoa = Color(0xFFFFA500);
 
-const Map<String, String> headers = {"Access-Control-Allow-Origin": "*", 'Content-Type': 'application/json', 'Accept': '*/*'};
+const Map<String, String> headers = {"Access-Control-Allow-Origin": "*", 'Content-Type': '*/*', 'Accept': '*/*'};
 const String api = "http://easyskipperdatabase.hopto.org/easy_skipper_database";
 
 Map<String, dynamic> iconMap = {

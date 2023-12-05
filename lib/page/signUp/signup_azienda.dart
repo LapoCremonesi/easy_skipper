@@ -403,7 +403,6 @@ class _AziendaSignUpState extends State<AziendaSignUp> {
 
       final agencyResponse = await http.post(
         Uri.parse("$api/api/post_agency"),
-        headers: headers,
         body: {
           "UID": FirebaseAuth.instance.currentUser?.uid,
         },
